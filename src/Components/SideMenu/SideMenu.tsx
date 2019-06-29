@@ -1,11 +1,11 @@
 import React from 'react';
-import { SideMenuProps, MenuItem } from './SideMenu.types';
+import { SideMenuProps, Lesson } from './SideMenu.types';
 import './SideMenu.css';
 import classNames from 'classnames';
 
 interface SideMenuState {
   activeCategory?: string;
-  activeMenuItems: MenuItem[];
+  activeMenuItems: Lesson[];
 }
 
 export class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
@@ -17,12 +17,12 @@ export class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
       activeMenuItems: [],
     };
   }
-  toggleCategory = (categoryName: string, menuItems: MenuItem[]) => {
+  toggleCategory = (categoryName: string, menuItems: Lesson[]) => {
     this.setState({ activeCategory: categoryName, activeMenuItems: menuItems });
   };
 
   render() {
-    const { categories } = this.props;
+    const { categories, selectLesson } = this.props;
     const { activeCategory } = this.state;
     return (
       <div className="SideMenu--Wrapper">
@@ -34,19 +34,20 @@ export class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
                 this.toggleCategory(category.name, category.menuItems)
               }
             >
-              <div>{category.name}</div>
+              {category.name}
             </button>
             {category.menuItems.map(menuItem => (
-              <div
+              <button
                 className={classNames(
                   'SideMenu-MenuItem',
                   activeCategory === category.name
                     ? 'SideMenu-MenuItem--shown'
                     : 'SideMenu-MenuItem--hidden'
                 )}
+                onClick={() => selectLesson(menuItem)}
               >
-                <div>{menuItem.name}</div>
-              </div>
+                {menuItem.name}
+              </button>
             ))}
           </div>
         ))}

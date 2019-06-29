@@ -1,14 +1,15 @@
-export interface MenuItem {
+export interface Lesson {
   name: string;
   linkToVideo: string;
   artist: string;
 }
 
-interface Category {
+export interface Category {
   name: string;
-  menuItems: MenuItem[];
+  menuItems: Lesson[];
 }
 
 export interface SideMenuProps {
   categories: Category[];
+  selectLesson: (lesson: Lesson) => void;
 }

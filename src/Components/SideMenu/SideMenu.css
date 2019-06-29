@@ -9,15 +9,14 @@
 .SideMenu--Category {
   text-align: left;
   width: 100%;
-  background-color: transparent;
   border: none;
   outline: none;
   cursor: pointer;
-  color: white;
   transition: 0.3s;
   padding: 8px;
   margin: 0 10 0 10;
-  border-radius: 4px;
+  color: white;
+  background-color: transparent;
 }
 
 button.SideMenu--Category:hover {
@@ -29,13 +28,26 @@ button.SideMenu--Category:active {
 }
 
 .SideMenu-MenuItem {
-  padding: 8px 0 8px 0;
-  margin: 0 0 10px;
   text-align: left;
-  border-radius: 0 0 4px 4px;
+  width: 100%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 8px;
+  margin: 0 10 0 10;
   background-color: white;
   color: #92bdee;
-  width: 100%;
+}
+
+button.SideMenu-MenuItem:hover {
+  background-color: #92a0ee;
+  color: white;
+}
+
+button.SideMenu-MenuItem:active {
+  background-color: #a392ee;
+  color: white;
 }
 
 .SideMenu-MenuItem--hidden {
@@ -44,14 +56,4 @@ button.SideMenu--Category:active {
 
 .SideMenu-MenuItem--shown {
   display: block;
-}
-
-.SideMenu-MenuItem :hover {
-  background-color: #92a0ee;
-  color: white;
-}
-
-.SideMenu-MenuItem :active {
-  background-color: #a392ee;
-  color: white;
 }
