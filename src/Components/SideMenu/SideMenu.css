@@ -1,0 +1,16 @@
+.SideMenu--Wrapper {
+  background-color: #92bdee;
+  align-content: space-around;
+  min-height: 100vh;
+  max-width: 10vw;
+}
+
+.SideMenu--Category {
+  margin: 5px 10px 5px 15px;
+  text-align: left;
+}
+
+.SideMenu-MenuItem {
+  margin: 5px 10px 5px 15px;
+  text-align: left;
+}
