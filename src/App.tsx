@@ -8,6 +8,7 @@ import firebaseConfig from './firebaseConfig';
 import { PaidAccessContainer } from './Containers/PaidAccesContainer';
 import { FreeAccessContainer } from './Containers/FreeAccessContainer';
 import { FireBaseProps } from './FireBase.types';
+import { AppHeader } from './Components/AppHeader/AppHeader';
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
@@ -19,14 +20,11 @@ const providers = {
 const App: React.FC<FireBaseProps> = ({ user, signOut, signInWithGoogle }) => {
   return (
     <div className="App">
-      <header className="App-header">
-        {user ? <p>Hello, {user.displayName}</p> : <p>Please sign in.</p>}
-        {user ? (
-          <button onClick={signOut}>Sign out</button>
-        ) : (
-          <button onClick={signInWithGoogle}>Sign in with Google</button>
-        )}
-      </header>
+      <AppHeader
+        user={user}
+        signOut={signOut}
+        signInWithGoogle={signInWithGoogle}
+      />
       {user ? <PaidAccessContainer /> : <FreeAccessContainer />}
     </div>
   );

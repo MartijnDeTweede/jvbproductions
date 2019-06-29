@@ -1,0 +1,23 @@
+.App-header {
+  background-color: #9ebfe4;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  padding-bottom: 10px;
+}
+
+.App-header--Button {
+  padding: 10px 20px 10px 20px;
+  background-color: white;
+  color: #92bdee;
+  border-radius: 5px;
+}
+
+.App-header--Button:hover {
+  background-color: #9392ee;
+  color: white;
+}
