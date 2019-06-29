@@ -15,16 +15,16 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   return (
     <header className="App-header">
       <div className="App-Header-Profile">
-        {user ? <p>Hello, {user.displayName}</p> : <p>Please sign in.</p>}
+        {user ? <p>Hallo, {user.displayName}</p> : <p>Log alsjeblieft in</p>}
       </div>
       <div className="App-Header-Menu">
         {user ? (
           <button className="App-header--Button" onClick={signOut}>
-            Sign out
+            Uitloggen
           </button>
         ) : (
           <button className="App-header--Button" onClick={signInWithGoogle}>
-            Sign in with Google
+            Login met Google
           </button>
         )}
       </div>

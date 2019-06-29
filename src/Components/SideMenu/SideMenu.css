@@ -1,16 +1,57 @@
 .SideMenu--Wrapper {
   background-color: #92bdee;
   align-content: space-around;
+  min-width: 10vw;
   min-height: 100vh;
   max-width: 10vw;
 }
 
 .SideMenu--Category {
-  margin: 5px 10px 5px 15px;
   text-align: left;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: white;
+  transition: 0.3s;
+  padding: 8px;
+  margin: 0 10 0 10;
+  border-radius: 4px;
+}
+
+button.SideMenu--Category:hover {
+  background-color: #92a0ee;
+}
+
+button.SideMenu--Category:active {
+  background-color: #a392ee;
 }
 
 .SideMenu-MenuItem {
-  margin: 5px 10px 5px 15px;
+  padding: 8px 0 8px 0;
+  margin: 0 0 10px;
   text-align: left;
+  border-radius: 0 0 4px 4px;
+  background-color: white;
+  color: #92bdee;
+  width: 100%;
+}
+
+.SideMenu-MenuItem--hidden {
+  display: none;
+}
+
+.SideMenu-MenuItem--shown {
+  display: block;
+}
+
+.SideMenu-MenuItem :hover {
+  background-color: #92a0ee;
+  color: white;
+}
+
+.SideMenu-MenuItem :active {
+  background-color: #a392ee;
+  color: white;
 }

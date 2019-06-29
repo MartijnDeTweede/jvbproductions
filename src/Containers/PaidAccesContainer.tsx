@@ -1,5 +1,4 @@
 import React from 'react';
-import { SideMenu } from '../Components/SideMenu/SideMenu';
 import { ClassRoom } from '../Components/ClassRoom/ClassRoom';
 
 const sideMenuProps = {
