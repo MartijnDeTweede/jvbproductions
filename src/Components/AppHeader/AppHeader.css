@@ -2,12 +2,12 @@
   background-color: #9ebfe4;
   min-height: 10vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   font-size: calc(10px + 2vmin);
   color: white;
   padding-bottom: 10px;
+  flex-direction: row;
 }
 
 .App-header--Button {
@@ -20,4 +20,12 @@
 .App-header--Button:hover {
   background-color: #9392ee;
   color: white;
+}
+
+.App-Header-Profile {
+  margin-right: 50px;
+}
+
+.App-Header-Menu {
+  margin-right: 50px;
 }

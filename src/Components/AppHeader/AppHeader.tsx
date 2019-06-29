@@ -14,16 +14,20 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
 }) => {
   return (
     <header className="App-header">
-      {user ? <p>Hello, {user.displayName}</p> : <p>Please sign in.</p>}
-      {user ? (
-        <button className="App-header--Button" onClick={signOut}>
-          Sign out
-        </button>
-      ) : (
-        <button className="App-header--Button" onClick={signInWithGoogle}>
-          Sign in with Google
-        </button>
-      )}
+      <div className="App-Header-Profile">
+        {user ? <p>Hello, {user.displayName}</p> : <p>Please sign in.</p>}
+      </div>
+      <div className="App-Header-Menu">
+        {user ? (
+          <button className="App-header--Button" onClick={signOut}>
+            Sign out
+          </button>
+        ) : (
+          <button className="App-header--Button" onClick={signInWithGoogle}>
+            Sign in with Google
+          </button>
+        )}
+      </div>
     </header>
   );
 };
