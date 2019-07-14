@@ -5366,6 +5366,11 @@ is-glob@^4.0.0:
   dependencies:
     is-extglob "^2.1.1"
 
+is-mobile@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/is-mobile/-/is-mobile-0.3.0.tgz#dcb8b7a4dd4227b0922c3b2a7cfdbfce1ae8d611"
+  integrity sha512-72cfMy9VvHHL4zbLggAtvGzEnrQGGCTrvlp1nCViSk3aIGi+IEofyQVqskPoGjcXaBNoeJXkwUS/PAxcOEJkhA==
+
 is-number@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/is-number/-/is-number-3.0.0.tgz#24fd6201a4782cf50561c810276afc7d12d71195"
@@ -8406,7 +8411,7 @@ react-dev-utils@^9.0.1:
     strip-ansi "5.2.0"
     text-table "0.2.0"
 
-react-dom@^16.8.6:
+react-dom@^16.3.2, react-dom@^16.8.6:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
   integrity sha512-1nL7PIq9LTL3fthPqwkvr2zY7phIPjYrT0jp4HjyEQrEROnw4dG41VVwi/wfoCneoleqrNX7iAD+pXebJZwrwA==
@@ -8515,12 +8520,27 @@ react-scripts@3.0.1:
   optionalDependencies:
     fsevents "2.0.6"
 
+react-video-play@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-video-play/-/react-video-play-2.0.3.tgz#4d3f23719e52a45461c1bbf981078d84fa99bdf4"
+  integrity sha512-z2iT+8/10xZc7zO3TCuUjkeBRSzduk1b0OA4muOqtLZX3NcraP49iCxrNjSLJ+v6N5jCADsBVEbJxT+I4aMi3Q==
+  dependencies:
+    is-mobile "^0.3.0"
+    react "^16.3.2"
+    react-dom "^16.3.2"
+    react-video-seek-slider "^2.1.1"
+
+react-video-seek-slider@^2.1.1:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/react-video-seek-slider/-/react-video-seek-slider-2.1.2.tgz#4beffefcf4b1518dbcd2d0814f33d4472106ed0b"
+  integrity sha512-nZq6GLAK+hPeJgS87LLTkGjM4tNrWUw9yLSvSaKIor50PfEShqRyd1xBowwyNE4siQ22wEJlyUXKh9h249oT/w==
+
 react-with-firebase-auth@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/react-with-firebase-auth/-/react-with-firebase-auth-1.0.3.tgz#945b8a33721bef8f2bcd14105bd3a547f9afeab6"
   integrity sha512-1xWopcDUCqkBA+DTBIWoaCk07u350e8CGLcKcSRYRdNtp1DCyI0ckEeui6MHAV3IHxSVCLaEuPS8/KfHfjq6Hg==
 
-react@^16.8.6:
+react@^16.3.2, react@^16.8.6:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
   integrity sha512-pC0uMkhLaHm11ZSJULfOBqV4tIZkx87ZLvbbQYunNixAAvjnC+snJCg0XQXn9VIsttVsbZP/H/ewzgsd5fxKXw==
