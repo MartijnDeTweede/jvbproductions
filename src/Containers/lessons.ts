@@ -55,7 +55,7 @@ export const lessonsSet: LessonNew[] = [
     category: MusicTypes.Rock,
     lessonType: LessonTypes.Free,
     src: [{
-      name: 'Sweet Child O Mine',
+      name: 'Blues minor',
       source: [{
         source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.mp4',
         type: VideoSourceType.video_mp4
@@ -65,7 +65,7 @@ export const lessonsSet: LessonNew[] = [
       }, {
         source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.ogv',
         type: VideoSourceType.video_ogg
-      }]     
+      }]      
     }]
   },
   {

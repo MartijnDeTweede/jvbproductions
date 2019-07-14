@@ -79,7 +79,7 @@ export class ClassRoom extends React.Component<ClassRoomProps, classRoomState> {
             <span>Liedje: {selectedLesson.song.title}</span>
             <span>Artiest: {selectedLesson.song.artist}</span>
             <ReactVideoPlay
-              sources={src}
+              sources={selectedLesson.src}
               poster="http://lorempixel.com/900/450/people/"
               enableSlider={true}
               sliderSlides={slides}
