@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import { ClassRoom } from '../Components/ClassRoom/ClassRoom';
+import { LessonTypes, LessonNew, lessonsSet, MusicTypes } from './lessons';
+import { getLessonsByLessonType, populateCategories } from './categoryHelpers';
 
 const categories = [
   {
@@ -8,7 +10,7 @@ const categories = [
       {
         name: 'Blues minor',
         linkToVideo: 'lalalalala',
-        artist: 'Miles Davis',
+        artist: 'Blues minor',
       },
     ],
   },
@@ -24,7 +26,10 @@ const categories = [
   },
 ];
 
+
 export const PaidAccessContainer: React.FC = () => {
+  const paidLessons = getLessonsByLessonType(lessonsSet, LessonTypes.Charged)
+  let populatedCategories = populateCategories(Object.keys(MusicTypes),paidLessons);
   const content = 'Deze pagina is betaald';
-  return <ClassRoom categories={categories} content={content} />;
+  return <ClassRoom categories={populatedCategories} content={content} />;
 };

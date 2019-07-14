@@ -1,15 +1,12 @@
-export interface Lesson {
-  name: string;
-  linkToVideo: string;
-  artist: string;
-}
+import { LessonNew } from "../../Containers/lessons";
+
 
 export interface Category {
   name: string;
-  menuItems: Lesson[];
+  menuItems: LessonNew[];
 }
 
 export interface SideMenuProps {
   categories: Category[];
-  selectLesson: (lesson: Lesson) => void;
+  selectLesson: (lesson: LessonNew) => void;
 }

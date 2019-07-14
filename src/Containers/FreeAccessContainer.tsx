@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ClassRoom } from '../Components/ClassRoom/ClassRoom';
+import { getLessonsByLessonType, populateCategories } from './categoryHelpers';
+import { LessonTypes, lessonsSet, MusicTypes } from './lessons';
 
 const categories = [
   {
@@ -25,6 +27,9 @@ const categories = [
 ];
 
 export const FreeAccessContainer: React.FC = () => {
+  const paidLessons = getLessonsByLessonType(lessonsSet, LessonTypes.Charged)
+  let populatedCategories = populateCategories(Object.keys(MusicTypes),paidLessons);
+
   const content = 'Deze pagina is gratis';
-  return <ClassRoom categories={categories} content={content} />;
+  return <ClassRoom categories={populatedCategories} content={content} />;
 };

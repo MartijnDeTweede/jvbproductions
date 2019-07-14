@@ -1,16 +1,17 @@
 import React from 'react';
 import { SideMenu } from '../SideMenu/SideMenu';
-import { Lesson, Category } from '../SideMenu/SideMenu.types';
+import { Category } from '../SideMenu/SideMenu.types';
 import {ReactVideoPlay, VideoSourceType} from 'react-video-play';
 import './ClassRoom.css';
 import '../../../node_modules/react-video-play/public/css/react-video-play.css'
+import { LessonNew } from '../../Containers/lessons';
 interface ClassRoomProps {
-  categories: Category[];
+  categories: Category[] ;
   content: string;
 }
 
 interface classRoomState {
-  selectedLesson?: Lesson;
+  selectedLesson?: LessonNew;
 }
 const src = [
   {
@@ -62,7 +63,7 @@ export class ClassRoom extends React.Component<ClassRoomProps, classRoomState> {
       selectedLesson: undefined,
     };
   }
-  selectLesson = (lesson: Lesson) => {
+  selectLesson = (lesson: LessonNew) => {
     this.setState({ selectedLesson: lesson });
   };
 
@@ -75,8 +76,8 @@ export class ClassRoom extends React.Component<ClassRoomProps, classRoomState> {
         <div>{content}</div>
         {selectedLesson ? (
           <div>
-            <span>Liedje: {selectedLesson.name}</span>
-            <span>Artiest: {selectedLesson.name}</span>
+            <span>Liedje: {selectedLesson.song.title}</span>
+            <span>Artiest: {selectedLesson.song.artist}</span>
             <ReactVideoPlay
               sources={src}
               poster="http://lorempixel.com/900/450/people/"

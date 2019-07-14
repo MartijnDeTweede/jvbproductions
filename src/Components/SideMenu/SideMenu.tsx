@@ -1,11 +1,12 @@
 import React from 'react';
-import { SideMenuProps, Lesson } from './SideMenu.types';
+import { SideMenuProps } from './SideMenu.types';
 import './SideMenu.css';
 import classNames from 'classnames';
+import { LessonNew } from '../../Containers/lessons';
 
 interface SideMenuState {
   activeCategory?: string;
-  activeMenuItems: Lesson[];
+  activeMenuItems: LessonNew[];
 }
 
 export class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
@@ -17,7 +18,7 @@ export class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
       activeMenuItems: [],
     };
   }
-  toggleCategory = (categoryName: string, menuItems: Lesson[]) => {
+  toggleCategory = (categoryName: string, menuItems: LessonNew[]) => {
     this.setState({ activeCategory: categoryName, activeMenuItems: menuItems });
   };
 
@@ -46,7 +47,7 @@ export class SideMenu extends React.Component<SideMenuProps, SideMenuState> {
                 )}
                 onClick={() => selectLesson(menuItem)}
               >
-                {menuItem.name}
+                {menuItem.song.title}
               </button>
             ))}
           </div>
