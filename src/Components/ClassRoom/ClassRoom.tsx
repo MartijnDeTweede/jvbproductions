@@ -1,10 +1,13 @@
 import React from 'react';
 import { SideMenu } from '../SideMenu/SideMenu';
 import { Category } from '../SideMenu/SideMenu.types';
-import {ReactVideoPlay, VideoSourceType} from 'react-video-play';
+import {ReactVideoPlay, VideoSourceType, Source} from 'react-video-play';
 import './ClassRoom.css';
 import '../../../node_modules/react-video-play/public/css/react-video-play.css'
 import { LessonNew } from '../../Containers/lessons';
+import { storage } from '../../firebaseConfig';
+
+
 interface ClassRoomProps {
   categories: Category[] ;
   content: string;
@@ -12,38 +15,8 @@ interface ClassRoomProps {
 
 interface classRoomState {
   selectedLesson?: LessonNew;
+  selectedLessonSource?: Source [];
 }
-const src = [
-  {
-      name: '1080p',
-      source: [{
-          source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.mp4',
-          type: VideoSourceType.video_mp4
-      }, {
-          source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.webm',
-          type: VideoSourceType.video_webm
-      }, {
-          source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.ogv',
-          type: VideoSourceType.video_ogg
-      }]
-  }, {
-      name: '720p',
-      default: true,
-      source: [{
-          source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.mp4',
-          type: VideoSourceType.video_mp4
-      }, {
-          source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.webm',
-          type: VideoSourceType.video_webm
-      }, {
-          source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.ogv',
-          type: VideoSourceType.video_ogg
-      }, {
-          source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.m4v',
-          type: VideoSourceType.video_mp4
-      }]
-   }
-];
 
 const slides = [
   {
@@ -61,25 +34,44 @@ export class ClassRoom extends React.Component<ClassRoomProps, classRoomState> {
     super(props);
     this.state = {
       selectedLesson: undefined,
+      selectedLessonSource: undefined,
     };
   }
   selectLesson = (lesson: LessonNew) => {
     this.setState({ selectedLesson: lesson });
+
+
+console.log('storage: ', storage);
+storage.child(lesson.src).getDownloadURL().then((link => {
+  console.log('result: ', link);
+  const selectedLessonSource: Source [] = [
+    {
+      name: lesson.song.title,
+      source: [
+        {
+          source: link,
+          type: VideoSourceType.video_mp4
+        }
+      ]
+    }
+  ]
+  this.setState({ selectedLessonSource: selectedLessonSource })
+}));
   };
 
   render() {
     const { categories, content } = this.props;
-    const { selectedLesson } = this.state;
+    const { selectedLesson, selectedLessonSource } = this.state;
     return (
       <div className="ClassRoom-Wrapper">
         <SideMenu selectLesson={this.selectLesson} categories={categories} />
         <div>{content}</div>
-        {selectedLesson ? (
+        {selectedLesson && selectedLessonSource ? (
           <div>
-            <span>Liedje: {selectedLesson.song.title}</span>
+            <span>Song: {selectedLesson.song.title}</span>
             <span>Artiest: {selectedLesson.song.artist}</span>
             <ReactVideoPlay
-              sources={selectedLesson.src}
+              sources={selectedLessonSource}
               poster="http://lorempixel.com/900/450/people/"
               enableSlider={true}
               sliderSlides={slides}

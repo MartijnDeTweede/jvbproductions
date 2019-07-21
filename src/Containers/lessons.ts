@@ -1,4 +1,4 @@
-import { Source, VideoSourceType } from "react-video-play";
+
 
 
 export enum LessonTypes {
@@ -22,7 +22,7 @@ export interface LessonNew {
   song: Song,
   category: MusicTypes,
   lessonType: LessonTypes,
-  src: Source [],
+  src: string,
 }
 
 export const lessonsSet: LessonNew[] = [
@@ -33,19 +33,7 @@ export const lessonsSet: LessonNew[] = [
     },
     category: MusicTypes.Blues,
     lessonType: LessonTypes.Free,
-    src: [{
-      name: 'Still got the blues',
-      source: [{
-        source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.mp4',
-        type: VideoSourceType.video_mp4
-      }, {
-        source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.webm',
-        type: VideoSourceType.video_webm
-      }, {
-        source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.ogv',
-        type: VideoSourceType.video_ogg
-      }]     
-    }]
+    src: 'test_file_storage.mp4',
   },
   {
     song: {
@@ -54,19 +42,7 @@ export const lessonsSet: LessonNew[] = [
     },
     category: MusicTypes.Rock,
     lessonType: LessonTypes.Free,
-    src: [{
-      name: 'Blues minor',
-      source: [{
-        source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.mp4',
-        type: VideoSourceType.video_mp4
-      }, {
-        source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.webm',
-        type: VideoSourceType.video_webm
-      }, {
-        source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.ogv',
-        type: VideoSourceType.video_ogg
-      }]      
-    }]
+    src: 'test_file_storage.mp4',
   },
   {
     song: {
@@ -75,19 +51,7 @@ export const lessonsSet: LessonNew[] = [
     },
     category: MusicTypes.Jazz,
     lessonType: LessonTypes.Charged,
-    src: [{
-      name: 'Blues minor',
-      source: [{
-        source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.mp4',
-        type: VideoSourceType.video_mp4
-      }, {
-        source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.webm',
-        type: VideoSourceType.video_webm
-      }, {
-        source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.ogv',
-        type: VideoSourceType.video_ogg
-      }]     
-    }]
+    src: 'test_file_storage.mp4',
   },
   {
     song: {
@@ -96,18 +60,6 @@ export const lessonsSet: LessonNew[] = [
     },
     category: MusicTypes.Funk,
     lessonType: LessonTypes.Charged,
-    src: [{
-      name: 'Still got the blues',
-      source: [{
-        source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.mp4',
-        type: VideoSourceType.video_mp4
-      }, {
-        source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.webm',
-        type: VideoSourceType.video_webm
-      }, {
-        source: 'http://easyhtml5video.com/assets/video/new/Penguins_of_Madagascar.ogv',
-        type: VideoSourceType.video_ogg
-      }]     
-    }]
+    src: 'test_file_storage.mp4',
   }
 ]
