@@ -1,0 +1,18 @@
+.ClassRoom__Play{
+  margin-top:30px;
+  margin-left: 30px;
+}
+
+.Classroom__StateHolder{
+  width: 70vw;
+  height: 70vh;
+}
+
+.ClassRoom__SongInfoPanel{
+  margin-top:10px;
+}
+
+.ClassRoom__SongInfo {
+  color: #3c4044;
+  font-size: calc(8px + 2vmin);
+}

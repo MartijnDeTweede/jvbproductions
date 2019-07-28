@@ -25,11 +25,9 @@ export class ClassRoom extends React.Component<ClassRoomProps> {
   render() {
     const { selectedLesson, selectedLessonSource } = this.props;
     return (
-      <div>
+      <div className="Classroom__StateHolder">
         {selectedLesson && selectedLessonSource ? (
-          <div>
-            <span>Song: {selectedLesson.song.title}</span>
-            <span>Artiest: {selectedLesson.song.artist}</span>
+          <div className="ClassRoom__Play">
             <ReactVideoPlay
               sources={selectedLessonSource}
               poster="http://lorempixel.com/900/450/people/"
@@ -37,7 +35,10 @@ export class ClassRoom extends React.Component<ClassRoomProps> {
               sliderSlides={slides}
               autoplay={true}
               muted={true}
-    />
+            />
+            <div className="ClassRoom__SongInfoPanel">
+            <span className="ClassRoom__SongInfo">{selectedLesson.song.title} - {selectedLesson.song.artist}</span>
+            </div>
           </div>
         ) : (
           <div>

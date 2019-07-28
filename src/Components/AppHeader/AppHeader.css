@@ -1,10 +1,10 @@
 .App-header {
-  background-color: #9ebfe4;
+  background-color: #3c4044;
   min-height: 10vh;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(8px + 2vmin);
   color: white;
   padding-bottom: 10px;
   flex-direction: row;
@@ -13,7 +13,7 @@
 .App-header--Button {
   padding: 10px 20px 10px 20px;
   background-color: white;
-  color: #92bdee;
+  color: #3c4044;
   border-radius: 5px;
 }
 
@@ -22,7 +22,22 @@
   color: white;
 }
 
+.App-Header-Link{ 
+  margin-right: 20px;
+}
+
+a, u {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #9392ee;
+}
+
+
 .App-Header-Profile {
+  margin-left: 15vw;
   margin-right: 50px;
 }
 
