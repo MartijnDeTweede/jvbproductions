@@ -15,7 +15,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
 }) => {
   return (
     <header className="App-header">
-      <div>
+      <div className="App-Header-links">
       <span className="App-Header-Link"><Link to="/">Home</Link></span>
       <span className="App-Header-Link"><Link to="/lessen">Lessen</Link></span>
       </div>

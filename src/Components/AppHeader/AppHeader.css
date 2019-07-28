@@ -22,8 +22,12 @@
   color: white;
 }
 
+.App-Header-links{
+  margin-right: 30vw;
+}
+
 .App-Header-Link{ 
-  margin-right: 20px;
+  margin-right: 30px;
 }
 
 a, u {
@@ -37,7 +41,6 @@ a:hover {
 
 
 .App-Header-Profile {
-  margin-left: 15vw;
   margin-right: 50px;
 }
 
