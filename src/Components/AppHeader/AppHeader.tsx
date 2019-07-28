@@ -17,8 +17,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     <header className="App-header">
       <div>
       <Link to="/">Home</Link>
-      <Link to="/gratis-lessen">Gratis lessen</Link>
-      <Link to="/premium-lessen">Premium lessen</Link>
+      <Link to="/lessen">Lessen</Link>
       </div>
       <div className="App-Header-Profile">
         {user ? <p>Hallo, {user.displayName}</p> : <p>Log alsjeblieft in</p>}
