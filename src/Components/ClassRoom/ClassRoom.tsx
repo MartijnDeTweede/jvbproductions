@@ -12,6 +12,16 @@ interface ClassRoomProps {
   signInWithGoogle: () => void;
 }
 
+enum MessageType {
+  Warning = 'Warning',
+  Error = "Error"
+}
+
+export const Message: React.FC<{message: string, messageType: MessageType}> = ({message, messageType}) => (
+      <div className={`ClassRoom__Message-Holder ClassRoom__Message-Holder--${messageType} ClassRoom__Message`}>
+    {message}
+  </div>
+)
 export class ClassRoom extends React.Component<ClassRoomProps> {
   render() {
     const {
@@ -36,24 +46,24 @@ export class ClassRoom extends React.Component<ClassRoomProps> {
             </div>
           </div>
         }
-        {lessonState === LessonStates.NotSelected && <div className="ClassRoom__MessageHolder ClassRoom__Message"> Selecteer een les </div>}
-        {lessonState === LessonStates.Error && <div className="ClassRoom__MessageHolder ClassRoom__Message"> Er is iets mis gegaan, probeer de pagina te refreshen</div>}
+        {lessonState === LessonStates.NotSelected && <Message message="Je hebt nog geen les geselecteerd" messageType={MessageType.Warning} />}
+        {lessonState === LessonStates.Error && <Message message="Er is iets mis gegaan, ververs de pagina of neem contact op met ons." messageType={MessageType.Error} />}
         {lessonState === LessonStates.Login &&
         <div>
-          <div className="ClassRoom__MessageHolder ClassRoom__Message"> Je moet inloggen om deze les te kunnen zien</div>
+          <Message message="Je moet inloggen om deze les te kunnen volgen." messageType={MessageType.Error} />
           <button className="ClassRoom--Button" onClick={signInWithGoogle}>
             Login met Google
           </button>
         </div>
         }
-        {lessonState === LessonStates.Buy && <div className="ClassRoom__MessageHolder ClassRoom__Message">
+        {lessonState === LessonStates.Buy &&
         <div>
-          <div className="ClassRoom__MessageHolder ClassRoom__Message"> Je moet inloggen kopen om hem te kunnen volgen</div>
+          <Message message="Je moet deze les kopen om hem te kunnen volgen." messageType={MessageType.Error}/>
           <button className="ClassRoom--Button" onClick={() => {console.log('buy clicked')}}>
             Nu kopen
           </button>
         </div>
-        </div>}
+        }
       </div>
     );
   }

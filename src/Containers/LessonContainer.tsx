@@ -78,13 +78,15 @@ export class LessonContainer extends React.Component<LessonContainerProps, Lesso
       this.setState({
         lessonState: LessonStates.Login,
       })
+      return;
     }
 
     const resonse = user && await requestAccesToVideo(user.uid, lesson.song.title);
+    console.log('resonse: ', resonse);
     
-    if(resonse.status === 'Allowed') {
+    if(resonse && resonse.status === 'Allowed') {
       this.loadLesson(lesson);
-    } else if(resonse.status === 'NotBought') {
+    } else if(resonse &&  resonse.status === 'NotBought') {
       this.setState({
         lessonState: LessonStates.Buy,
       }) 

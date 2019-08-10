@@ -16,7 +16,8 @@ namespace jvbproductions_services.Controllers
         public ActionResult<AccessModel> RequestLessonAccess(string userId, string lessonName)
         {
             AccessModel accessModel = new AccessModel();
-            accessModel.Status = "NotBought";
+            //accessModel.Status = "NotBought";
+            accessModel.Status = "Allowed";
             return accessModel;
         }
     }
