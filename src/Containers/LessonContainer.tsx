@@ -6,6 +6,7 @@ import { storage } from '../firebaseConfig';
 import { Source, VideoSourceType } from 'react-video-play';
 import { SideMenu } from '../Components/SideMenu/SideMenu';
 import './LessonContainer.css';
+import { requestAccesToVideo } from '../Helpers/ApiHelpers';
 
 export enum LessonStates {
   Play = 'Play',
@@ -34,37 +35,58 @@ export class LessonContainer extends React.Component<LessonContainerProps, Lesso
       selectedLessonSource: undefined,
       lessonState: LessonStates.NotSelected,
     };
+
   }
-  selectLesson = (lesson: LessonNew) => {
+
+  loadLesson = (lesson: LessonNew) => {
+    storage.child(lesson.src).getDownloadURL().then((link => {
+      const selectedLessonSource: Source [] = [
+        {
+          name: lesson.song.title,
+          source: [
+            {
+              source: link,
+              type: VideoSourceType.video_mp4
+            }
+          ]
+        }
+      ]
+      this.setState({
+        selectedLessonSource: selectedLessonSource,
+        lessonState: LessonStates.Play,
+      })
+      })).catch((error) =>{
+        if(error.code === "storage/unauthorized") {
+          this.setState({
+            lessonState: LessonStates.Login,
+          })
+        } else {
+          this.setState({
+            lessonState: LessonStates.Error,
+          })
+        }
+      });
+
+
+  }
+
+  selectLesson = async (lesson: LessonNew) => {
     this.setState({ selectedLesson: lesson });
 
-    storage.child(lesson.src).getDownloadURL().then((link => {
-    const selectedLessonSource: Source [] = [
-      {
-        name: lesson.song.title,
-        source: [
-          {
-            source: link,
-            type: VideoSourceType.video_mp4
-          }
-        ]
+    const {user } = this.props;
+    if(user) {
+      let isallowed = false;
+      isallowed = await requestAccesToVideo(user.uid, lesson.song.title);
+      console.log('isallowed: ', isallowed);
+      
+      if(isallowed) {
+        this.loadLesson(lesson);
       }
-    ]
-    this.setState({
-      selectedLessonSource: selectedLessonSource,
-      lessonState: LessonStates.Play,
-    })
-    })).catch((error) =>{
-      if(error.code === "storage/unauthorized") {
-        this.setState({
-          lessonState: LessonStates.Login,
-        })
-      } else {
-        this.setState({
-          lessonState: LessonStates.Error,
-        })
-      }
-    });
+    } else {
+      this.setState({
+        lessonState: LessonStates.Login,
+      })      
+    }
   };
 
 

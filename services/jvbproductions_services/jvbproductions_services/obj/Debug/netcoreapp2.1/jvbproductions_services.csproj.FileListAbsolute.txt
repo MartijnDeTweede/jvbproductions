@@ -3,7 +3,6 @@ E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbprod
 E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\bin\Debug\netcoreapp2.1\jvbproductions_services.runtimeconfig.dev.json
 E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\bin\Debug\netcoreapp2.1\jvbproductions_services.dll
 E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\bin\Debug\netcoreapp2.1\jvbproductions_services.pdb
-E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Debug\netcoreapp2.1\jvbproductions_services.csprojAssemblyReference.cache
 E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Debug\netcoreapp2.1\jvbproductions_services.csproj.CoreCompileInputs.cache
 E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Debug\netcoreapp2.1\jvbproductions_services.RazorAssemblyInfo.cache
 E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Debug\netcoreapp2.1\jvbproductions_services.RazorAssemblyInfo.cs
