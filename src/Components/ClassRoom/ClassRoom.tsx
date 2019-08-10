@@ -46,6 +46,14 @@ export class ClassRoom extends React.Component<ClassRoomProps> {
           </button>
         </div>
         }
+        {lessonState === LessonStates.Buy && <div className="ClassRoom__MessageHolder ClassRoom__Message">
+        <div>
+          <div className="ClassRoom__MessageHolder ClassRoom__Message"> Je moet inloggen kopen om hem te kunnen volgen</div>
+          <button className="ClassRoom--Button" onClick={() => {console.log('buy clicked')}}>
+            Nu kopen
+          </button>
+        </div>
+        </div>}
       </div>
     );
   }

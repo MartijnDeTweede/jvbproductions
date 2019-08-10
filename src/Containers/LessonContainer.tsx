@@ -72,20 +72,26 @@ export class LessonContainer extends React.Component<LessonContainerProps, Lesso
 
   selectLesson = async (lesson: LessonNew) => {
     this.setState({ selectedLesson: lesson });
-
+    
     const {user } = this.props;
-    if(user) {
-      let isallowed = false;
-      isallowed = await requestAccesToVideo(user.uid, lesson.song.title);
-      console.log('isallowed: ', isallowed);
-      
-      if(isallowed) {
-        this.loadLesson(lesson);
-      }
-    } else {
+    if(!user) {
       this.setState({
         lessonState: LessonStates.Login,
-      })      
+      })
+    }
+
+    const resonse = user && await requestAccesToVideo(user.uid, lesson.song.title);
+    
+    if(resonse.status === 'Allowed') {
+      this.loadLesson(lesson);
+    } else if(resonse.status === 'NotBought') {
+      this.setState({
+        lessonState: LessonStates.Buy,
+      }) 
+    } else {
+      this.setState({
+        lessonState: LessonStates.Error,
+      }) 
     }
   };
 

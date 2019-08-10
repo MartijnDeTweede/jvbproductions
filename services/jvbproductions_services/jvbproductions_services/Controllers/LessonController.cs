@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using jvbproductions_services.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,11 +13,11 @@ namespace jvbproductions_services.Controllers
     {
         // GET api/RequestLessonAccess
         [HttpGet("{userId, lessonName}")]
-        public ActionResult<string> RequestLessonAccess(string userId, string lessonName)
+        public ActionResult<AccessModel> RequestLessonAccess(string userId, string lessonName)
         {
-            string notbought = "not bought:";
-            var result = notbought+ userId + lessonName;
-            return result;
+            AccessModel accessModel = new AccessModel();
+            accessModel.Status = "NotBought";
+            return accessModel;
         }
     }
 }
