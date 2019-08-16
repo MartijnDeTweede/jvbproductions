@@ -82,7 +82,6 @@ export class LessonContainer extends React.Component<LessonContainerProps, Lesso
     }
 
     const resonse = user && await requestAccesToVideo(user.uid, lesson.song.title);
-    console.log('resonse: ', resonse);
     
     if(resonse && resonse.status === 'Allowed') {
       this.loadLesson(lesson);
