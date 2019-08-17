@@ -54,3 +54,10 @@
   background-color: #9392ee;
   color: white;
 }
+
+@media screen and (max-width: 800px) {
+  .ClassRoom__Play {
+    margin-top:5px;
+    margin-left: 5px;
+  }
+}
