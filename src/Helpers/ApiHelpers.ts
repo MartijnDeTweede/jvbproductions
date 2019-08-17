@@ -13,3 +13,19 @@ export const requestAccesToVideo = (userId: string, lessonName: string)=> {
   );
 return result;
 }
+
+
+export const getAllLessons = ()=> {
+  console.log('getAllLessons:');
+  const url = `${baseUrl}lesson/GetAllLessons`;
+  const result =  fetch(url, {
+    method: 'GET',
+    mode: 'cors',
+    credentials: 'same-origin',
+})
+.then(response => {
+  return response.json()
+}
+  );
+return result;
+}

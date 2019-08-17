@@ -6,7 +6,7 @@ import { storage } from '../firebaseConfig';
 import { Source, VideoSourceType } from 'react-video-play';
 import { SideMenu } from '../Components/SideMenu/SideMenu';
 import './LessonContainer.css';
-import { requestAccesToVideo } from '../Helpers/ApiHelpers';
+import { requestAccesToVideo, getAllLessons } from '../Helpers/ApiHelpers';
 
 export enum LessonStates {
   Play = 'Play',
@@ -35,7 +35,8 @@ export class LessonContainer extends React.Component<LessonContainerProps, Lesso
       selectedLessonSource: undefined,
       lessonState: LessonStates.NotSelected,
     };
-
+    const lessons = getAllLessons();
+    console.log('lessons: ', lessons);
   }
 
   loadLesson = (lesson: LessonNew) => {
