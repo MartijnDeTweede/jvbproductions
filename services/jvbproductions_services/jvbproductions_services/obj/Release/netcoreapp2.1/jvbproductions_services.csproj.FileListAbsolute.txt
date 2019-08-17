@@ -1,0 +1,14 @@
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\bin\Release\netcoreapp2.1\jvbproductions_services.deps.json
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\bin\Release\netcoreapp2.1\jvbproductions_services.runtimeconfig.json
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\bin\Release\netcoreapp2.1\jvbproductions_services.runtimeconfig.dev.json
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\bin\Release\netcoreapp2.1\jvbproductions_services.dll
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\bin\Release\netcoreapp2.1\jvbproductions_services.pdb
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Release\netcoreapp2.1\jvbproductions_services.csprojAssemblyReference.cache
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Release\netcoreapp2.1\jvbproductions_services.csproj.CoreCompileInputs.cache
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Release\netcoreapp2.1\jvbproductions_services.RazorAssemblyInfo.cache
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Release\netcoreapp2.1\jvbproductions_services.RazorAssemblyInfo.cs
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Release\netcoreapp2.1\jvbproductions_services.AssemblyInfoInputs.cache
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Release\netcoreapp2.1\jvbproductions_services.AssemblyInfo.cs
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Release\netcoreapp2.1\jvbproductions_services.RazorTargetAssemblyInfo.cache
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Release\netcoreapp2.1\jvbproductions_services.dll
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Release\netcoreapp2.1\jvbproductions_services.pdb

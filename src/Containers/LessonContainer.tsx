@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { ClassRoom } from '../Components/ClassRoom/ClassRoom';
 import { populateCategories } from './categoryHelpers';
-import { lessonsSet, MusicTypes, LessonNew } from './lessons';
+import {  MusicTypes, LessonNew } from './lessons';
 import { storage } from '../firebaseConfig';
 import { Source, VideoSourceType } from 'react-video-play';
 import { SideMenu } from '../Components/SideMenu/SideMenu';
@@ -16,30 +16,29 @@ export enum LessonStates {
   NotSelected = 'Not Selected'
 }
 
-interface LessonContainerProps {
-user: firebase.User | undefined
-signInWithGoogle: () => void
-}
+export const LessonContainer: React.FC<{
+  user: firebase.User | undefined
+  signInWithGoogle: () => void
+}> = ({
+  user,
+  signInWithGoogle,
+}) =>  {
 
-interface LessonContainerState {
-  selectedLesson?: LessonNew;
-  selectedLessonSource?: Source [];
-  lessonState: LessonStates;
-}
+  const [lessonData, setLessonData] = useState<LessonNew[]>([])
+  const [lessonState, setLessonState] = useState<LessonStates>(LessonStates.NotSelected);
+  const [selectedLesson, setSelectedLesson] = useState<LessonNew | undefined>(undefined);
+  const [selectedLessonSource, setSelectedLessonSource] = useState<Source [] | undefined>(undefined);
 
-export class LessonContainer extends React.Component<LessonContainerProps, LessonContainerState>  {
-  constructor(props: LessonContainerProps) {
-    super(props);
-    this.state = {
-      selectedLesson: undefined,
-      selectedLessonSource: undefined,
-      lessonState: LessonStates.NotSelected,
-    };
-    const lessons = getAllLessons();
-    console.log('lessons: ', lessons);
+  const getAllData = async () => {
+   const lessonData = await getAllLessons();
+    setLessonData(lessonData);
   }
 
-  loadLesson = (lesson: LessonNew) => {
+  useEffect(() =>{
+    getAllData()
+  }, [])
+
+  const loadLesson = (lesson: LessonNew) => {
     storage.child(lesson.src).getDownloadURL().then((link => {
       const selectedLessonSource: Source [] = [
         {
@@ -52,65 +51,38 @@ export class LessonContainer extends React.Component<LessonContainerProps, Lesso
           ]
         }
       ]
-      this.setState({
-        selectedLessonSource: selectedLessonSource,
-        lessonState: LessonStates.Play,
-      })
+      setLessonState(LessonStates.Play)
+      setSelectedLessonSource(selectedLessonSource)
+
       })).catch((error) =>{
         if(error.code === "storage/unauthorized") {
-          this.setState({
-            lessonState: LessonStates.Login,
-          })
+          setLessonState(LessonStates.Login)
         } else {
-          this.setState({
-            lessonState: LessonStates.Error,
-          })
+          setLessonState(LessonStates.Error)
         }
       });
-
-
   }
 
-  selectLesson = async (lesson: LessonNew) => {
-    this.setState({ selectedLesson: lesson });
-    
-    const {user } = this.props;
+  const selectLesson = async (lesson: LessonNew) => {
+    setSelectedLesson(lesson);
     if(!user) {
-      this.setState({
-        lessonState: LessonStates.Login,
-      })
-      return;
+      setLessonState(LessonStates.Login)
     }
 
     const resonse = user && await requestAccesToVideo(user.uid, lesson.song.title);
     
     if(resonse && resonse.status === 'Allowed') {
-      this.loadLesson(lesson);
+      loadLesson(lesson);
     } else if(resonse &&  resonse.status === 'NotBought') {
-      this.setState({
-        lessonState: LessonStates.Buy,
-      }) 
+      setLessonState(LessonStates.Buy)
     } else {
-      this.setState({
-        lessonState: LessonStates.Error,
-      }) 
+      setLessonState(LessonStates.Error) 
     }
   };
 
-
-  render() {
-    const {
-      selectedLesson,
-      selectedLessonSource, 
-      lessonState
-    } = this.state;
-
-    const {
-      signInWithGoogle
-    } = this.props;
     return (
       <div className="LessonContainer-Wrapper">
-        <SideMenu selectLesson={this.selectLesson} categories={populateCategories(Object.keys(MusicTypes),lessonsSet)} />
+        <SideMenu selectLesson={selectLesson} categories={populateCategories(Object.keys(MusicTypes),lessonData)} />
         <ClassRoom
           lessonState={lessonState}
           selectedLesson={selectedLesson}
@@ -119,5 +91,4 @@ export class LessonContainer extends React.Component<LessonContainerProps, Lesso
         />
       </div>
     )
-  }
 };

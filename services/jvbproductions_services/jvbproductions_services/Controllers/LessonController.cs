@@ -16,10 +16,42 @@ namespace jvbproductions_services.Controllers
         private string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=JvBProductions;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         //GET api/lesson/GetAllLessons
        [HttpGet]
-        public ActionResult<string> GetAllLessons()
+        public ActionResult<List<LessonModel>> GetAllLessons()
         {
-            LessonModel[] allLessons = new LessonModel[1];
-            return "KakHoofd";
+            List<LessonModel> allLessons = new List<LessonModel>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    string query = @"SELECT * FROM Lessons";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    conn.Open();
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        var newLesson = new LessonModel();
+
+                        newLesson.Song = new Song(dr["Artist"].ToString(), dr["Title"].ToString());
+                        newLesson.Category = dr["Category"].ToString();
+
+                        newLesson.Difficulty = dr["Difficulty"].ToString();
+                        newLesson.LessonType = dr["LessonType"].ToString();
+                        newLesson.Src = dr["Src"].ToString();
+
+                        allLessons.Add(newLesson);
+                    }
+                    dr.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+            return allLessons;
+
         }
 
 
@@ -31,15 +63,10 @@ namespace jvbproductions_services.Controllers
 
             try
             {
-                string sanatizedLessonName = "[" + lessonName + "]";
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
 
-                    //string query = @"SELECT * FROM @table
-                    //     WHERE userId=@userId";
-
                     string query = String.Format("select * from [{0}] where userId=@userId", lessonName);
-
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@userId", userId);
 
