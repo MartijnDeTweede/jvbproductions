@@ -24,5 +24,6 @@ namespace jvbproductions_services.Models
         public string LessonType { get; set; }
         public string Difficulty { get; set; }
         public string Src { get; set; }
+        public string Cost { get; set; }
     }
 }

@@ -76,5 +76,22 @@ namespace jvbproductions_services.Controllers
                 return BadRequest();
             }
         }
+
+        // Post api/user/getUserInfo
+        [HttpPost("{userId, lessonName}")]
+        public ActionResult<UserModel> buyLesson(string userId, string lessonName)
+        {
+            var userModel = new UserModel();
+            // Getcredit
+            // Ophalen kosten
+            
+            // CheckCredit
+            // UpdateCredit
+            // Update LessonTable
+
+
+            return userModel;
+        }
+
     }
 }

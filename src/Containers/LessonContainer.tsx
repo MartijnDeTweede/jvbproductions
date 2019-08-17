@@ -35,7 +35,7 @@ export const LessonContainer: React.FC<{
   }
 
   useEffect(() =>{
-    getAllData()
+    getAllData();
   }, [])
 
   const loadLesson = (lesson: LessonNew) => {
@@ -64,9 +64,11 @@ export const LessonContainer: React.FC<{
   }
 
   const selectLesson = async (lesson: LessonNew) => {
+    console.log('selectLesson');
     setSelectedLesson(lesson);
     if(!user) {
       setLessonState(LessonStates.Login)
+      return
     }
 
     const resonse = user && await requestAccesToVideo(user.uid, lesson.song.title);

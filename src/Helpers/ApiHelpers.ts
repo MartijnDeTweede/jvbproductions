@@ -1,6 +1,7 @@
 const baseUrl = 'http://localhost:65422/api/';
 
 export const requestAccesToVideo = (userId: string, lessonName: string)=> {
+  console.log('requestAccesToVideo: ', requestAccesToVideo);
   const url = `${baseUrl}lesson/RequestLessonAccess?userId=${userId}&lessonName=${lessonName}`;
   const result =  fetch(url, {
     method: 'GET',
