@@ -5,11 +5,13 @@ import '../../../node_modules/react-video-play/public/css/react-video-play.css'
 import { LessonNew } from '../../Containers/lessons';
 import { LessonStates } from '../../Containers/LessonContainer';
 
+
 interface ClassRoomProps {
   selectedLesson?: LessonNew;
   selectedLessonSource?: Source [];
   lessonState: string;
   signInWithGoogle: () => void;
+  buyLesson: () => Promise<void>;
 }
 
 enum MessageType {
@@ -28,7 +30,8 @@ export class ClassRoom extends React.Component<ClassRoomProps> {
       selectedLesson,
       selectedLessonSource,
       lessonState,
-      signInWithGoogle
+      signInWithGoogle,
+      buyLesson
     } = this.props;
     return (
       <div className="Classroom__StateHolder">
@@ -59,7 +62,7 @@ export class ClassRoom extends React.Component<ClassRoomProps> {
         {lessonState === LessonStates.Buy &&
         <div>
           <Message message="Je moet deze les kopen om hem te kunnen volgen." messageType={MessageType.Error}/>
-          <button className="ClassRoom--Button" onClick={() => {console.log('buy clicked')}}>
+          <button className="ClassRoom--Button" onClick={() => buyLesson() }>
             Nu kopen
           </button>
         </div>

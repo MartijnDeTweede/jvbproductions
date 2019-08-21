@@ -1,7 +1,7 @@
 .SideMenu--Wrapper {
   background-color: #3c4044;
   align-content: space-around;
-  min-width: 10vw;
+  min-width: 8vw;
   min-height: 100vh;
   max-width: 10vw;
 }

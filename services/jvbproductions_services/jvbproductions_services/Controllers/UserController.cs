@@ -4,94 +4,83 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using jvbproductions_services.Models;
+using jvbproductions_services.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using jvbproductions_services.DTO;
 
 namespace jvbproductions_services.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class UserController : Controller
     {
-        private string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=JvBProductions;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         // GET api/user/getUserInfo
         [HttpGet("{userId}")]
-        public ActionResult<UserModel> get(string userId)
+        [Route("api/user/getUser/{userId}")]
+        public ActionResult<UserModel> getUser(string userId)
         {
             var userModel = new UserModel();
+            var queryHelper = new QueryHelper();
             try
             {
-                using (SqlConnection conn = new SqlConnection(connString))
+                if(queryHelper.userExists(userId))
                 {
-                    string selectQuery = @"SELECT * FROM Users Where userId=@userId";
-
-                    SqlCommand cmd = new SqlCommand(selectQuery, conn);
-                    cmd.Parameters.AddWithValue("@userId", userId);
-
-                    conn.Open();
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    cmd.Parameters.Clear();
-
-                    if (dr.HasRows)
-                    {
-                        while(dr.Read())
-                        {
-                            int credits; 
-                            bool succes = Int32.TryParse(dr["Credits"].ToString(), out credits);
-
-                            if(succes)
-                            {
-                                userModel.Credits = credits;
-                                return userModel;
-                            }
-                            else
-                            {
-                                return BadRequest();
-                            }
-
-                        }
-                    dr.Close();
-                    }
-                    else
-                    {
-                        dr.Close();
-                        int defaultCredits = 100;
-                        userModel = new UserModel();
-                        userModel.Credits = defaultCredits;
-
-                        string insertQuery = "INSERT INTO dbo.Users (userId, credits) VALUES (@userId, @credits)";
-                        cmd.CommandText = insertQuery;
-                        cmd.Parameters.AddWithValue("@userId", userId);
-                        cmd.Parameters.AddWithValue("@credits", defaultCredits);
-
-                        cmd.ExecuteNonQuery();
-                    }
-                    
+                    userModel = queryHelper.getUser(userId);
+                } else
+                {
+                    userModel = queryHelper.createNewUser(userId);
                 }
-                return userModel;
-            }
 
-
-            catch (Exception e)
+            } catch(Exception e)
             {
-                return BadRequest();
+                BadRequest(e);
             }
-        }
-
-        // Post api/user/getUserInfo
-        [HttpPost("{userId, lessonName}")]
-        public ActionResult<UserModel> buyLesson(string userId, string lessonName)
-        {
-            var userModel = new UserModel();
-            // Getcredit
-            // Ophalen kosten
-            
-            // CheckCredit
-            // UpdateCredit
-            // Update LessonTable
-
-
             return userModel;
         }
 
+        // Post api/user/getUserInfo
+        [HttpPost]
+        [Route("api/user/buyLesson/")]
+        public ActionResult<UserModel> buyLesson([FromBody] UserLessonDTO dto)
+        {
+            string userId = dto.userId;
+            string lessonName = dto.lessonName;
+
+            var user = new UserModel();
+            var lesson = new LessonModel();
+            var queryHelper = new QueryHelper();
+            try
+            {
+                if (queryHelper.userExists(userId))
+                {
+                    user = queryHelper.getUser(userId);
+                }
+                else
+                {
+                    BadRequest("User was not found.");
+                }
+
+            } catch(Exception e)
+            {
+                BadRequest(e);
+            }
+
+            if(queryHelper.lessonExists(lessonName))
+            {
+                lesson = queryHelper.getLesson(lessonName);
+            }
+            else
+            {
+                BadRequest("Lesson was not found.");
+            }
+
+            if(user.Credits ==0 || lesson.Cost > user.Credits)
+            {
+                BadRequest("User has too little credits to buy this lesson.");
+            }
+
+            user = queryHelper.updateUserCredit(userId, user.Credits, -lesson.Cost);
+            queryHelper.addLessonAccess(userId, lessonName);
+            return user;
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace jvbproductions_services.Models
 {
     public class UserModel
     {
+        public string Id { get; set; }
         public int Credits { get; set; }
     }
 }

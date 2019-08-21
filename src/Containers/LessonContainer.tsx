@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import { ClassRoom } from '../Components/ClassRoom/ClassRoom';
 import { populateCategories } from './categoryHelpers';
 import {  MusicTypes, LessonNew } from './lessons';
@@ -6,7 +6,8 @@ import { storage } from '../firebaseConfig';
 import { Source, VideoSourceType } from 'react-video-play';
 import { SideMenu } from '../Components/SideMenu/SideMenu';
 import './LessonContainer.css';
-import { requestAccesToVideo, getAllLessons } from '../Helpers/ApiHelpers';
+import { requestAccesToVideo, getAllLessons, buyLessonAccess } from '../Helpers/ApiHelpers';
+import { UserInfo } from '../Components/userInfo.types';
 
 export enum LessonStates {
   Play = 'Play',
@@ -16,12 +17,28 @@ export enum LessonStates {
   NotSelected = 'Not Selected'
 }
 
+export const buyLesson = async (
+  userId: string, 
+  lessonName: string,
+  updateUserInfo: (userInfo: UserInfo) => void) =>{
+  const userInfo = await buyLessonAccess(userId, lessonName);
+  console.log('userInfo: ', userInfo);
+  updateUserInfo(userInfo);
+}
+
+const getAllData = async () =>{
+  //  const lessonData = await getAllLessons();
+   console.log('lessonData: ');
+}
+
 export const LessonContainer: React.FC<{
   user: firebase.User | undefined
-  signInWithGoogle: () => void
+  signInWithGoogle: () => void,
+  setUserInfo: (userInfo: UserInfo) => void,
 }> = ({
   user,
   signInWithGoogle,
+  setUserInfo,
 }) =>  {
 
   const [lessonData, setLessonData] = useState<LessonNew[]>([])
@@ -29,14 +46,16 @@ export const LessonContainer: React.FC<{
   const [selectedLesson, setSelectedLesson] = useState<LessonNew | undefined>(undefined);
   const [selectedLessonSource, setSelectedLessonSource] = useState<Source [] | undefined>(undefined);
 
-  const getAllData = async () => {
+  const getAllData = useCallback(async () => {
    const lessonData = await getAllLessons();
-    setLessonData(lessonData);
-  }
+    setLessonData(lessonData);;
+  },[])
 
   useEffect(() =>{
     getAllData();
-  }, [])
+  }, [getAllData])
+
+
 
   const loadLesson = (lesson: LessonNew) => {
     storage.child(lesson.src).getDownloadURL().then((link => {
@@ -64,7 +83,6 @@ export const LessonContainer: React.FC<{
   }
 
   const selectLesson = async (lesson: LessonNew) => {
-    console.log('selectLesson');
     setSelectedLesson(lesson);
     if(!user) {
       setLessonState(LessonStates.Login)
@@ -90,6 +108,12 @@ export const LessonContainer: React.FC<{
           selectedLesson={selectedLesson}
           selectedLessonSource={selectedLessonSource}
           signInWithGoogle={signInWithGoogle}
+          buyLesson={ async () => {
+            if(selectedLesson && user) {
+              await buyLesson(user.uid, selectedLesson.song.title, setUserInfo)
+            }
+          }}
+
         />
       </div>
     )

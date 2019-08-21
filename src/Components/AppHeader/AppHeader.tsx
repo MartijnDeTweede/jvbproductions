@@ -1,21 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, {  useEffect, useCallback } from 'react';
 import './AppHeader.css';
 import { Link } from 'react-router-dom';
 import { fetchUserInfo } from '../../Helpers/ApiHelpers';
+import {UserInfo } from '../userInfo.types';
 
-interface AppHeaderProps {
-  user?: firebase.User;
-  signOut: () => void;
-  signInWithGoogle: () => void | {
-    user: firebase.User;
-  };
-}
 
-interface UserInfo {
-  credits: number;
-}
-
-const UserInfo: React.FC<{
+const UserInformation: React.FC<{
   userInfo?: UserInfo,
   name?: string | null
 }> = ({
@@ -32,22 +22,30 @@ const UserInfo: React.FC<{
   )
 }
 
-export const AppHeader: React.FC<AppHeaderProps> = ({
+export const AppHeader: React.FC<{
+  user?: firebase.User;
+  signOut: () => void;
+  signInWithGoogle: () => void | {
+    user: firebase.User;
+  };
+  userInfo: UserInfo| undefined;
+  setUserInfo: (userInfo: UserInfo | undefined) => void;
+}> = ({
   user,
   signOut,
   signInWithGoogle,
+  userInfo,
+  setUserInfo
 }) => {
 
-  const getUserInfo = async (userId: string) => {
+  const getUserInfo = useCallback(async (userId: string) => {
     const userInfo: UserInfo = await fetchUserInfo(userId);
-    console.log('userInfo: ', userInfo);
     setUserInfo(userInfo);
-  }
+  }, [setUserInfo])
 
-  const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined)
   useEffect(() =>{
     user && getUserInfo(user.uid)
-  }, [user]);
+  }, [getUserInfo, user]);
 
   return (
     <header className="App-header">
@@ -56,7 +54,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
       <span className="App-Header-Link"><Link to="/lessen">Lessen</Link></span>
       </div>
       <div className="App-Header-Profile">
-        {user ? < UserInfo name={user.displayName} userInfo={userInfo} /> : <p>Niet ingelogd</p>}
+        {user ? < UserInformation name={user.displayName} userInfo={userInfo} /> : <p>Niet ingelogd</p>}
       </div>
       <div className="App-Header-Menu">
         {user ? (

@@ -1,8 +1,7 @@
 const baseUrl = 'http://localhost:65422/api/';
 
 export const requestAccesToVideo = (userId: string, lessonName: string)=> {
-  console.log('requestAccesToVideo: ', requestAccesToVideo);
-  const url = `${baseUrl}lesson/RequestLessonAccess?userId=${userId}&lessonName=${lessonName}`;
+  const url = `${baseUrl}lesson/RequestLessonAccess/${userId}/${lessonName}`;
   const result =  fetch(url, {
     method: 'GET',
     mode: 'cors',
@@ -15,8 +14,34 @@ export const requestAccesToVideo = (userId: string, lessonName: string)=> {
 return result;
 }
 
+export const buyLessonAccess = (userId: string, lessonName: string)=> {
+  console.log('lessonName: ', lessonName);
+  console.log('userId: ', userId);
+  const payload = {userId: userId,lessonName: lessonName };
+  console.log('  JSON.stringify(payload): ',   JSON.stringify(payload));
+
+  console.log('payload: ', payload);
+  const url = `${baseUrl}user/buyLesson`;
+  const result =  fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'omit',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+})
+.then(response => {
+  console.log('response: ', response);
+  return response.json()
+}
+  );
+return result;
+}
+
 export const getAllLessons = async() => {
-  const url = `${baseUrl}lesson`;
+  const url = `${baseUrl}lesson/getAllLessons`;
   const result =  await fetch(url, {
     method: 'GET',
     mode: 'cors',
@@ -30,7 +55,7 @@ return result;
 }
 
 export const fetchUserInfo = async(userId: string) => {
-  const url = `${baseUrl}user/${userId}`;
+  const url = `${baseUrl}user/getUser/${userId}`;
   const result =  await fetch(url, {
     method: 'GET',
     mode: 'cors',
