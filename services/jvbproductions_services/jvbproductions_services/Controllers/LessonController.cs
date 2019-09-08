@@ -37,8 +37,16 @@ namespace jvbproductions_services.Controllers
         public ActionResult<AccessModel> RequestLessonAccess(string userId, string lessonName)
         {
  
-            AccessModel acces = new AccessModel();
             var queryHelper = new QueryHelper();
+            var lesson = queryHelper.getLesson(lessonName);
+            AccessModel acces = new AccessModel();
+
+            if(lesson.LessonType == "Free")
+            {
+                acces.Status = "Allowed";
+                return acces;
+            }
+
             try
             {
                 acces = queryHelper.getLessonAccess(userId, lessonName);

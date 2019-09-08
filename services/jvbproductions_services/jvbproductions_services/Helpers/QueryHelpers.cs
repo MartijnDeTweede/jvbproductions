@@ -25,8 +25,9 @@ namespace jvbproductions_services.Helpers
                     conn.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
                     cmd.Parameters.Clear();
-
-                    return dr.HasRows;
+                    var rows = dr.HasRows;
+                    conn.Close();
+                    return rows;
                 }
             }
             catch (Exception e)
@@ -96,7 +97,7 @@ namespace jvbproductions_services.Helpers
                     SqlCommand cmd = new SqlCommand(insertQuery, conn);
                     cmd.Parameters.AddWithValue("@userId", userId);
                     cmd.Parameters.AddWithValue("@credits", newCredit);
-
+                    conn.Open();
                     cmd.ExecuteNonQuery();
 
                 }
@@ -167,9 +168,9 @@ namespace jvbproductions_services.Helpers
 
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    string query = @"SELECT * FROM Lessons";
-
+                    string query = @"SELECT * FROM Lessons where Title=@title";
                     SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@title", lessonName);
                     conn.Open();
 
                     SqlDataReader dr = cmd.ExecuteReader();
@@ -181,6 +182,9 @@ namespace jvbproductions_services.Helpers
                         lesson.Song = new Song(dr["Artist"].ToString(), dr["Title"].ToString());
                         lesson.Category = dr["Category"].ToString();
 
+                        int credits;
+                        bool succes = Int32.TryParse(dr["Cost"].ToString(), out credits);
+                        lesson.Cost = succes ? credits : 0;
                         lesson.Difficulty = dr["Difficulty"].ToString();
                         lesson.LessonType = dr["LessonType"].ToString();
                         lesson.Src = dr["Src"].ToString();
@@ -204,6 +208,7 @@ namespace jvbproductions_services.Helpers
 
                     string insertQuery = String.Format("INSERT INTO [{0}] (userId) VALUES (@userId)", lessonName);
                     SqlCommand cmd = new SqlCommand(insertQuery, conn);
+                    conn.Open();
                     cmd.Parameters.AddWithValue("@userId", userId);
                     cmd.ExecuteNonQuery();
 
