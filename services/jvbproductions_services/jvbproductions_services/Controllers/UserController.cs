@@ -7,6 +7,7 @@ using jvbproductions_services.Models;
 using jvbproductions_services.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using jvbproductions_services.DTO;
+using Microsoft.AspNetCore.Cors;
 
 namespace jvbproductions_services.Controllers
 {
@@ -39,6 +40,7 @@ namespace jvbproductions_services.Controllers
 
         // Post api/user/getUserInfo
         [HttpPost]
+        [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/user/buyLesson/")]
         public ActionResult<UserModel> buyLesson([FromBody] UserLessonDTO dto)
         {

@@ -20,10 +20,13 @@ export const buyLessonAccess = (userId: string, lessonName: string)=> {
   const result =  fetch(url, {
     method: 'POST',
     mode: 'cors',
-    credentials: 'omit',
+    credentials: 'include',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+      'Access-Control-Allow-Headers': 'Content-Type',
     },
     body: JSON.stringify(payload)
 })
