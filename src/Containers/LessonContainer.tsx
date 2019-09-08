@@ -1,13 +1,12 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import { ClassRoom } from '../Components/ClassRoom/ClassRoom';
-import { populateCategories } from './categoryHelpers';
-import {  MusicTypes, LessonNew } from './lessons';
+import {  LessonNew } from './lessons';
 import { storage } from '../firebaseConfig';
 import { Source, VideoSourceType } from 'react-video-play';
-import { SideMenu } from '../Components/SideMenu/SideMenu';
 import './LessonContainer.css';
 import { requestAccesToVideo, getAllLessons, buyLessonAccess } from '../Helpers/ApiHelpers';
 import { UserInfo } from '../Components/userInfo.types';
+import { SideMenuContainer } from './SideMenuContainer';
 
 export enum LessonStates {
   Play = 'Play',
@@ -22,13 +21,7 @@ export const buyLesson = async (
   lessonName: string,
   updateUserInfo: (userInfo: UserInfo) => void) =>{
   const userInfo = await buyLessonAccess(userId, lessonName);
-  console.log('userInfo: ', userInfo);
   updateUserInfo(userInfo);
-}
-
-const getAllData = async () =>{
-  //  const lessonData = await getAllLessons();
-   console.log('lessonData: ');
 }
 
 export const LessonContainer: React.FC<{
@@ -102,7 +95,7 @@ export const LessonContainer: React.FC<{
 
     return (
       <div className="LessonContainer-Wrapper">
-        <SideMenu selectLesson={selectLesson} categories={populateCategories(Object.keys(MusicTypes),lessonData)} />
+        <SideMenuContainer selectLesson={selectLesson} lessonData={lessonData} />
         <ClassRoom
           lessonState={lessonState}
           selectedLesson={selectedLesson}

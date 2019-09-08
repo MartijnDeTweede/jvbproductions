@@ -15,12 +15,7 @@ return result;
 }
 
 export const buyLessonAccess = (userId: string, lessonName: string)=> {
-  console.log('lessonName: ', lessonName);
-  console.log('userId: ', userId);
   const payload = {userId: userId,lessonName: lessonName };
-  console.log('  JSON.stringify(payload): ',   JSON.stringify(payload));
-
-  console.log('payload: ', payload);
   const url = `${baseUrl}user/buyLesson`;
   const result =  fetch(url, {
     method: 'POST',
