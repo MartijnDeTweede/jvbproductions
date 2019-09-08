@@ -1,0 +1,54 @@
+.LessonList__Wrapper {
+  background-color: #3c4044;
+  align-content: space-around;
+  min-width: 8vw;
+  min-height: 100vh;
+  max-width: 10vw;
+}
+
+.LessonList__Header {
+  background-color: #3c4044; 
+  color: white;
+}
+
+.LessonList-MenuItem {
+  width: 100%;
+  border:none;
+  border-top: #3c4044 1px solid;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 8px;
+  background-color: white;
+  color: #92bdee;
+  padding-left: 25px;
+  text-align: left;
+}
+
+button.LessonList-MenuItem:hover {
+  background-color: #92a0ee;
+  color: white;
+}
+
+button.LessonList-MenuItem:active {
+  background-color: #a392ee;
+  color: white;
+}
+
+.LessonList-MenuItem--hidden {
+  display: none;
+}
+
+.LessonList-MenuItem--shown {
+  display: block;
+}
+
+.LessonList-MenuItem__title {
+  margin-bottom: 5px;
+}
+
+@media screen and (max-width: 800px) {
+  .LessonList__Wrapper {
+    min-width: 70px;
+  }
+}

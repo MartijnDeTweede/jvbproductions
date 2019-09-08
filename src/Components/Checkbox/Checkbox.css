@@ -1,0 +1,15 @@
+.checkBox__text{
+  font: 400 13.3333px Arial;
+  color: #92bdee;
+}
+
+.checkBox__container {
+  margin-bottom: 5px;
+  margin-left: 25px;
+  text-align: left;
+}
+
+[type="checkbox"]
+{
+    vertical-align:middle;
+}

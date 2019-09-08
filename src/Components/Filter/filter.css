@@ -1,0 +1,28 @@
+
+.filter {
+  width: 100%;
+  border:none;
+  border-top: #3c4044 1px solid;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 8px;
+  background-color: white;
+  color: #92bdee;
+  text-align: left;
+  padding-left:25px;
+}
+
+button.filter:hover {
+  background-color: #92a0ee;
+  color: white;
+}
+
+button.filter:active {
+  background-color: #a392ee;
+  color: white;
+}
+
+.filter--hidden {
+  display: none;
+}

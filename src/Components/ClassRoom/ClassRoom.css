@@ -20,12 +20,26 @@
 }
 
 .ClassRoom__Message {
-  color: #3c4044;
   font-size: calc(8px + 2vmin);
 }
 
-.ClassRoom__MessageHolder{
+.ClassRoom__Message-Holder {
+  border-radius: 25px;
+  background-color: white;
+  padding: 40px 0 40px 0;
+  max-width: 40vw;
+  margin: auto;
   margin-top:30px;
+}
+
+.ClassRoom__Message-Holder--Warning {
+  color: #3c4044; 
+  border: #3c4044 1px solid;
+}
+
+.ClassRoom__Message-Holder--Error {
+  color: #eb3b3bd0;
+  border: #eb3b3bd0 2px solid;
 }
 
 .ClassRoom--Button {
@@ -39,4 +53,11 @@
 .ClassRoom--Button:hover {
   background-color: #9392ee;
   color: white;
+}
+
+@media screen and (max-width: 800px) {
+  .ClassRoom__Play {
+    margin-top:5px;
+    margin-left: 5px;
+  }
 }
