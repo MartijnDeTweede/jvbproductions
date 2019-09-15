@@ -12,6 +12,8 @@ export const SideMenuControlPanel: React.FC<{
   <div className="SideMenuControlPanel">
     <div className="SideMenuControlPanel__Header">Filters</div>
     {activeFilters.map(filter => (
+      <div
+      key={filter.title}>
         <FilterComponent
           category={filter.category}
           title={filter.title}
@@ -20,6 +22,7 @@ export const SideMenuControlPanel: React.FC<{
           updateFilters={updateFilters}
           values={filter.values}
         />
+      </div>
     ))}
     </div>
   )

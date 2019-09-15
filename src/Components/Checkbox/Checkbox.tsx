@@ -10,7 +10,7 @@ export const Checkbox: React.FC<{
 }> = ({text, onClick, value, checked}) =>{
   return(
     <div className="checkBox__container">
-      <input id={text} type="checkbox" onClick={() => onClick(value)} value={value} checked={checked}/> 
+      <input id={text} type="checkbox" onClick={() => onClick(value)} value={value} defaultChecked={checked}/> 
       <label htmlFor={text} className="checkBox__text">
           {text}
       </label>

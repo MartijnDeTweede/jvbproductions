@@ -15,7 +15,9 @@ import "./LessonMenuContainer.css";
       <div>
         <div className="lessonMenuContainer__Wrapper">
           {lessonData.map(lesson => (
-            <Tile lesson={lesson} selectLesson={selectLesson} />
+            <div key={`${lesson.song.artist}-${lesson.song.title}`}>
+              <Tile lesson={lesson} selectLesson={selectLesson} />
+            </div>
           ))}
         </div>
       </div>

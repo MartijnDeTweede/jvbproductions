@@ -20,9 +20,7 @@ export const Tile: React.FC<{
     } = lesson;
 
   return(
-    <div className="tile"
-    onClick={() => selectLesson(lesson)}
-    >
+    <div className="tile" onClick={() => selectLesson(lesson)}>
       <div className="tile__imageHolder"></div>
       <div className="tile__detailInfoHolder">
         <div className="tile__detailInfo">{category}</div>

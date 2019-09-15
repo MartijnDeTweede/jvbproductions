@@ -86,15 +86,18 @@ export const LessonContainer: React.FC<{
   const [activeFilters, setActiveFilters] = useState<Filter[]>(defaultFilters);
   const [openSideMenu, setOpenSideMenu] = useState<boolean>(false);
 
-
-  const getAllData = useCallback(async () => {
-   const lessonData = await getAllLessons();
-    setLessonData(lessonData);;
-  },[])
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() =>{
-    getAllData();
-  }, [getAllData])
+    getAllLessons().then(data => {
+      setLessonData(data);
+      setIsLoading(false);
+    }).catch(() => {
+        setIsLoading(false);
+       setLessonState(LessonStates.Error)
+    });
+    setIsLoading(false);
+  }, [])
 
 
   const updateFilters = (category: string, newValue: string) => {
@@ -150,35 +153,41 @@ export const LessonContainer: React.FC<{
 
     return (
       <div>
-        <div onClick={() => setOpenSideMenu(!openSideMenu)} className="LessonContainer__showSideMenuButton">
-          {openSideMenu ? 'menu sluiten' : 'Menu openen'} 
-        </div>
-      <div className="LessonContainer-Wrapper">
-        <div className={classNames({
-          "LessonContainer__child": !openSideMenu
-        })}>
-          <SideMenuControlPanel updateFilters={updateFilters} activeFilters={activeFilters} />
-        </div>
-        <div className={classNames({
-          "LessonContainer__child": openSideMenu
-        })}>
-          {
-          lessonState === LessonStates.NotSelected ?
-          <LessonMenuContainer selectLesson={selectLesson} lessonData={filterLessons(lessonData, activeFilters)}/> :
-          <ClassRoom
-            lessonState={lessonState}
-            selectedLesson={selectedLesson}
-            selectedLessonSource={selectedLessonSource}
-            signInWithGoogle={signInWithGoogle}
-            buyLesson={ async () => {
-              if(selectedLesson && user) {
-                await buyLesson(user.uid, selectedLesson.song.title, setUserInfo)
+        {
+          isLoading ?
+          null :
+          <div>
+          <div onClick={() => setOpenSideMenu(!openSideMenu)} className="LessonContainer__showSideMenuButton">
+            {openSideMenu ? 'menu sluiten' : 'Menu openen'} 
+          </div>
+          <div className="LessonContainer-Wrapper">
+            <div className={classNames({
+              "LessonContainer__child": !openSideMenu
+            })}>
+              <SideMenuControlPanel updateFilters={updateFilters} activeFilters={activeFilters} />
+            </div>
+            <div className={classNames({
+              "LessonContainer__child": openSideMenu
+            })}>
+              {
+              lessonState === LessonStates.NotSelected ?
+              <LessonMenuContainer selectLesson={selectLesson} lessonData={filterLessons(lessonData, activeFilters)}/> :
+              <ClassRoom
+                lessonState={lessonState}
+                selectedLesson={selectedLesson}
+                selectedLessonSource={selectedLessonSource}
+                signInWithGoogle={signInWithGoogle}
+                buyLesson={ async () => {
+                  if(selectedLesson && user) {
+                    await buyLesson(user.uid, selectedLesson.song.title, setUserInfo)
+                  }
+                }}
+              />
               }
-            }}
-          />
-          }
+            </div>
+          </div>        
         </div>
-      </div>        
+        }
     </div>   
     )
 };

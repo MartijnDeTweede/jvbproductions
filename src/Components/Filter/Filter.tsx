@@ -27,7 +27,7 @@ return(
     </button>
     <div className={classNames( {"filter--hidden": !filterActive})}>
       {values.map(value =>(
-        <div>
+        <div key={value.text}>
           <Checkbox text={value.text} value={value.value} onClick={(event) => updateFilters(category, value.value)} checked={value.active}/>
         </div>
       ))}
