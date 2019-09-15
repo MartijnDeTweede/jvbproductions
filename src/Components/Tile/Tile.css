@@ -3,7 +3,7 @@
   border-radius: 5px;
   height: 400px;
   min-width: 250px;
-  margin: 30px
+  margin: 30px;
 }
 
 .tile:hover {
@@ -30,4 +30,22 @@
 
 .tile__detailInfo {
   color: white;
+}
+
+
+
+@media screen and (max-width: 630px) {
+
+  .tile {
+    height: 130px;
+    margin: 10px;
+  }
+
+  .tile__imageHolder{
+    display: none;
+  }
+
+  .tile__detailInfoHolder {
+    margin: 10px;
+  }
 }

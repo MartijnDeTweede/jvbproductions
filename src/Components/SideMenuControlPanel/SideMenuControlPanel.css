@@ -1,5 +1,6 @@
 .SideMenuControlPanel {
-  background-color: #3c4044; 
+  background-color: #3c4044;
+  height: 100vh; 
 }
 
 .SideMenuControlPanel__Header {

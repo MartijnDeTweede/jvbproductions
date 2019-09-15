@@ -9,6 +9,7 @@ import { UserInfo } from '../Components/userInfo.types';
 import { LessonMenuContainer } from './LessonMenuContainer';
 import { defaultFilters, Filter, FilterValue } from './filters';
 import { SideMenuControlPanel } from '../Components/SideMenuControlPanel/SideMenuControlPanel';
+import classNames from 'classnames';
 
 
 export const updateValueForFilter = (filter: Filter, value: string): Filter => {
@@ -83,6 +84,7 @@ export const LessonContainer: React.FC<{
   const [selectedLesson, setSelectedLesson] = useState<LessonNew | undefined>(undefined);
   const [selectedLessonSource, setSelectedLessonSource] = useState<Source [] | undefined>(undefined);
   const [activeFilters, setActiveFilters] = useState<Filter[]>(defaultFilters);
+  const [openSideMenu, setOpenSideMenu] = useState<boolean>(false);
 
 
   const getAllData = useCallback(async () => {
@@ -147,9 +149,20 @@ export const LessonContainer: React.FC<{
   };
 
     return (
+      <div>
+        <div onClick={() => setOpenSideMenu(!openSideMenu)} className="LessonContainer__showSideMenuButton">
+          {openSideMenu ? 'menu sluiten' : 'Menu openen'} 
+        </div>
       <div className="LessonContainer-Wrapper">
-      <SideMenuControlPanel updateFilters={updateFilters} activeFilters={activeFilters} />
-        {
+        <div className={classNames({
+          "LessonContainer__child": !openSideMenu
+        })}>
+          <SideMenuControlPanel updateFilters={updateFilters} activeFilters={activeFilters} />
+        </div>
+        <div className={classNames({
+          "LessonContainer__child": openSideMenu
+        })}>
+          {
           lessonState === LessonStates.NotSelected ?
           <LessonMenuContainer selectLesson={selectLesson} lessonData={filterLessons(lessonData, activeFilters)}/> :
           <ClassRoom
@@ -163,7 +176,9 @@ export const LessonContainer: React.FC<{
               }
             }}
           />
-        }
-      </div>
+          }
+        </div>
+      </div>        
+    </div>   
     )
 };
