@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { fetchUserInfo } from '../../Helpers/ApiHelpers';
 import {UserInfo } from '../userInfo.types';
 
+import guitarImage from './gitaar.png';
+import homeImage from './home.jpg';
 
 const UserInformation: React.FC<{
   userInfo?: UserInfo,
@@ -50,8 +52,18 @@ export const AppHeader: React.FC<{
   return (
     <header className="App-header">
       <div className="App-Header-links">
-      <span className="App-Header-Link"><Link to="/">Home</Link></span>
-      <span className="App-Header-Link"><Link to="/lessen">Lessen</Link></span>
+      <span className="App-Header-Link">
+        <Link to="/">
+          <span className="App-Header-Link--desktop">Home</span>
+          <div className="App-Header-Link--mobile"><img src={homeImage} /></div>
+        </Link>
+      </span>
+      <span className="App-Header-Link">
+        <Link to="/lessen">
+          <span className="App-Header-Link--desktop">Lessen</span>
+          <div className="App-Header-Link--mobile"><img src={guitarImage}/></div>
+        </Link>
+        </span>
       </div>
       <div className="App-Header-Profile">
         {user ? < UserInformation name={user.displayName} userInfo={userInfo} /> : <p>Niet ingelogd</p>}
