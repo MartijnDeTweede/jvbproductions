@@ -7,6 +7,7 @@ import './LessonContainer.css';
 import { requestAccesToVideo, getAllLessons, buyLessonAccess } from '../Helpers/ApiHelpers';
 import { UserInfo } from '../Components/userInfo.types';
 import { SideMenuContainer } from './SideMenuContainer';
+import classNames from 'classnames';
 
 export enum LessonStates {
   Play = 'Play',
@@ -38,6 +39,8 @@ export const LessonContainer: React.FC<{
   const [lessonState, setLessonState] = useState<LessonStates>(LessonStates.NotSelected);
   const [selectedLesson, setSelectedLesson] = useState<LessonNew | undefined>(undefined);
   const [selectedLessonSource, setSelectedLessonSource] = useState<Source [] | undefined>(undefined);
+  const [openSideMenu, setOpenSideMenu] = useState<boolean>(false);
+
 
   const getAllData = useCallback(async () => {
    const lessonData = await getAllLessons();
@@ -94,20 +97,33 @@ export const LessonContainer: React.FC<{
   };
 
     return (
+      <div>
+        <div onClick={() => setOpenSideMenu(!openSideMenu)} className="LessonContainer__showSideMenuButton">
+          {openSideMenu ? 'menu sluiten' : 'Menu openen'} 
+        </div>
       <div className="LessonContainer-Wrapper">
-        <SideMenuContainer selectLesson={selectLesson} lessonData={lessonData} />
-        <ClassRoom
-          lessonState={lessonState}
-          selectedLesson={selectedLesson}
-          selectedLessonSource={selectedLessonSource}
-          signInWithGoogle={signInWithGoogle}
-          buyLesson={ async () => {
-            if(selectedLesson && user) {
-              await buyLesson(user.uid, selectedLesson.song.title, setUserInfo)
-            }
-          }}
-
-        />
+        <div className={classNames({
+          "LessonContainer__child": !openSideMenu
+        })}>
+          <SideMenuContainer selectLesson={selectLesson} lessonData={lessonData} />
+        </div>
+        <div className={classNames({
+          "LessonContainer__child": openSideMenu
+        })}>
+          <ClassRoom
+            lessonState={lessonState}
+            selectedLesson={selectedLesson}
+            selectedLessonSource={selectedLessonSource}
+            signInWithGoogle={signInWithGoogle}
+            buyLesson={ async () => {
+              if(selectedLesson && user) {
+                await buyLesson(user.uid, selectedLesson.song.title, setUserInfo)
+              }
+            }}
+          />
+        </div>
+      </div>        
       </div>
+
     )
 };

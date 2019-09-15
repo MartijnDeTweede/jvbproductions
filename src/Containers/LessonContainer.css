@@ -2,3 +2,32 @@
   flex-direction: row;
   display: flex;
 }
+
+.LessonContainer__showSideMenuButton {
+  display: none;
+}
+
+.LessonContainer__child {
+    display: block;
+}
+
+
+
+@media screen and (max-width: 1024px) {
+  .LessonContainer__showSideMenuButton {
+    display: inline-block;
+    background-color: #9392ee;
+    color: white;
+    height: 40px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .LessonContainer__child{
+    display: none;
+  }
+
+}
