@@ -1,0 +1,5 @@
+.lessonMenuContainer__Wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

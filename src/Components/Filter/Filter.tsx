@@ -1,8 +1,8 @@
+import './filter.css';
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Checkbox } from '../Checkbox/Checkbox';
-import { FilterValue } from '../../Containers/SideMenuContainer';
-import './filter.css'
+import { FilterValue } from '../../Containers/filters';
 
 export const FilterComponent: React.FC<{
   category: string;

@@ -2,14 +2,14 @@ import React from 'react';
 
 import './SideMenuControlPanel.css';
 import { FilterComponent } from '../Filter/Filter';
-import { Filter } from '../../Containers/SideMenuContainer';
+import { Filter } from '../../Containers/filters';
 
 export const SideMenuControlPanel: React.FC<{
   updateFilters: (category: string, newValue: string) => void,
   activeFilters: Filter[]
 }> = ({updateFilters, activeFilters}) =>{
   return(
-  <div>
+  <div className="SideMenuControlPanel">
     <div className="SideMenuControlPanel__Header">Filters</div>
     {activeFilters.map(filter => (
         <FilterComponent

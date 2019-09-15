@@ -6,14 +6,49 @@ import { Source, VideoSourceType } from 'react-video-play';
 import './LessonContainer.css';
 import { requestAccesToVideo, getAllLessons, buyLessonAccess } from '../Helpers/ApiHelpers';
 import { UserInfo } from '../Components/userInfo.types';
-import { SideMenuContainer } from './SideMenuContainer';
+import { LessonMenuContainer } from './LessonMenuContainer';
+import { defaultFilters, Filter, FilterValue } from './filters';
+import { SideMenuControlPanel } from '../Components/SideMenuControlPanel/SideMenuControlPanel';
 
-export enum LessonStates {
-  Play = 'Play',
-  Login = 'Login',
-  Error = 'Error',
-  Buy = 'Buy',
-  NotSelected = 'Not Selected'
+
+export const updateValueForFilter = (filter: Filter, value: string): Filter => {
+  return ({
+    ...filter,
+    values: filter.values.reduce((newValues: FilterValue[], currentVale: FilterValue) => {
+      return currentVale.value === value ? [...newValues, {...currentVale, active:!currentVale.active}] : [...newValues, currentVale]
+    }, [])
+  })
+}
+
+export const filterLessons = (lessonData: LessonNew[], filters: Filter[]) : LessonNew[] => {
+  const relevantFilters = filters.filter(filter => filter.values.some(value => !value.active));
+
+  if(relevantFilters.length === 0) {
+    return lessonData;
+  }
+
+  const newLessonData = relevantFilters.reduce((filteredLessonData: LessonNew[], currentFilter: Filter) => {
+    switch(currentFilter.category) {
+      case "Difficulty" : {
+        return filteredLessonData.filter(lesson => {
+          const currentValue = currentFilter.values.find(value => value.value === lesson.difficulty)
+          return currentValue ? currentValue.active : true;
+        });
+      }
+      case "Category" : {
+        return filteredLessonData.filter(lesson => {
+          const currentValue = currentFilter.values.find(value => value.value === lesson.category)
+          return currentValue ? currentValue.active : true;
+        });
+      }
+      default: {
+        break;
+      }
+    }
+    return filteredLessonData;
+  }, lessonData);
+
+  return newLessonData;
 }
 
 export const buyLesson = async (
@@ -23,6 +58,15 @@ export const buyLesson = async (
   const userInfo = await buyLessonAccess(userId, lessonName);
   updateUserInfo(userInfo);
 }
+
+export enum LessonStates {
+  Play = 'Play',
+  Login = 'Login',
+  Error = 'Error',
+  Buy = 'Buy',
+  NotSelected = 'Not Selected'
+}
+
 
 export const LessonContainer: React.FC<{
   user: firebase.User | undefined
@@ -38,6 +82,8 @@ export const LessonContainer: React.FC<{
   const [lessonState, setLessonState] = useState<LessonStates>(LessonStates.NotSelected);
   const [selectedLesson, setSelectedLesson] = useState<LessonNew | undefined>(undefined);
   const [selectedLessonSource, setSelectedLessonSource] = useState<Source [] | undefined>(undefined);
+  const [activeFilters, setActiveFilters] = useState<Filter[]>(defaultFilters);
+
 
   const getAllData = useCallback(async () => {
    const lessonData = await getAllLessons();
@@ -49,6 +95,13 @@ export const LessonContainer: React.FC<{
   }, [getAllData])
 
 
+  const updateFilters = (category: string, newValue: string) => {
+    const newFilters = activeFilters.reduce((accumulatedFilters: Filter[], currentFilter: Filter) => {
+      return currentFilter.category === category ? [...accumulatedFilters, updateValueForFilter(currentFilter, newValue)] : [...accumulatedFilters, currentFilter]
+    }, []);
+
+    setActiveFilters(newFilters)
+  }
 
   const loadLesson = (lesson: LessonNew) => {
     storage.child(lesson.src).getDownloadURL().then((link => {
@@ -95,19 +148,22 @@ export const LessonContainer: React.FC<{
 
     return (
       <div className="LessonContainer-Wrapper">
-        <SideMenuContainer selectLesson={selectLesson} lessonData={lessonData} />
-        <ClassRoom
-          lessonState={lessonState}
-          selectedLesson={selectedLesson}
-          selectedLessonSource={selectedLessonSource}
-          signInWithGoogle={signInWithGoogle}
-          buyLesson={ async () => {
-            if(selectedLesson && user) {
-              await buyLesson(user.uid, selectedLesson.song.title, setUserInfo)
-            }
-          }}
-
-        />
+      <SideMenuControlPanel updateFilters={updateFilters} activeFilters={activeFilters} />
+        {
+          lessonState === LessonStates.NotSelected ?
+          <LessonMenuContainer selectLesson={selectLesson} lessonData={filterLessons(lessonData, activeFilters)}/> :
+          <ClassRoom
+            lessonState={lessonState}
+            selectedLesson={selectedLesson}
+            selectedLessonSource={selectedLessonSource}
+            signInWithGoogle={signInWithGoogle}
+            buyLesson={ async () => {
+              if(selectedLesson && user) {
+                await buyLesson(user.uid, selectedLesson.song.title, setUserInfo)
+              }
+            }}
+          />
+        }
       </div>
     )
 };

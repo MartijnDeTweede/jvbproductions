@@ -1,4 +1,5 @@
 .LessonContainer-Wrapper {
   flex-direction: row;
   display: flex;
+  height: 100vh
 }
