@@ -41,8 +41,8 @@ namespace jvbproductions_services.Controllers
         // Post api/user/getUserInfo
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
-        [Route("api/user/buyLesson/")]
-        public ActionResult<UserModel> buyLesson([FromBody] UserLessonDTO dto)
+        [Route("api/user/buyResource/")]
+        public ActionResult<UserModel> buyResource([FromBody] UserLessonDTO dto)
         {
             string userId = dto.userId;
             string lessonName = dto.lessonName;

@@ -3,7 +3,7 @@ import { LessonNew } from '../../Containers/lessons';
 
 import './Tile.css'
 
-export const Tile: React.FC<{
+export const LessonTile: React.FC<{
   lesson: LessonNew
   selectLesson: (lesson: LessonNew) => void;
 }> = ({
@@ -17,6 +17,7 @@ export const Tile: React.FC<{
     },
     category,
     cost,
+    difficulty,
     } = lesson;
 
   return(
@@ -24,9 +25,10 @@ export const Tile: React.FC<{
       <div className="tile__imageHolder"></div>
       <div className="tile__detailInfoHolder">
         <div className="tile__detailInfo">{category}</div>
-        <div className="tile__detailInfo">{cost} credits</div>
         <div className="tile__detailInfo">{title}</div>
         <div className="tile__detailInfo">{artist}</div>
+        <div className="tile__detailInfo"> Moeilijkheidsgraad: {difficulty}</div>
+        <div className="tile__detailInfo">{cost} credits</div>
       </div>
   </div>
   )

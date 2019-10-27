@@ -12,7 +12,7 @@ namespace jvbproductions_services.Controllers
     public class LessonController : Controller
     {
         //GET api/lesson/GetAllLessons
-       [HttpGet]
+        [HttpGet]
         [Route("api/lesson/GetAllLessons")]
         public ActionResult<List<LessonModel>> GetAllLessons()
         {
@@ -27,8 +27,26 @@ namespace jvbproductions_services.Controllers
                 return BadRequest();
             }
             return allLessons;
-
         }
+
+        //GET api/lesson/GetExcersisesForLesson
+        [HttpGet]
+        [Route("api/lesson/GetExcersisesForLesson/{lessonName}")]
+        public ActionResult<List<ExerciseModel>> GetExcersisesForLesson(string lessonName)
+        {
+            List<ExerciseModel> allExcersises = new List<ExerciseModel>();
+            var queryHelper = new QueryHelper();
+            try
+            {
+                allExcersises = queryHelper.getExcersisesForLesson(lessonName);
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+            return allExcersises;
+        }
+
 
 
         // GET api/lesson/RequestLessonAccess
@@ -49,7 +67,7 @@ namespace jvbproductions_services.Controllers
 
             try
             {
-                acces = queryHelper.getLessonAccess(userId, lessonName);
+                acces = queryHelper.getRecourseAccess(userId, lessonName);
 
             }
             catch (Exception e)

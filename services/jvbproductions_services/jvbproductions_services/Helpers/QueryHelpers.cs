@@ -199,19 +199,19 @@ namespace jvbproductions_services.Helpers
             return lesson;
         }
 
-        public void addLessonAccess(string userId, string lessonName)
+        public void addLessonAccess(string userId, string resource)
         {
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
 
-                    string insertQuery = String.Format("INSERT INTO [{0}] (userId) VALUES (@userId)", lessonName);
+                    string insertQuery = String.Format("INSERT INTO Access (userId, resource) VALUES (@userId, @resource)");
                     SqlCommand cmd = new SqlCommand(insertQuery, conn);
                     conn.Open();
                     cmd.Parameters.AddWithValue("@userId", userId);
+                    cmd.Parameters.AddWithValue("@resource", resource);
                     cmd.ExecuteNonQuery();
-
                 }
             }
             catch (Exception e)
@@ -221,7 +221,7 @@ namespace jvbproductions_services.Helpers
 
         }
 
-        public AccessModel getLessonAccess(string userId, string lessonName)
+        public AccessModel getRecourseAccess(string userId, string resource)
         {
             AccessModel access = new AccessModel();
 
@@ -230,9 +230,10 @@ namespace jvbproductions_services.Helpers
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
 
-                    string query = String.Format("select * from [{0}] where userId=@userId", lessonName);
+                    string query = String.Format("select * from Access where userId=@userId AND resource=@resource");
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@userId", userId);
+                    cmd.Parameters.AddWithValue("@resource", resource);
 
                     conn.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
@@ -291,6 +292,45 @@ namespace jvbproductions_services.Helpers
                 throw e;
             }
         return allLessons;
+        }
+
+        public List<ExerciseModel> getExcersisesForLesson(string lessonName) {
+            List<ExerciseModel> allExcersises = new List<ExerciseModel>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    string query = @"SELECT * FROM Excersises where LessonName=@lessonName";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@lessonName", lessonName);
+                    conn.Open();
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        var newExcersise = new ExerciseModel();
+
+                        newExcersise.LessonName = lessonName;
+                        newExcersise.ExerciseName = dr["ExcersiseName"].ToString();
+                        newExcersise.Category = dr["Category"].ToString();
+
+                        newExcersise.Difficulty = dr["Difficulty"].ToString();
+                        newExcersise.LessonType = dr["LessonType"].ToString();
+                        newExcersise.Src = dr["Src"].ToString();
+
+                        allExcersises.Add(newExcersise);
+                    }
+                    dr.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return allExcersises;
         }
 
     }

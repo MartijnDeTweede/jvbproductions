@@ -4,10 +4,12 @@ import './ClassRoom.css';
 import '../../../node_modules/react-video-play/public/css/react-video-play.css'
 import { LessonNew } from '../../Containers/lessons';
 import { LessonStates } from '../../Containers/LessonContainer';
+import { Exercise } from '../../Containers/excersise';
 
 
 interface ClassRoomProps {
   selectedLesson?: LessonNew;
+  selectedExercise?: Exercise;
   selectedLessonSource?: Source [];
   lessonState: string;
   signInWithGoogle: () => void;
@@ -28,6 +30,7 @@ export class ClassRoom extends React.Component<ClassRoomProps> {
   render() {
     const {
       selectedLesson,
+      selectedExercise,
       selectedLessonSource,
       lessonState,
       signInWithGoogle,
@@ -35,7 +38,7 @@ export class ClassRoom extends React.Component<ClassRoomProps> {
     } = this.props;
     return (
       <div className="Classroom__StateHolder">
-        {lessonState === LessonStates.Play && selectedLesson && selectedLessonSource &&
+        {lessonState === LessonStates.Play && selectedLesson && selectedExercise && selectedLessonSource &&
           <div className="ClassRoom__Play">
             <ReactVideoPlay
               sources={selectedLessonSource}
@@ -45,7 +48,7 @@ export class ClassRoom extends React.Component<ClassRoomProps> {
               muted={true}
             />
             <div className="ClassRoom__SongInfoPanel">
-            <span className="ClassRoom__SongInfo">{selectedLesson.song.title} - {selectedLesson.song.artist}</span>
+            <span className="ClassRoom__SongInfo">{selectedLesson.song.title} - {selectedExercise.exerciseName} - {selectedLesson.song.artist}</span>
             </div>
           </div>
         }
