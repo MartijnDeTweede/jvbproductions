@@ -1,0 +1,10 @@
+.SideMenuButton {
+  background-color: #9392ee;
+  color: white;
+  height: 40px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -11,6 +11,7 @@ import { defaultFilters, Filter, FilterValue } from './filters';
 import { SideMenuControlPanel } from '../Components/SideMenuControlPanel/SideMenuControlPanel';
 import classNames from 'classnames';
 import { Exercise } from './excersise';
+import { SideMenuButton } from '../Components/Buttons/SideMenuButton';
 
 
 export const updateValueForFilter = (filter: Filter, value: string): Filter => {
@@ -135,10 +136,20 @@ export const LessonContainer: React.FC<{
       });
   }
 
-  const getExersiseData = (
-    selectedLesson: string,
+  const getImageLink = async (imageName: string): Promise<string | void> => {
+    return await storage.child(imageName).getDownloadURL().then((link => {
+        return link;
 
-    ) => {
+      })).catch((error) =>{
+        if(error.code === "storage/unauthorized") {
+          setLessonState(LessonStates.Login)
+        } else {
+          setLessonState(LessonStates.Error)
+        }
+      });
+  }
+  
+  const getExersiseData = (selectedLesson: string) => {
       getExcersisesForLesson(selectedLesson).then(data => {
       setExerciseData(data);
       setIsLoading(false);
@@ -150,8 +161,6 @@ export const LessonContainer: React.FC<{
       setLessonState(LessonStates.Login);
       return;
     }
-
-
     const resonse = user && await requestAccesToVideo(user.uid, itemToAcces);
     
     if(resonse && resonse.status === 'Allowed') {
@@ -165,14 +174,13 @@ export const LessonContainer: React.FC<{
 
   const selectExercise = async (exercise: Exercise) => {
     setSelectedExercise(exercise);
-
     const itemToAcces = `${exercise.lessonName}-${exercise.exerciseName}`;
     await handleRequestingResourceAccess(itemToAcces, () => loadExercise(exercise))
   }
 
   const handleBackToLessons = () => {
     setSelectedLesson(undefined);
-    setSelectedExercise(undefined)
+    setSelectedExercise(undefined);
   }
 
   const selectLesson = async (lesson: LessonNew) => {
@@ -187,12 +195,15 @@ export const LessonContainer: React.FC<{
           null :
           <div>
           <div onClick={() => setOpenSideMenu(!openSideMenu)} className="LessonContainer__showSideMenuButton">
-            {openSideMenu ? 'menu sluiten' : 'Menu openen'} 
+          <SideMenuButton
+            onClick={() =>setOpenSideMenu(!openSideMenu)} 
+            openSideMenu
+            openedText="Menu openen"
+            closedText="menu sluiten"
+          />
           </div>
           <div className="LessonContainer-Wrapper">
-            <div className={classNames({
-              "LessonContainer__child": !openSideMenu
-            })}>
+            <div className={classNames({ "LessonContainer__child": !openSideMenu})}>
               <SideMenuControlPanel updateFilters={updateFilters} activeFilters={activeFilters} />
             </div>
             <div className={classNames({
@@ -207,6 +218,11 @@ export const LessonContainer: React.FC<{
                 lessonData={filterLessons(lessonData, activeFilters)}
                 exerciseData={exerciseData}
                 handleBackButton={handleBackToLessons}
+                getImageLink={ async (imageName) =>  {
+                  const linkInFirst = await getImageLink(imageName);
+                  console.log('linkInFirst: ', linkInFirst);
+                  return linkInFirst;
+                }}
               /> :
               <ClassRoom
                 lessonState={lessonState}
@@ -214,10 +230,10 @@ export const LessonContainer: React.FC<{
                 selectedExercise={selectedExercise}
                 selectedLessonSource={selectedLessonSource}
                 signInWithGoogle={signInWithGoogle}
+                handleBackButton={handleBackToLessons}
                 buyLesson={ async () => {
                   if(selectedLesson && user) {
                     const itemToBuy = selectedExercise ? `${selectedExercise.lessonName}-${selectedExercise.exerciseName}` : selectedLesson.song.title;
-
                     await buyResource(user.uid, itemToBuy, setUserInfo)
                   }
                 }}

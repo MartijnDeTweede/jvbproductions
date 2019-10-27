@@ -4,6 +4,7 @@ import { LessonTile } from '../Components/Tile/TileLesson';
 import "./LessonMenuContainer.css";
 import { Exercise } from './excersise';
 import { ExerciseTile } from '../Components/Tile/TileExercise';
+import { BackButton } from '../Components/Buttons/Backbutton';
 
   export const LessonMenuContainer: React.FC<{
     lessonData: LessonNew[];
@@ -12,6 +13,7 @@ import { ExerciseTile } from '../Components/Tile/TileExercise';
     selectExercise: (exercise: Exercise) => void;
     selectLesson: (lesson: LessonNew) => void;
     handleBackButton: () => void;
+    getImageLink: (imageName: string) => Promise<string | void>;
   }> = ({
     lessonData,
     exerciseData,
@@ -19,26 +21,33 @@ import { ExerciseTile } from '../Components/Tile/TileExercise';
     selectExercise,
     selectLesson,
     handleBackButton,
+    getImageLink,
   }) => {    
     return (
       <div>
-                  {
-            selectedLesson &&
-            <button className="lessonMenu--Button" onClick={() => handleBackButton() }>
-              Terug naar lessen
-            </button>
-          }
+        {
+          selectedLesson &&
+          <BackButton 
+            text="Terug naar lessen"
+            onClick={() => handleBackButton()}
+          />
+        }
         <div className="lessonMenuContainer__Wrapper">
           {
             !selectedLesson ?
             lessonData.map(lesson => (
               <div key={`${lesson.song.artist}-${lesson.song.title}`}>
-                <LessonTile lesson={lesson} selectLesson={selectLesson} />
+                <LessonTile lesson={lesson} selectLesson={selectLesson} getImageLink={getImageLink}/>
               </div>
             )) :
               exerciseData.map(exercise => (
                 <div key={`${exercise.lessonName}-${exercise.exerciseName}`}>
-                  <ExerciseTile exercise={exercise} selectExercise={selectExercise} />
+                  <ExerciseTile exercise={exercise} selectExercise={selectExercise} getImageLink={async (imageName) => {
+                    console.log('imageName lessonmenu: ', imageName);
+                    const link = await getImageLink(imageName);
+                    console.log('link lessonmenu: ', link);
+                    return link;
+                  }}/>
                 </div>
               ))
           }

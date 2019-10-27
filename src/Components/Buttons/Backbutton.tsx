@@ -2,15 +2,17 @@ import React from 'react';
 import './Backbutton.css';
 
 interface BackButtonProps {
-  handleBackButton: () => void;
+  text: string;
+  onClick: () => void;
 }
 
 export const BackButton: React.FC<BackButtonProps> = ({
-  handleBackButton,
+  onClick,
+  text,
 }) => {
   return (
-    <button className="Backbutton" onClick={() => handleBackButton() }>
-    Terug naar lessen
+    <button className="Backbutton" onClick={() => onClick() }>
+    {text}
   </button>
   );
 }

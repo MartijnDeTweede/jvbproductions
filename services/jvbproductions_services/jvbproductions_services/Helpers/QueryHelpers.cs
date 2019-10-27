@@ -278,8 +278,14 @@ namespace jvbproductions_services.Helpers
                         newLesson.Song = new Song(dr["Artist"].ToString(), dr["Title"].ToString());
                         newLesson.Category = dr["Category"].ToString();
 
+                        int credits;
+                        bool succes = Int32.TryParse(dr["Cost"].ToString(), out credits);
+                        newLesson.Cost = succes ? credits : 0;
+
                         newLesson.Difficulty = dr["Difficulty"].ToString();
                         newLesson.LessonType = dr["LessonType"].ToString();
+                        newLesson.Image = dr["Image"].ToString();
+                        newLesson.AltText = dr["AltText"].ToString();
                         newLesson.Src = dr["Src"].ToString();
 
                         allLessons.Add(newLesson);
@@ -319,6 +325,8 @@ namespace jvbproductions_services.Helpers
 
                         newExcersise.Difficulty = dr["Difficulty"].ToString();
                         newExcersise.LessonType = dr["LessonType"].ToString();
+                        newExcersise.Image = dr["Image"].ToString();
+                        newExcersise.AltText = dr["AltText"].ToString();
                         newExcersise.Src = dr["Src"].ToString();
 
                         allExcersises.Add(newExcersise);

@@ -13,6 +13,8 @@ namespace jvbproductions_services.Models
         public string LessonType { get; set; }
         public string Difficulty { get; set; }
         public string Src { get; set; }
+        public string Image { get; set; }
+        public string AltText { get; set; }
         public int Cost { get; set; }
     }
 }
