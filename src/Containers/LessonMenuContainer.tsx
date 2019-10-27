@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { LessonNew } from './lessons';
 import { LessonTile } from '../Components/Tile/TileLesson';
 import "./LessonMenuContainer.css";
