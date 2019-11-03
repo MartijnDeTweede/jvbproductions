@@ -8,6 +8,7 @@
 
 .tile:hover {
   background-color: #3c4044;
+  margin: 10px;
 }
 
 .tile__imageHolder {
@@ -19,25 +20,37 @@
   background-color: #9392ee;
 }
 
+.tile__cost {
+  background-color: green;
+  margin: 0 20px 0 20px;
+  padding: 3px;
+  color:white;
+  font-weight: bold;
+}
+
 .tile__detailInfoHolder {
   margin: 0 20px 0 20px;;
   min-width: 200px;
-  border: white 1px solid;
   background-color: #3c4044;
-  border-radius: 3px;
+  border-radius: 0 0 3px 3px;
   padding: 10px;
 }
 
 .tile__detailInfo {
   color: white;
+  padding: 3px;
 }
 
 
 @media screen and (max-width: 630px) {
 
+  .tile__cost {
+    margin: 10px 10px 0 10px;
+  }
+
   .tile {
     height: 150px;
-    margin: 10px;
+    margin-bottom: 10px;
   }
 
   .tile__imageHolder{
@@ -45,6 +58,6 @@
   }
 
   .tile__detailInfoHolder {
-    margin: 10px;
+    margin: 0 10px 10px 10px;
   }
 }

@@ -42,12 +42,7 @@ import { BackButton } from '../Components/Buttons/Backbutton';
             )) :
               exerciseData.map(exercise => (
                 <div key={`${exercise.lessonName}-${exercise.exerciseName}`}>
-                  <ExerciseTile exercise={exercise} selectExercise={selectExercise} getImageLink={async (imageName) => {
-                    console.log('imageName lessonmenu: ', imageName);
-                    const link = await getImageLink(imageName);
-                    console.log('link lessonmenu: ', link);
-                    return link;
-                  }}/>
+                  <ExerciseTile exercise={exercise} selectExercise={selectExercise} getImageLink={getImageLink}/>
                 </div>
               ))
           }

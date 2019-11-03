@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import './Tile.css'
 import { Exercise } from '../../Containers/excersise';
+import { getDifficultyDescription } from './TileLesson';
 
 export const ExerciseTile: React.FC<{
   exercise: Exercise
@@ -43,12 +44,11 @@ export const ExerciseTile: React.FC<{
         <img src={imageLink} alt={altText} className="tile__imageHolder"/> :
         <div className="tile__imageHolder"></div> 
       }
+      <div className="tile__cost">{cost === 0 ? "Gratis" : `${cost} Credits`}</div>
       <div className="tile__detailInfoHolder">
-      <div className="tile__detailInfo">{category}</div>
         <div className="tile__detailInfo">{exerciseName}</div>
-        <div className="tile__detailInfo">{cost} credits</div>
-        <div className="tile__detailInfo"> Moeilijkheidsgraad: {difficulty}</div>
-        <div className="tile__detailInfo">{cost === 0 ? "Gratis" : `${cost} Credits`}</div>
+        <div className="tile__detailInfo">{category}</div>
+        <div className="tile__detailInfo">{getDifficultyDescription(difficulty)}</div>
       </div>
   </div>
   )

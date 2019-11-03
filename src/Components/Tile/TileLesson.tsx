@@ -3,6 +3,16 @@ import { LessonNew } from '../../Containers/lessons';
 
 import './Tile.css'
 
+export const getDifficultyDescription = (difficulty: string) => {
+switch(difficulty) {
+  case "1": return "Beginner";
+  case "2": return  "Gevorderd";
+  case "3": return "Expert";
+  case "4": return "Gitaar god";
+  default: return "";
+  }
+}
+
 export const LessonTile: React.FC<{
   lesson: LessonNew
   selectLesson: (lesson: LessonNew) => void;
@@ -15,7 +25,6 @@ export const LessonTile: React.FC<{
   const { 
     song: {
       title,
-      artist
     },
     category,
     cost,
@@ -44,12 +53,11 @@ export const LessonTile: React.FC<{
         <img src={imageLink} alt={altText} className="tile__imageHolder"/> :
         <div className="tile__imageHolder"></div> 
       }
+      <div className="tile__cost">{cost === 0 ? "Gratis" : `${cost} Credits`}</div>
       <div className="tile__detailInfoHolder">
-        <div className="tile__detailInfo">{category}</div>
         <div className="tile__detailInfo">{title}</div>
-        <div className="tile__detailInfo">{artist}</div>
-        <div className="tile__detailInfo"> Moeilijkheidsgraad: {difficulty}</div>
-        <div className="tile__detailInfo">{cost === 0 ? "Gratis" : `${cost} Credits`}</div>
+        <div className="tile__detailInfo">{category}</div>
+        <div className="tile__detailInfo"> {getDifficultyDescription(difficulty)}</div>
       </div>
   </div>
   )
