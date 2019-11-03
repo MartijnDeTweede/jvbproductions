@@ -4,14 +4,18 @@ import './ClassRoom.css';
 import '../../../node_modules/react-video-play/public/css/react-video-play.css'
 import { LessonNew } from '../../Containers/lessons';
 import { LessonStates } from '../../Containers/LessonContainer';
+import { Exercise } from '../../Containers/excersise';
+import { BackButton } from '../Buttons/Backbutton';
 
 
 interface ClassRoomProps {
   selectedLesson?: LessonNew;
+  selectedExercise?: Exercise;
   selectedLessonSource?: Source [];
   lessonState: string;
   signInWithGoogle: () => void;
   buyLesson: () => Promise<void>;
+  handleBackButton: () => void;
 }
 
 enum MessageType {
@@ -24,28 +28,34 @@ export const Message: React.FC<{message: string, messageType: MessageType}> = ({
     {message}
   </div>
 )
+
 export class ClassRoom extends React.Component<ClassRoomProps> {
   render() {
     const {
       selectedLesson,
+      selectedExercise,
       selectedLessonSource,
       lessonState,
       signInWithGoogle,
-      buyLesson
+      buyLesson,
+      handleBackButton,
     } = this.props;
     return (
       <div className="Classroom__StateHolder">
-        {lessonState === LessonStates.Play && selectedLesson && selectedLessonSource &&
+        {lessonState === LessonStates.Play && selectedLesson && selectedExercise && selectedLessonSource &&
           <div className="ClassRoom__Play">
+          <BackButton 
+            text="Terug naar lessen"
+            onClick={() => {
+              handleBackButton()}}
+          />
             <ReactVideoPlay
               sources={selectedLessonSource}
               poster="http://lorempixel.com/900/450/people/"
-              enableSlider={true}
-              autoplay={true}
               muted={true}
             />
             <div className="ClassRoom__SongInfoPanel">
-            <span className="ClassRoom__SongInfo">{selectedLesson.song.title} - {selectedLesson.song.artist}</span>
+            <span className="ClassRoom__SongInfo">{selectedLesson.song.title} - {selectedExercise.exerciseName} - {selectedLesson.song.artist}</span>
             </div>
           </div>
         }

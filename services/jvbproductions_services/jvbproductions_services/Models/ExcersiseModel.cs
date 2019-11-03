@@ -5,21 +5,10 @@ using System.Threading.Tasks;
 
 namespace jvbproductions_services.Models
 {
-    public class Song
+    public class ExerciseModel
     {
-        public string Artist { get; set; }
-        public string Title { get; set; }
-
-        public Song(string artist, string title)
-        {
-            Artist = artist;
-            Title = title;
-        }
-    }
-
-    public class LessonModel
-    {
-        public Song Song {get; set;}
+        public string LessonName { get; set; }
+        public string ExerciseName { get; set; }
         public string Category { get; set; }
         public string LessonType { get; set; }
         public string Difficulty { get; set; }

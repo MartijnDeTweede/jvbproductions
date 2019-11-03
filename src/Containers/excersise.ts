@@ -1,16 +1,11 @@
-
-interface Song {
-  artist: string;
-  title: string;
-}
-
-export interface LessonNew {
-  song: Song;
+export interface Exercise {
+  lessonName: string;
+  exerciseName: string;
   category: string;
   lessonType: string;
   difficulty: string;
-  src: string;
   image: string;
   altText: string;
+  src: string;
   cost: number;
 }

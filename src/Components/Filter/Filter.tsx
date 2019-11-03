@@ -1,8 +1,8 @@
+import './filter.css';
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Checkbox } from '../Checkbox/Checkbox';
-import { FilterValue } from '../../Containers/SideMenuContainer';
-import './filter.css'
+import { FilterValue } from '../../Containers/filters';
 
 export const FilterComponent: React.FC<{
   category: string;
@@ -27,7 +27,7 @@ return(
     </button>
     <div className={classNames( {"filter--hidden": !filterActive})}>
       {values.map(value =>(
-        <div>
+        <div key={value.text}>
           <Checkbox text={value.text} value={value.value} onClick={(event) => updateFilters(category, value.value)} checked={value.active}/>
         </div>
       ))}

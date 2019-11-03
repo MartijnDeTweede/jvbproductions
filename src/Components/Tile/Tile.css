@@ -1,0 +1,63 @@
+.tile {
+  border: #3c4044 1px solid;
+  border-radius: 5px;
+  height: 390px;
+  min-width: 250px;
+  margin: 30px;
+}
+
+.tile:hover {
+  background-color: #3c4044;
+  margin: 10px;
+}
+
+.tile__imageHolder {
+  min-width: 220px;
+  min-height: 220px;
+  border-radius: 3px;
+  margin: 10px;
+  border: #3c4044 1px solid;
+  background-color: #9392ee;
+}
+
+.tile__cost {
+  background-color: green;
+  margin: 0 20px 0 20px;
+  padding: 3px;
+  color:white;
+  font-weight: bold;
+}
+
+.tile__detailInfoHolder {
+  margin: 0 20px 0 20px;;
+  min-width: 200px;
+  background-color: #3c4044;
+  border-radius: 0 0 3px 3px;
+  padding: 10px;
+}
+
+.tile__detailInfo {
+  color: white;
+  padding: 3px;
+}
+
+
+@media screen and (max-width: 630px) {
+
+  .tile__cost {
+    margin: 10px 10px 0 10px;
+  }
+
+  .tile {
+    height: 150px;
+    margin-bottom: 10px;
+  }
+
+  .tile__imageHolder{
+    display: none;
+  }
+
+  .tile__detailInfoHolder {
+    margin: 0 10px 10px 10px;
+  }
+}

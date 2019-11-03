@@ -1,4 +1,17 @@
-import { Filter } from "./SideMenuContainer";
+
+export interface FilterValue {
+  text: string;
+  value: string;
+  active: boolean;
+}
+
+export interface Filter {
+  category: string;
+  isExpended: boolean,
+  setIsExpended: (isExpended:boolean) => boolean,
+  title: string;
+  values: FilterValue[];
+}
 
 export enum MusicTypes {
   Jazz = 'Jazz',
