@@ -1,3 +1,5 @@
+import { LessonNew } from "../Containers/lessons";
+
 const baseUrl = 'http://localhost:65422/api/';
 
 export const requestAccesToVideo = (userId: string, videoName: string)=> {
@@ -72,6 +74,74 @@ export const fetchUserInfo = async(userId: string) => {
     method: 'GET',
     mode: 'cors',
     credentials: 'same-origin',
+})
+.then(response => {
+  return response.json()
+}
+  );
+return result;
+}
+
+
+
+export const submitInsertLesson = async(payload: LessonNew) => {
+  const url = `${baseUrl}admin/addLesson`;
+  const result =  fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+    body: JSON.stringify(payload)
+})
+.then(response => {
+  return response.json()
+}
+  );
+return result;
+}
+
+export const submitUpdateLesson = async(payload: LessonNew) => {
+  const url = `${baseUrl}admin/updateLesson`;
+  const result =  fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+    body: JSON.stringify(payload)
+})
+.then(response => {
+  return response.json()
+}
+  );
+return result;
+}
+
+export const submitDeleteLesson  = async(lessonName: string) => {
+  const url = `${baseUrl}admin/deleteLesson`;
+  const result =  fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+    body: JSON.stringify(lessonName)
 })
 .then(response => {
   return response.json()

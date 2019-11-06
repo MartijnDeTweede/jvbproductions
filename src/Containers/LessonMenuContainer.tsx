@@ -4,7 +4,7 @@ import { LessonTile } from '../Components/Tile/TileLesson';
 import "./LessonMenuContainer.css";
 import { Exercise } from './excersise';
 import { ExerciseTile } from '../Components/Tile/TileExercise';
-import { BackButton } from '../Components/Buttons/Backbutton';
+import { Button, ButtonColors } from '../Components/Buttons/Button';
 
   export const LessonMenuContainer: React.FC<{
     lessonData: LessonNew[];
@@ -27,9 +27,10 @@ import { BackButton } from '../Components/Buttons/Backbutton';
       <div>
         {
           selectedLesson &&
-          <BackButton 
-            text="Terug naar lessen"
+          <Button 
+            text="Terug naar Paketten"
             onClick={() => handleBackButton()}
+            colour={ButtonColors.gray}
           />
         }
         <div className="lessonMenuContainer__Wrapper">

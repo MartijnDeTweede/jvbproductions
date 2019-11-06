@@ -5,7 +5,7 @@ import '../../../node_modules/react-video-play/public/css/react-video-play.css'
 import { LessonNew } from '../../Containers/lessons';
 import { LessonStates } from '../../Containers/LessonContainer';
 import { Exercise } from '../../Containers/excersise';
-import { BackButton } from '../Buttons/Backbutton';
+import { Button, ButtonColors } from '../Buttons/Button';
 
 
 interface ClassRoomProps {
@@ -44,10 +44,11 @@ export class ClassRoom extends React.Component<ClassRoomProps> {
       <div className="Classroom__StateHolder">
         {lessonState === LessonStates.Play && selectedLesson && selectedExercise && selectedLessonSource &&
           <div className="ClassRoom__Play">
-          <BackButton 
-            text="Terug naar lessen"
+          <Button 
+            text="Terug naar Paketten"
             onClick={() => {
               handleBackButton()}}
+            colour={ButtonColors.gray}
           />
             <ReactVideoPlay
               sources={selectedLessonSource}
@@ -64,17 +65,13 @@ export class ClassRoom extends React.Component<ClassRoomProps> {
         {lessonState === LessonStates.Login &&
         <div>
           <Message message="Je moet inloggen om deze les te kunnen volgen." messageType={MessageType.Error} />
-          <button className="ClassRoom--Button" onClick={signInWithGoogle}>
-            Login met Google
-          </button>
+          <Button onClick={signInWithGoogle} text="Login met Google" colour={ButtonColors.gray} />
         </div>
         }
         {lessonState === LessonStates.Buy &&
         <div>
           <Message message="Je moet deze les kopen om hem te kunnen volgen." messageType={MessageType.Error}/>
-          <button className="ClassRoom--Button" onClick={() => buyLesson() }>
-            Nu kopen
-          </button>
+          <Button onClick={() => buyLesson()} text="Nu kopen" colour={ButtonColors.gray} />
         </div>
         }
       </div>

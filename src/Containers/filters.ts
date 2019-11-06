@@ -1,3 +1,4 @@
+import { MusicTypes } from "../Components/LessonForm/AllowedValues";
 
 export interface FilterValue {
   text: string;
@@ -13,12 +14,6 @@ export interface Filter {
   values: FilterValue[];
 }
 
-export enum MusicTypes {
-  Jazz = 'Jazz',
-  Blues = 'Blues',
-  Funk = 'Funk',
-  Rock = 'Rock',
-}
 
 export const defaultFilters: Filter[] = [
   {

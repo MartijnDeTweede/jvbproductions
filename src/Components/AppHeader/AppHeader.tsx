@@ -55,13 +55,19 @@ export const AppHeader: React.FC<{
       <span className="App-Header-Link">
         <Link to="/">
           <span className="App-Header-Link--desktop">Home</span>
-          <div className="App-Header-Link--mobile"><img src={homeImage} /></div>
+          <div className="App-Header-Link--mobile"><img src={homeImage} alt="Homepage"/></div>
         </Link>
       </span>
       <span className="App-Header-Link">
         <Link to="/lessen">
           <span className="App-Header-Link--desktop">Lessen</span>
-          <div className="App-Header-Link--mobile"><img src={guitarImage}/></div>
+          <div className="App-Header-Link--mobile"><img src={guitarImage} alt="Lessen"/></div>
+        </Link>
+        </span>
+        <span className="App-Header-Link">
+        <Link to="/admin">
+          <span className="App-Header-Link--desktop">Admin</span>
+          <div className="App-Header-Link--mobile"><img src={guitarImage} alt="Admin"/></div>
         </Link>
         </span>
       </div>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect } from 'react';
 import { ClassRoom } from '../Components/ClassRoom/ClassRoom';
 import {  LessonNew } from './lessons';
 import { storage } from '../firebaseConfig';
@@ -80,8 +80,8 @@ export const LessonContainer: React.FC<{
   setUserInfo,
 }) =>  {
 
-  const [lessonData, setLessonData] = useState<LessonNew[]>([])
-  const [exerciseData, setExerciseData] = useState<Exercise[]>([])
+  const [lessonData, setLessonData] = useState<LessonNew[]>([]);
+  const [exerciseData, setExerciseData] = useState<Exercise[]>([]);
   const [lessonState, setLessonState] = useState<LessonStates>(LessonStates.NotSelected);
   const [selectedLesson, setSelectedLesson] = useState<LessonNew | undefined>(undefined);
   const [selectedExercise, setSelectedExercise] = useState<Exercise | undefined>(undefined);
@@ -220,7 +220,6 @@ export const LessonContainer: React.FC<{
                 handleBackButton={handleBackToLessons}
                 getImageLink={ async (imageName) =>  {
                   const linkInFirst = await getImageLink(imageName);
-                  console.log('linkInFirst: ', linkInFirst);
                   return linkInFirst;
                 }}
               /> :

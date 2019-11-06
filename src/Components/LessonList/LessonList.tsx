@@ -14,7 +14,7 @@ export const LessonList: React.FC<{
 
   return (
     <div className="LessonList__Wrapper">
-          <div className="LessonList__Header">Lessen</div>
+          <div className="LessonList__Header">Paketten</div>
           {lessonData.map(menuItem => (
             <button
               className={classNames(
@@ -22,8 +22,7 @@ export const LessonList: React.FC<{
               )}
               onClick={() => selectLesson(menuItem)}
             >
-              <div className="LessonList-MenuItem__title">{menuItem.song.title}</div>
-              <div>{menuItem.song.artist}</div>
+              <div>{menuItem.song.title}</div>
             </button>
           ))}
     </div>
