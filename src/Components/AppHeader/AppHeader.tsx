@@ -6,6 +6,7 @@ import {UserInfo } from '../userInfo.types';
 
 import guitarImage from './gitaar.png';
 import homeImage from './home.jpg';
+import { Button, ButtonColors } from '../Buttons/Button';
 
 const UserInformation: React.FC<{
   userInfo?: UserInfo,
@@ -76,21 +77,27 @@ export const AppHeader: React.FC<{
       </div>
       <div className="App-Header-Menu">
         {user ? (
-          <button className="App-header--Button" onClick={() => {
-            setUserInfo(undefined);
-            signOut();
-          }}>
-            Uitloggen
-          </button>
+          <Button 
+            onClick={
+              () => {
+                setUserInfo(undefined);
+                signOut();
+            }}
+            text ="Uitloggen"
+            colour={ButtonColors.gray}
+          />
         ) : (
-          <button className="App-header--Button" onClick={ async () => {
+
+          <Button 
+          onClick={ async () => {
             const result = await signInWithGoogle();            
             if(result && result.user) {
               getUserInfo(result.user.uid);
             }
-          }}>
-            Login met Google
-          </button>
+          }}
+            text ="UitlogLogin met Googlegen"
+            colour={ButtonColors.gray}
+          />
         )}
       </div>
     </header>
