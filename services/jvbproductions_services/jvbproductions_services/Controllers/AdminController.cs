@@ -18,12 +18,13 @@ namespace jvbproductions_services.Controllers
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/admin/addLesson/")]
-        public ActionResult<List<LessonModel>> addLesson([FromBody] LessonModel dto)
+        public ActionResult<List<PackageModel>> addLesson([FromBody] PackageDTO dto)
         {
+            var package = dto.Package;
             var adminQuryHelper = new AdminQueryHelper();
             try
             {
-                adminQuryHelper.addLesson(dto);
+                adminQuryHelper.addLesson(package);
             }
             catch (Exception e)
             {
@@ -31,7 +32,7 @@ namespace jvbproductions_services.Controllers
             }
         
             // Return all lessons
-            List<LessonModel> allLessons = new List<LessonModel>();
+            List<PackageModel> allLessons = new List<PackageModel>();
             var queryHelper = new QueryHelper();
             try
             {
@@ -48,12 +49,14 @@ namespace jvbproductions_services.Controllers
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/admin/updateLesson/")]
-        public ActionResult<List<LessonModel>> updateLesson([FromBody] LessonModel dto)
+        public ActionResult<List<PackageModel>> updateLesson([FromBody] PackageDTO dto)
         {
+
+            var package = dto.Package;
             var adminQuryHelper = new AdminQueryHelper();
             try
             {
-                adminQuryHelper.updateLesson(dto);
+                adminQuryHelper.updateLesson(package);
             }
             catch (Exception e)
             {
@@ -61,7 +64,7 @@ namespace jvbproductions_services.Controllers
             }
 
             // Return all lessons
-            List<LessonModel> allLessons = new List<LessonModel>();
+            List<PackageModel> allLessons = new List<PackageModel>();
             var queryHelper = new QueryHelper();
             try
             {
@@ -78,8 +81,10 @@ namespace jvbproductions_services.Controllers
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/admin/deleteLesson/")]
-        public ActionResult<List<LessonModel>> deleteLesson([FromBody] string lessonName)
+        public ActionResult<List<PackageModel>> deleteLesson([FromBody] PackageDTO dto)
         {
+
+            var lessonName = dto.Package.Song.Title;
             var adminQuryHelper = new AdminQueryHelper();
             try
             {
@@ -91,7 +96,7 @@ namespace jvbproductions_services.Controllers
             }
 
             // Return all lessons
-            List<LessonModel> allLessons = new List<LessonModel>();
+            List<PackageModel> allLessons = new List<PackageModel>();
             var queryHelper = new QueryHelper();
             try
             {

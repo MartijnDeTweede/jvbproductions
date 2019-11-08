@@ -1,4 +1,4 @@
-.LessonForm__Submit {
+.PackageForm__Submit {
   margin-top:30px;
   padding: 10px 20px 10px 20px;
   background-color: #3c4044;
@@ -6,17 +6,17 @@
   border-radius: 5px;
 }
 
-.LessonForm__Submit:hover {
+.PackageForm__Submit:hover {
   background-color: #9392ee;
   color: white;
 }
 
-.LessonForm__label {
+.PackageForm__label {
   margin-left: 20px;
   float: left;
   text-align: left;
   width: 100px;
 }
-.LessonForm__Select {
+.PackageForm__Select {
   min-width: 169px;
 }

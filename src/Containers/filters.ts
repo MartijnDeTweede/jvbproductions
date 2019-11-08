@@ -1,4 +1,4 @@
-import { MusicTypes } from "../Components/LessonForm/AllowedValues";
+import { MusicTypes } from "../fixtures/AllowedValues";
 
 export interface FilterValue {
   text: string;

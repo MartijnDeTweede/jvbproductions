@@ -48,7 +48,7 @@ namespace jvbproductions_services.Controllers
             string lessonName = dto.lessonName;
 
             var user = new UserModel();
-            var lesson = new LessonModel();
+            var lesson = new PackageModel();
             var queryHelper = new QueryHelper();
             try
             {

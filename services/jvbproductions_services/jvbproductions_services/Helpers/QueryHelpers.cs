@@ -160,9 +160,9 @@ namespace jvbproductions_services.Helpers
             }
         }
 
-        public LessonModel getLesson(string lessonName)
+        public PackageModel getLesson(string lessonName)
         {
-            var lesson = new LessonModel();
+            var lesson = new PackageModel();
             try
             {
 
@@ -257,9 +257,9 @@ namespace jvbproductions_services.Helpers
             return access;
         }
 
-        public List<LessonModel> getAllLessons ()
+        public List<PackageModel> getAllLessons ()
         {
-            List<LessonModel> allLessons = new List<LessonModel>();
+            List<PackageModel> allLessons = new List<PackageModel>();
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -273,7 +273,7 @@ namespace jvbproductions_services.Helpers
 
                     while (dr.Read())
                     {
-                        var newLesson = new LessonModel();
+                        var newLesson = new PackageModel();
 
                         newLesson.Song = new Song(dr["Artist"].ToString(), dr["Title"].ToString());
                         newLesson.Category = dr["Category"].ToString();

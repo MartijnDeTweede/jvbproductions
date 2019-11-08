@@ -1,0 +1,19 @@
+.PackageContainer__showSideMenuButton {
+  display: none;
+}
+
+.PackageContainer__child {
+    display: block;
+}
+
+@media screen and (max-width: 1024px) {
+  .PackageContainer__showSideMenuButton {
+    display: inline-block;
+    width: 100%;
+  }
+
+  .PackageContainer__child{
+    display: none;
+  }
+
+}

@@ -1,0 +1,22 @@
+.ExerciseForm__Submit {
+  margin-top:30px;
+  padding: 10px 20px 10px 20px;
+  background-color: #3c4044;
+  color: white;
+  border-radius: 5px;
+}
+
+.ExerciseForm__Submit:hover {
+  background-color: #9392ee;
+  color: white;
+}
+
+.ExerciseForm__label {
+  margin-left: 20px;
+  float: left;
+  text-align: left;
+  width: 100px;
+}
+.ExerciseForm__Select {
+  min-width: 169px;
+}

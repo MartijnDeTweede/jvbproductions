@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { LessonNew } from '../../Containers/lessons';
+import { Package } from '../../Containers/Package';
 
 import './Tile.css'
 
@@ -13,9 +13,9 @@ switch(difficulty) {
   }
 }
 
-export const LessonTile: React.FC<{
-  lesson: LessonNew
-  selectLesson: (lesson: LessonNew) => void;
+export const PackageTile: React.FC<{
+  lesson: Package
+  selectLesson: (lesson: Package) => void;
   getImageLink: (imageName: string)  => Promise<string | void>;
 }> = ({
   lesson,

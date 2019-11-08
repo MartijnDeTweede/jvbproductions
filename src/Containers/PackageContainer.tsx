@@ -1,18 +1,20 @@
 import React, {useState, useEffect } from 'react';
 import { ClassRoom } from '../Components/ClassRoom/ClassRoom';
-import {  LessonNew } from './lessons';
+import {  Package } from './Package';
 import { storage } from '../firebaseConfig';
 import { Source, VideoSourceType } from 'react-video-play';
-import './LessonContainer.css';
 import { requestAccesToVideo, getAllLessons, buyResourceAccess, getExcersisesForLesson } from '../Helpers/ApiHelpers';
 import { UserInfo } from '../Components/userInfo.types';
-import { LessonMenuContainer } from './LessonMenuContainer';
+import { PackageMenuContainer } from './PackageMenuContainer';
 import { defaultFilters, Filter, FilterValue } from './filters';
 import { SideMenuControlPanel } from '../Components/SideMenuControlPanel/SideMenuControlPanel';
 import classNames from 'classnames';
 import { Exercise } from './excersise';
 import { SideMenuButton } from '../Components/Buttons/SideMenuButton';
 
+
+import './PackageContainer.css';
+import { Wrapper } from '../Components/Wrapper/Wrapper';
 
 export const updateValueForFilter = (filter: Filter, value: string): Filter => {
   return ({
@@ -23,14 +25,14 @@ export const updateValueForFilter = (filter: Filter, value: string): Filter => {
   })
 }
 
-export const filterLessons = (lessonData: LessonNew[], filters: Filter[]) : LessonNew[] => {
+export const filterLessons = (lessonData: Package[], filters: Filter[]) : Package[] => {
   const relevantFilters = filters.filter(filter => filter.values.some(value => !value.active));
 
   if(relevantFilters.length === 0) {
     return lessonData;
   }
 
-  const newLessonData = relevantFilters.reduce((filteredLessonData: LessonNew[], currentFilter: Filter) => {
+  const newLessonData = relevantFilters.reduce((filteredLessonData: Package[], currentFilter: Filter) => {
     switch(currentFilter.category) {
       case "Difficulty" : {
         return filteredLessonData.filter(lesson => {
@@ -70,7 +72,7 @@ export enum LessonStates {
   NotSelected = 'Not Selected'
 }
 
-export const LessonContainer: React.FC<{
+export const PackageContainer: React.FC<{
   user: firebase.User | undefined
   signInWithGoogle: () => void,
   setUserInfo: (userInfo: UserInfo) => void,
@@ -80,10 +82,10 @@ export const LessonContainer: React.FC<{
   setUserInfo,
 }) =>  {
 
-  const [lessonData, setLessonData] = useState<LessonNew[]>([]);
+  const [lessonData, setLessonData] = useState<Package[]>([]);
   const [exerciseData, setExerciseData] = useState<Exercise[]>([]);
   const [lessonState, setLessonState] = useState<LessonStates>(LessonStates.NotSelected);
-  const [selectedLesson, setSelectedLesson] = useState<LessonNew | undefined>(undefined);
+  const [selectedLesson, setSelectedLesson] = useState<Package | undefined>(undefined);
   const [selectedExercise, setSelectedExercise] = useState<Exercise | undefined>(undefined);
   const [selectedLessonSource, setSelectedVideoSource] = useState<Source [] | undefined>(undefined);
   const [activeFilters, setActiveFilters] = useState<Filter[]>(defaultFilters);
@@ -183,7 +185,7 @@ export const LessonContainer: React.FC<{
     setSelectedExercise(undefined);
   }
 
-  const selectLesson = async (lesson: LessonNew) => {
+  const selectLesson = async (lesson: Package) => {
     getExersiseData(lesson.song.title);
     handleRequestingResourceAccess(lesson.song.title, () => setSelectedLesson(lesson))
   };
@@ -194,7 +196,7 @@ export const LessonContainer: React.FC<{
           isLoading ?
           null :
           <div>
-          <div onClick={() => setOpenSideMenu(!openSideMenu)} className="LessonContainer__showSideMenuButton">
+          <div onClick={() => setOpenSideMenu(!openSideMenu)} className="PackageContainer__showSideMenuButton">
           <SideMenuButton
             onClick={() =>setOpenSideMenu(!openSideMenu)} 
             openSideMenu
@@ -202,16 +204,16 @@ export const LessonContainer: React.FC<{
             closedText="menu sluiten"
           />
           </div>
-          <div className="LessonContainer-Wrapper">
-            <div className={classNames({ "LessonContainer__child": !openSideMenu})}>
+          <Wrapper>
+            <div className={classNames({ "PackageContainer__child": !openSideMenu})}>
               <SideMenuControlPanel updateFilters={updateFilters} activeFilters={activeFilters} />
             </div>
             <div className={classNames({
-              "LessonContainer__child": openSideMenu
+              "PackageContainer__child": openSideMenu
             })}>
               {
               lessonState === LessonStates.NotSelected ?
-              <LessonMenuContainer
+              <PackageMenuContainer
                 selectLesson={selectLesson}
                 selectExercise={selectExercise}
                 selectedLesson={selectedLesson}
@@ -239,7 +241,7 @@ export const LessonContainer: React.FC<{
               />
               }
             </div>
-          </div>        
+          </Wrapper>    
         </div>
         }
     </div>   

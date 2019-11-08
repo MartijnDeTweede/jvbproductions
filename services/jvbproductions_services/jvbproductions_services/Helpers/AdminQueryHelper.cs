@@ -11,7 +11,7 @@ namespace jvbproductions_services.Helpers
     {
         private string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=JvBProductions;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-        public void addLesson(LessonModel lesson)
+        public void addLesson(PackageModel lesson)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace jvbproductions_services.Helpers
             }
         }
 
-        public void updateLesson(LessonModel lesson)
+        public void updateLesson(PackageModel lesson)
         {
             try
             {

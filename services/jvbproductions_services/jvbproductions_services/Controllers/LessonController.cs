@@ -14,9 +14,9 @@ namespace jvbproductions_services.Controllers
         //GET api/lesson/GetAllLessons
         [HttpGet]
         [Route("api/lesson/GetAllLessons")]
-        public ActionResult<List<LessonModel>> GetAllLessons()
+        public ActionResult<List<PackageModel>> GetAllLessons()
         {
-            List<LessonModel> allLessons = new List<LessonModel>();
+            List<PackageModel> allLessons = new List<PackageModel>();
             var queryHelper = new QueryHelper();
             try
             {

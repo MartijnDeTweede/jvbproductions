@@ -1,24 +1,24 @@
 import React from 'react';
-import './LessonList.css';
+import './PackageList.css';
 import classNames from 'classnames';
-import { LessonNew } from '../../Containers/lessons';
+import { Package } from '../../Containers/Package';
 
 
-export const LessonList: React.FC<{
-  lessonData: LessonNew[];
-  selectLesson: (lesson: LessonNew) => void;
+export const PackageList: React.FC<{
+  lessonData: Package[];
+  selectLesson: (lesson: Package) => void;
 }> = ({
   selectLesson,
   lessonData
 }) => {
 
   return (
-    <div className="LessonList__Wrapper">
-          <div className="LessonList__Header">Paketten</div>
+    <div className="PackageList__Wrapper">
+          <div className="PackageList__Header">Paketten</div>
           {lessonData.map(menuItem => (
             <button
               className={classNames(
-                'LessonList-MenuItem',
+                'PackageList-MenuItem',
               )}
               onClick={() => selectLesson(menuItem)}
             >

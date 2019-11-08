@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import './Tile.css'
 import { Exercise } from '../../Containers/excersise';
-import { getDifficultyDescription } from './TileLesson';
+import { getDifficultyDescription } from './PackageTile';
 
 export const ExerciseTile: React.FC<{
   exercise: Exercise

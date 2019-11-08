@@ -1,16 +1,16 @@
-.LessonList__Wrapper {
+.PackageList__Wrapper {
   background-color: #3c4044;
   align-content: space-around;
   min-width: 8vw;
   min-height: 100vh;
 }
 
-.LessonList__Header {
+.PackageList__Header {
   background-color: #3c4044; 
   color: white;
 }
 
-.LessonList-MenuItem {
+.PackageList-MenuItem {
   width: 100%;
   border:none;
   border-top: #3c4044 1px solid;
@@ -24,18 +24,18 @@
   text-align: left;
 }
 
-button.LessonList-MenuItem:hover {
+button.PackageList-MenuItem:hover {
   background-color: #92a0ee;
   color: white;
 }
 
-button.LessonList-MenuItem:active {
+button.PackageList-MenuItem:active {
   background-color: #a392ee;
   color: white;
 }
 
 @media screen and (max-width: 800px) {
-  .LessonList__Wrapper {
+  .PackageList__Wrapper {
     min-width: 70px;
   }
 }

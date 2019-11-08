@@ -2,14 +2,14 @@ import React from 'react';
 import {ReactVideoPlay, Source} from 'react-video-play';
 import './ClassRoom.css';
 import '../../../node_modules/react-video-play/public/css/react-video-play.css'
-import { LessonNew } from '../../Containers/lessons';
-import { LessonStates } from '../../Containers/LessonContainer';
+import { Package } from '../../Containers/Package';
+import { LessonStates } from '../../Containers/PackageContainer';
 import { Exercise } from '../../Containers/excersise';
 import { Button, ButtonColors } from '../Buttons/Button';
 
 
 interface ClassRoomProps {
-  selectedLesson?: LessonNew;
+  selectedLesson?: Package;
   selectedExercise?: Exercise;
   selectedLessonSource?: Source [];
   lessonState: string;

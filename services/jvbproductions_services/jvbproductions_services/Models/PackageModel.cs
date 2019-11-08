@@ -17,7 +17,7 @@ namespace jvbproductions_services.Models
         }
     }
 
-    public class LessonModel
+    public class PackageModel
     {
         public Song Song {get; set;}
         public string Category { get; set; }
