@@ -42,6 +42,36 @@ namespace jvbproductions_services.Helpers
             }
         }
 
+        public void addExercise(ExerciseModel exercise)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+
+                    string insertQuery = String.Format("INSERT INTO Excersises (LessonName, ExcersiseName, Category, LessonType, Difficulty, Src, Image, AltText, Cost) VALUES (@lessonName, @exercisename, @category, @lessonType, @difficulty, @src, @image, @altText, @cost)");
+                    SqlCommand cmd = new SqlCommand(insertQuery, conn);
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@lessonName", exercise.LessonName);
+                    cmd.Parameters.AddWithValue("@exercisename", exercise.ExerciseName);
+                    cmd.Parameters.AddWithValue("@category", exercise.Category);
+                    cmd.Parameters.AddWithValue("@lessonType", exercise.LessonType);
+                    cmd.Parameters.AddWithValue("@difficulty", exercise.Difficulty);
+                    cmd.Parameters.AddWithValue("@src", exercise.Src);
+                    cmd.Parameters.AddWithValue("@image", exercise.Image);
+                    cmd.Parameters.AddWithValue("@altText", exercise.AltText);
+                    cmd.Parameters.AddWithValue("@cost", exercise.Cost);
+
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public void updateLesson(PackageModel lesson)
         {
             try
@@ -73,6 +103,38 @@ namespace jvbproductions_services.Helpers
             }
         }
 
+        public void updateExercise(ExerciseModel exercise)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+
+                    string insertQuery = String.Format("UPDATE Excersises set LessonName = @lessonName, ExcersiseName = @exercisename, Category = @category, LessonType= @lessonType, Difficulty= @difficulty, Src=@src, Image=@image, AltText=@altText, Cost= @cost where Id = @id");
+                    SqlCommand cmd = new SqlCommand(insertQuery, conn);
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@id", exercise.Id);
+                    cmd.Parameters.AddWithValue("@lessonName", exercise.LessonName);
+                    cmd.Parameters.AddWithValue("@exercisename", exercise.ExerciseName);
+                    cmd.Parameters.AddWithValue("@category", exercise.Category);
+                    cmd.Parameters.AddWithValue("@lessonType", exercise.LessonType);
+                    cmd.Parameters.AddWithValue("@difficulty", exercise.Difficulty);
+                    cmd.Parameters.AddWithValue("@src", exercise.Src);
+                    cmd.Parameters.AddWithValue("@image", exercise.Image);
+                    cmd.Parameters.AddWithValue("@altText", exercise.AltText);
+                    cmd.Parameters.AddWithValue("@cost", exercise.Cost);
+
+
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public void deleteLesson(string lessonName)
         {
             try
@@ -84,6 +146,29 @@ namespace jvbproductions_services.Helpers
                     SqlCommand cmd = new SqlCommand(insertQuery, conn);
                     conn.Open();
                     cmd.Parameters.AddWithValue("@title", lessonName);
+
+
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void deleteExercise(ExerciseModel exercise)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+
+                    string insertQuery = String.Format("Delete from Excersises where Id = @id");
+                    SqlCommand cmd = new SqlCommand(insertQuery, conn);
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@id", exercise.Id);
 
 
                     cmd.ExecuteNonQuery();

@@ -7,6 +7,7 @@ namespace jvbproductions_services.Models
 {
     public class ExerciseModel
     {
+        public int Id { get; set; }
         public string LessonName { get; set; }
         public string ExerciseName { get; set; }
         public string Category { get; set; }

@@ -160,8 +160,52 @@ export const submitUpdateLesson = async(payload: PackageWithCredentials) => {
 return result;
 }
 
+export const submitUpdateExercise = async(payload: ExerciseWithCredentials) => {
+  const url = `${baseUrl}admin/updateExercise`;
+  const result =  fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+    body: JSON.stringify(payload)
+})
+.then(response => {
+  return response.json()
+}
+  );
+return result;
+}
+
 export const submitDeleteLesson  = async(payload: PackageWithCredentials) => {
-  const url = `${baseUrl}admin/deleteLesson`;
+  const url = `${baseUrl}admin/deleteExercise`;
+  const result =  fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+    body: JSON.stringify(payload)
+})
+.then(response => {
+  return response.json()
+}
+  );
+return result;
+}
+
+export const submitDeleteExercise  = async(payload: ExerciseWithCredentials) => {
+  const url = `${baseUrl}admin/deleteExercise`;
   const result =  fetch(url, {
     method: 'POST',
     mode: 'cors',

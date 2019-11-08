@@ -13,4 +13,5 @@ export interface Package {
   image: string;
   altText: string;
   cost: number;
+  id: number;
 }

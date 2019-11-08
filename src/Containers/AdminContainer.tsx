@@ -1,7 +1,7 @@
 
 import React, {useState, useEffect } from 'react';
 import { Package } from './Package';
-import { getAllLessons, submitInsertLesson, submitUpdateLesson, submitDeleteLesson, PackageWithCredentials, ExerciseWithCredentials, submitInsertExercise } from '../Helpers/ApiHelpers';
+import { getAllLessons, submitInsertLesson, submitUpdateLesson, submitDeleteLesson, PackageWithCredentials, ExerciseWithCredentials, submitInsertExercise, getExcersisesForLesson, submitUpdateExercise, submitDeleteExercise } from '../Helpers/ApiHelpers';
 import { PackageList } from '../Components/LessonList/PackageList';
 import './AdminContainer.css';
 import { Button, ButtonColors } from '../Components/Buttons/Button';
@@ -10,6 +10,7 @@ import { ManipulatePackageContainer } from './ManipulatePackageContainer';
 import { Wrapper } from '../Components/Wrapper/Wrapper';
 import { Exercise } from './excersise';
 import { AddExerciseContainer } from './AddExerciseContainer';
+import { ManipulateExercise } from './ManipulateExerciseContainer';
 
 export enum AdminMenuState {
   SelectLesson = "SelectLesson",
@@ -23,6 +24,7 @@ export enum AdminMenuState {
 export const AdminContainer: React.FC<{user?: firebase.User}> = (user) => {
   const [lessonData, setLessonData] = useState<Package[]>([]);
   const [selectedLesson, setSelectedLesson] = useState<Package | undefined>(undefined);
+  const [exerciseData, setExerciseData] = useState<Exercise[]>([]);
   const [selectedExercise, setSelectedExercise] = useState<Exercise | undefined>(undefined);
   const [adminMenuState, setAdminMenuState] = useState<AdminMenuState>(AdminMenuState.SelectLesson);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -32,7 +34,12 @@ export const AdminContainer: React.FC<{user?: firebase.User}> = (user) => {
     setIsLoading(false);
   }
 
-  const handleFailedGetLessonData = () => {
+const handleSuccessFullGetExerciseData = (data: Exercise[]) => {
+  setExerciseData(data);
+  setIsLoading(false);
+}
+
+  const handleFailedGetData = () => {
     setIsLoading(false);
     setAdminMenuState(AdminMenuState.Error)
   }
@@ -41,7 +48,7 @@ export const AdminContainer: React.FC<{user?: firebase.User}> = (user) => {
     getAllLessons().then(data => {
       handleSuccessfullGetLessonData(data)
     }).catch(() => {
-      handleFailedGetLessonData()
+      handleFailedGetData()
     });
     setIsLoading(false);
   }, [])
@@ -49,7 +56,7 @@ export const AdminContainer: React.FC<{user?: firebase.User}> = (user) => {
   const handlePackageManipulation = (payload: Package, callBack: (payLoadAndCredentials: PackageWithCredentials) => Promise<Package[]>) => {
     setIsLoading(true);
     if(!user || !user.user) {
-      handleFailedGetLessonData();
+      handleFailedGetData();
       return; 
     }
     const payLoadAndCredentials = {package: payload, userId: user.user.uid}
@@ -57,22 +64,23 @@ export const AdminContainer: React.FC<{user?: firebase.User}> = (user) => {
       handleSuccessfullGetLessonData(data)
       setAdminMenuState(AdminMenuState.SelectLesson)
     }).catch(() => {
-      handleFailedGetLessonData()
+      handleFailedGetData()
     });
   }
 
-  const handleExerciseAPICall = (payload: Exercise, callBack: (payLoadAndCredentials: ExerciseWithCredentials) => Promise<Package[]>) => {
+  const handleExerciseAPICall = (payload: Exercise, callBack: (payLoadAndCredentials: ExerciseWithCredentials) => Promise<Exercise[]>) => {
     setIsLoading(true);
+    console.log('payload: ', payload);
     if(!user || !user.user) {
-      handleFailedGetLessonData();
+      handleFailedGetData();
       return; 
     }
     const payLoadAndCredentials = {exercise: payload, userId: user.user.uid}
     callBack(payLoadAndCredentials).then(data => {
-      handleSuccessfullGetLessonData(data)
-      setAdminMenuState(AdminMenuState.SelectLesson)
+      handleSuccessFullGetExerciseData(data)
+      setAdminMenuState(AdminMenuState.ManipulateLesson)
     }).catch(() => {
-      handleFailedGetLessonData()
+      handleFailedGetData()
     });
   }
 
@@ -83,8 +91,15 @@ export const AdminContainer: React.FC<{user?: firebase.User}> = (user) => {
           setAdminMenuState(AdminMenuState.AddLesson)
         }} />
         <PackageList lessonData={lessonData} selectLesson={(selectedLesson) => {
-          setAdminMenuState(AdminMenuState.ManipulateLesson)
-          setSelectedLesson(selectedLesson)
+          getExcersisesForLesson(selectedLesson.song.title).then(data => {
+            setExerciseData(data);
+            setAdminMenuState(AdminMenuState.ManipulateLesson)
+            setSelectedLesson(selectedLesson)
+            setIsLoading(false);
+          }).catch(() => {
+            setIsLoading(false);
+            setAdminMenuState(AdminMenuState.ManipulateLesson);
+          });
         }}/>
       </div>
       <div>
@@ -92,22 +107,31 @@ export const AdminContainer: React.FC<{user?: firebase.User}> = (user) => {
           {adminMenuState === AdminMenuState.AddLesson && <AddPackageContainer submitAddLesson={(payload: Package) => handlePackageManipulation(payload, submitInsertLesson)}/>}
           {adminMenuState === AdminMenuState.ManipulateLesson && selectedLesson && 
             <ManipulatePackageContainer
-              submitDeleteSelectedLesson={() => handlePackageManipulation(selectedLesson, submitDeleteLesson)}
+              submitDeleteLesson={() => handlePackageManipulation(selectedLesson, submitDeleteLesson)}
               submitUpdateLesson={(payload: Package) => handlePackageManipulation(payload, submitUpdateLesson)}
               selectedLesson={selectedLesson}
               setErrorState={() => setAdminMenuState(AdminMenuState.Error)}
               setAddExercise={() => setAdminMenuState(AdminMenuState.AddExcercise)}
-              setSelectedExercise={(ecercise: Exercise) => {
+              exerciseData={exerciseData}
+              setSelectedExercise={(exercise: Exercise) => {
+                setSelectedExercise(exercise);
                 setAdminMenuState(AdminMenuState.ManipulateExercise);
-                setSelectedExercise(ecercise);
-              }}
+              }} 
             />
             }
-            {adminMenuState === AdminMenuState.AddExcercise && 
-              <AddExerciseContainer submitAddExercise={(payload: Exercise) => handleExerciseAPICall(payload, submitInsertExercise)} />
+            {adminMenuState === AdminMenuState.AddExcercise && selectedLesson &&
+              <AddExerciseContainer
+                selectedLessonName={selectedLesson.song.title}
+                submitAddExercise={(payload: Exercise) => handleExerciseAPICall(payload, submitInsertExercise)}
+              />
             }
-            {adminMenuState === AdminMenuState.ManipulateExercise && selectedExercise && 
-              <div>Manipuldate exercise</div>
+            {adminMenuState === AdminMenuState.ManipulateExercise && selectedLesson && selectedExercise &&
+              <ManipulateExercise
+                selectedLessonName={selectedLesson.song.title}
+                submitUpdateExercise={(payload: Exercise) => handleExerciseAPICall(payload, submitUpdateExercise)}
+                submitDeleteExercise={() => handleExerciseAPICall(selectedExercise, submitDeleteExercise)}
+                selectedExercise={selectedExercise}
+              />
             }
 
 

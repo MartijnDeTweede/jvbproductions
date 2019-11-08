@@ -2,28 +2,30 @@
 import React, { useState } from 'react';
 
 import './ExcerciseForm.css';
-import { allowedValues } from '../../fixtures/AllowedValues';
+import { allowedValues, MusicTypes, LessonType, Difficulty } from '../../fixtures/AllowedValues';
 import { Exercise } from '../../Containers/excersise';
 
 export const ExerciseForm: React.FC<{
-  submit: (event: Exercise) => void
-  selectedExercise?: Exercise
+  submit: (event: Exercise) => void;
+  selectedExercise?: Exercise;
+  selectedLessonName: string;
 }> = ({
   submit,
   selectedExercise = {
-    lessonName: "",
+    id: 0,
     exerciseName: "",
-    category: "",
-    lessonType: "",
-    difficulty: "",
+    category: MusicTypes.Blues,
+    lessonType: LessonType.Free,
+    difficulty: Difficulty.Beginner,
     src: "",
     image: "",
     altText: "",
     cost: 0,
-  }
+  },
+  selectedLessonName,
 }) => {
 
-  const [lessonName, setLessonName ] = useState<string>(selectedExercise.lessonName);
+  const [lessonName, setLessonName ] = useState<string>(selectedLessonName);
   const [exerciseName, setExerciseName ] = useState<string>(selectedExercise.exerciseName);
   const [category, setCategory ] = useState<string>(selectedExercise.category);
   const [lessonType, setLessonType ] = useState<string>(selectedExercise.lessonType);
@@ -38,6 +40,7 @@ export const ExerciseForm: React.FC<{
       <form onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const payload = {
+          id: selectedExercise.id,
           lessonName,
           exerciseName,
           category,
@@ -51,11 +54,11 @@ export const ExerciseForm: React.FC<{
         submit(payload);
         }}>
         <div>
-          <label className="ExerciseForm__label" htmlFor="LessonName">Pakker</label>
+          <label className="ExerciseForm__label" htmlFor="LessonName">LessonName</label>
           <input type="text" name="LessonName" defaultValue={lessonName} onBlur={(event) => setLessonName(event.target.value)}/>
         </div>
         <div>
-        <label className="ExerciseForm__label"  htmlFor="ExerciseName">Naam oefening</label>
+        <label className="ExerciseForm__label"  htmlFor="ExerciseName">ExerciseName</label>
           <input type="text" name="ExerciseName" defaultValue={exerciseName} onBlur={(event) => setExerciseName(event.target.value)}/>
         </div>
         <label className="ExerciseForm__label"  htmlFor="Category">Category</label>

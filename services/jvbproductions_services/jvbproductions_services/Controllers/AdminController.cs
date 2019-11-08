@@ -108,5 +108,98 @@ namespace jvbproductions_services.Controllers
             }
             return allLessons;
         }
+
+        // Post api/admin/addExercise
+        [HttpPost]
+        [EnableCors("_myAllowSpecificOrigins")]
+        [Route("api/admin/addExercise/")]
+        public ActionResult<List<ExerciseModel>> addExercise([FromBody] ExerciseDTO dto)
+        {
+            var exercise = dto.Exercise;
+            var adminQuryHelper = new AdminQueryHelper();
+            try
+            {
+                adminQuryHelper.addExercise(exercise);
+            }
+            catch (Exception e)
+            {
+                BadRequest(e);
+            }
+
+            // Return all lessons
+            List<ExerciseModel> allExcersises = new List<ExerciseModel>();
+            var queryHelper = new QueryHelper();
+            try
+            {
+                allExcersises = queryHelper.getExcersisesForLesson(exercise.LessonName);
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+            return allExcersises;
+        }
+
+        // Post api/admin/updateExercise
+        [HttpPost]
+        [EnableCors("_myAllowSpecificOrigins")]
+        [Route("api/admin/updateExercise/")]
+        public ActionResult<List<ExerciseModel>> updateExercise([FromBody] ExerciseDTO dto)
+        {
+            var exercise = dto.Exercise;
+            var adminQuryHelper = new AdminQueryHelper();
+            try
+            {
+                adminQuryHelper.updateExercise(exercise);
+            }
+            catch (Exception e)
+            {
+                BadRequest(e);
+            }
+
+            // Return all lessons
+            List<ExerciseModel> allExcersises = new List<ExerciseModel>();
+            var queryHelper = new QueryHelper();
+            try
+            {
+                allExcersises = queryHelper.getExcersisesForLesson(exercise.LessonName);
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+            return allExcersises;
+        }
+
+        // Post api/admin/deleteExercise
+        [HttpPost]
+        [EnableCors("_myAllowSpecificOrigins")]
+        [Route("api/admin/deleteExercise/")]
+        public ActionResult<List<ExerciseModel>> deleteExercise([FromBody] ExerciseDTO dto)
+        {
+            var exercise = dto.Exercise;
+            var adminQuryHelper = new AdminQueryHelper();
+            try
+            {
+                adminQuryHelper.deleteExercise(exercise);
+            }
+            catch (Exception e)
+            {
+                BadRequest(e);
+            }
+
+            // Return all lessons
+            List<ExerciseModel> allExcersises = new List<ExerciseModel>();
+            var queryHelper = new QueryHelper();
+            try
+            {
+                allExcersises = queryHelper.getExcersisesForLesson(exercise.LessonName);
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+            return allExcersises;
+        }
     }
 }

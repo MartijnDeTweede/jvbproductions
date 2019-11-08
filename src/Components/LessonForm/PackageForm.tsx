@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import './PackageForm.css';
 import { Package } from '../../Containers/Package';
-import { allowedValues } from '../../fixtures/AllowedValues';
+import { allowedValues, MusicTypes, LessonType, Difficulty } from '../../fixtures/AllowedValues';
 
 export const PackageForm: React.FC<{
   submit: (event: Package) => void
@@ -11,13 +11,14 @@ export const PackageForm: React.FC<{
 }> = ({
   submit,
   selectedLesson = {
+    id: 0,
     song: {
       artist: "",
       title: "",
     },
-    category: "",
-    lessonType: "",
-    difficulty: "",
+    category: MusicTypes.Blues,
+    lessonType: LessonType.Free,
+    difficulty: Difficulty.Beginner,
     src: "",
     image: "",
     altText: "",
@@ -40,6 +41,7 @@ export const PackageForm: React.FC<{
       <form onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const payload = {
+          id: selectedLesson.id,
           song: {
             artist,
             title,

@@ -288,6 +288,9 @@ namespace jvbproductions_services.Helpers
                         newLesson.AltText = dr["AltText"].ToString();
                         newLesson.Src = dr["Src"].ToString();
 
+                        int id;
+                        bool idSuccess = Int32.TryParse(dr["Id"].ToString(), out id);
+                        newLesson.Id = idSuccess ? id : 0;
                         allLessons.Add(newLesson);
                     }
                     dr.Close();
@@ -328,6 +331,10 @@ namespace jvbproductions_services.Helpers
                         newExcersise.Image = dr["Image"].ToString();
                         newExcersise.AltText = dr["AltText"].ToString();
                         newExcersise.Src = dr["Src"].ToString();
+
+                        int id;
+                        bool idSuccess = Int32.TryParse(dr["Id"].ToString(), out id);
+                        newExcersise.Id = idSuccess ? id : 0;
 
                         allExcersises.Add(newExcersise);
                     }
