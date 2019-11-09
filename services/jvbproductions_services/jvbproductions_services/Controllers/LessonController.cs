@@ -13,14 +13,14 @@ namespace jvbproductions_services.Controllers
     {
         //GET api/lesson/GetAllLessons
         [HttpGet]
-        [Route("api/lesson/GetAllLessons")]
-        public ActionResult<List<PackageModel>> GetAllLessons()
+        [Route("api/lesson/getAllPackages")]
+        public ActionResult<List<PackageModel>> GetAllPackages()
         {
             List<PackageModel> allLessons = new List<PackageModel>();
             var queryHelper = new QueryHelper();
             try
             {
-                allLessons = queryHelper.getAllLessons();
+                allLessons = queryHelper.getAllPackages();
             }
             catch (Exception e)
             {
@@ -31,14 +31,14 @@ namespace jvbproductions_services.Controllers
 
         //GET api/lesson/GetExcersisesForLesson
         [HttpGet]
-        [Route("api/lesson/GetExcersisesForLesson/{lessonName}")]
-        public ActionResult<List<ExerciseModel>> GetExcersisesForLesson(string lessonName)
+        [Route("api/lesson/GetExcersisesForPackage/{packageName}")]
+        public ActionResult<List<ExerciseModel>> GetExcersisesForPackage(string packageName)
         {
             List<ExerciseModel> allExcersises = new List<ExerciseModel>();
             var queryHelper = new QueryHelper();
             try
             {
-                allExcersises = queryHelper.getExcersisesForLesson(lessonName);
+                allExcersises = queryHelper.getExcersisesForPackage(packageName);
             }
             catch (Exception e)
             {
@@ -51,12 +51,12 @@ namespace jvbproductions_services.Controllers
 
         // GET api/lesson/RequestLessonAccess
         [HttpGet]
-        [Route("api/lesson/RequestLessonAccess/{userId}/{lessonName}")]
-        public ActionResult<AccessModel> RequestLessonAccess(string userId, string lessonName)
+        [Route("api/lesson/RequestResourceAccess/{userId}/{lessonName}")]
+        public ActionResult<AccessModel> RequestResourceAccess(string userId, string lessonName)
         {
  
             var queryHelper = new QueryHelper();
-            var lesson = queryHelper.getLesson(lessonName);
+            var lesson = queryHelper.getPackage(lessonName);
             AccessModel acces = new AccessModel();
 
             if(lesson.LessonType == "Free")

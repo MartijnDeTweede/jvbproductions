@@ -1,4 +1,4 @@
-import { MusicTypes } from "../fixtures/AllowedValues";
+import { MusicTypes, allowedValues } from "../fixtures/AllowedValues";
 
 export interface FilterValue {
   text: string;
@@ -21,28 +21,7 @@ export const defaultFilters: Filter[] = [
     title: 'Moelijkheidsgraad',
     isExpended: false,
     setIsExpended: (isExpended: boolean) => (!isExpended),
-    values: [
-      {
-        text: 'Beginner',
-        value: '1',
-        active: true,
-      },
-      {
-        text: 'Gevorderd',
-        value: '2',
-        active: true,
-      },
-      {
-        text: 'Expert',
-        value: '3',
-        active: true,
-      },
-      {
-        text: 'Gitaar god',
-        value: '4',
-        active: true,
-      }
-    ]
+    values: allowedValues.difficulty.map(value => ({...value, active: true}))
   },
   {
     category: 'Category',

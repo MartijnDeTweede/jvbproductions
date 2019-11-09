@@ -3,16 +3,6 @@ import { Package } from '../../Containers/Package';
 
 import './Tile.css'
 
-export const getDifficultyDescription = (difficulty: string) => {
-switch(difficulty) {
-  case "1": return "Beginner";
-  case "2": return  "Gevorderd";
-  case "3": return "Expert";
-  case "4": return "Gitaar god";
-  default: return "";
-  }
-}
-
 export const PackageTile: React.FC<{
   lesson: Package
   selectLesson: (lesson: Package) => void;
@@ -57,7 +47,7 @@ export const PackageTile: React.FC<{
       <div className="tile__detailInfoHolder">
         <div className="tile__detailInfo">{title}</div>
         <div className="tile__detailInfo">{category}</div>
-        <div className="tile__detailInfo"> {getDifficultyDescription(difficulty)}</div>
+        <div className="tile__detailInfo">{difficulty}</div>
       </div>
   </div>
   )

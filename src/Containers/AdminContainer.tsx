@@ -91,10 +91,10 @@ const handleSuccessFullGetExerciseData = (data: Exercise[]) => {
           setAdminMenuState(AdminMenuState.AddLesson)
         }} />
         <PackageList lessonData={lessonData} selectLesson={(selectedLesson) => {
+          setSelectedLesson(selectedLesson);
           getExcersisesForLesson(selectedLesson.song.title).then(data => {
             setExerciseData(data);
             setAdminMenuState(AdminMenuState.ManipulateLesson)
-            setSelectedLesson(selectedLesson)
             setIsLoading(false);
           }).catch(() => {
             setIsLoading(false);

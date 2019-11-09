@@ -4,7 +4,7 @@ import { Exercise } from "../Containers/excersise";
 const baseUrl = 'http://localhost:65422/api/';
 
 export const requestAccesToVideo = (userId: string, videoName: string)=> {
-  const url = `${baseUrl}lesson/RequestLessonAccess/${userId}/${videoName}`;
+  const url = `${baseUrl}lesson/RequestResourceAccess/${userId}/${videoName}`;
   const result =  fetch(url, {
     method: 'GET',
     mode: 'cors',
@@ -41,7 +41,7 @@ return result;
 }
 
 export const getAllLessons = async() => {
-  const url = `${baseUrl}lesson/getAllLessons`;
+  const url = `${baseUrl}lesson/getAllPackages`;
   const result =  await fetch(url, {
     method: 'GET',
     mode: 'cors',
@@ -54,8 +54,8 @@ export const getAllLessons = async() => {
 return result;
 }
 
-export const getExcersisesForLesson = async(lessonName: string) => {
-  const url = `${baseUrl}lesson/GetExcersisesForLesson/${lessonName}`;
+export const getExcersisesForLesson = async(packageName: string) => {
+  const url = `${baseUrl}lesson/GetExcersisesForPackage/${packageName}`;
   const result =  await fetch(url, {
     method: 'GET',
     mode: 'cors',

@@ -36,7 +36,7 @@ namespace jvbproductions_services.Controllers
             var queryHelper = new QueryHelper();
             try
             {
-                allLessons = queryHelper.getAllLessons();
+                allLessons = queryHelper.getAllPackages();
             }
             catch (Exception e)
             {
@@ -68,7 +68,7 @@ namespace jvbproductions_services.Controllers
             var queryHelper = new QueryHelper();
             try
             {
-                allLessons = queryHelper.getAllLessons();
+                allLessons = queryHelper.getAllPackages();
             }
             catch (Exception e)
             {
@@ -100,7 +100,7 @@ namespace jvbproductions_services.Controllers
             var queryHelper = new QueryHelper();
             try
             {
-                allLessons = queryHelper.getAllLessons();
+                allLessons = queryHelper.getAllPackages();
             }
             catch (Exception e)
             {
@@ -131,7 +131,7 @@ namespace jvbproductions_services.Controllers
             var queryHelper = new QueryHelper();
             try
             {
-                allExcersises = queryHelper.getExcersisesForLesson(exercise.LessonName);
+                allExcersises = queryHelper.getExcersisesForPackage(exercise.LessonName);
             }
             catch (Exception e)
             {
@@ -162,7 +162,7 @@ namespace jvbproductions_services.Controllers
             var queryHelper = new QueryHelper();
             try
             {
-                allExcersises = queryHelper.getExcersisesForLesson(exercise.LessonName);
+                allExcersises = queryHelper.getExcersisesForPackage(exercise.LessonName);
             }
             catch (Exception e)
             {
@@ -193,7 +193,7 @@ namespace jvbproductions_services.Controllers
             var queryHelper = new QueryHelper();
             try
             {
-                allExcersises = queryHelper.getExcersisesForLesson(exercise.LessonName);
+                allExcersises = queryHelper.getExcersisesForPackage(exercise.LessonName);
             }
             catch (Exception e)
             {

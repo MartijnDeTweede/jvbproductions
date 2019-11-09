@@ -59,19 +59,19 @@ export const  allowedValues: AllowedValues = {
   ],
   difficulty: [
     {
-      value: '1',
+      value: Difficulty.Beginner,
       text: Difficulty.Beginner,  
     },
     {
-      value: '2',
+      value: Difficulty.Gevorderd,
       text: Difficulty.Gevorderd,
     },
     {
-      value: '3',
+      value: Difficulty.Expert, 
       text: Difficulty.Expert,    
     },
     {
-      value: '4',
+      value: Difficulty.GitaarGod,
       text: Difficulty.GitaarGod,
     },
   ]
