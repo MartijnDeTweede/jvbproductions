@@ -56,6 +56,11 @@ namespace jvbproductions_services.Helpers
                     {
                         while (dr.Read())
                         {
+                            bool isAdmin;
+                            bool succesIsAdminParse = bool.TryParse(dr["isAdmin"].ToString(), out isAdmin);
+
+                            userModel.isAdmin = succesIsAdminParse ? isAdmin : false;
+
                             int credits;
                             bool succes = Int32.TryParse(dr["Credits"].ToString(), out credits);
 
@@ -99,6 +104,7 @@ namespace jvbproductions_services.Helpers
                     cmd.Parameters.AddWithValue("@credits", newCredit);
                     conn.Open();
                     cmd.ExecuteNonQuery();
+                    conn.Close();
 
                 }
             }
@@ -123,9 +129,10 @@ namespace jvbproductions_services.Helpers
                     string insertQuery = "INSERT INTO dbo.Users (userId, credits) VALUES (@userId, @credits)";
                     SqlCommand cmd = new SqlCommand(insertQuery, conn);
                     cmd.Parameters.AddWithValue("@userId", userId);
-                    cmd.Parameters.AddWithValue("@credits", userModel.Credits);
-
+                    cmd.Parameters.AddWithValue("@credits", 100);
+                    conn.Open();
                     cmd.ExecuteNonQuery();
+                    conn.Close();
                     return userModel;
 
                 }

@@ -33,7 +33,9 @@ const App: React.FC<FireBaseProps> = ({ user, signOut, signInWithGoogle }) => {
       <Switch> 
         <Route path="/" exact component={HomePageContainer} />
         <Route exact path='/lessen' component={() =>  <PackageContainer user={user} signInWithGoogle={signInWithGoogle} setUserInfo={setUserInfo} />} />
-        <Route exact path='/admin' component={() =>  <AdminContainer user={user} />} />
+        {
+          userInfo && userInfo.isAdmin && <Route exact path='/admin' component={() =>  <AdminContainer user={user} />} />
+        }
     </Switch>
     </div>
   );

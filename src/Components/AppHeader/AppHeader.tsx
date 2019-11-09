@@ -66,10 +66,15 @@ export const AppHeader: React.FC<{
         </Link>
         </span>
         <span className="App-Header-Link">
-        <Link to="/admin">
+
+        {
+          userInfo && userInfo.isAdmin &&  <Link to="/admin">
           <span className="App-Header-Link--desktop">Admin</span>
           <div className="App-Header-Link--mobile"><img src={guitarImage} alt="Admin"/></div>
         </Link>
+
+        }
+
         </span>
       </div>
       <div className="App-Header-Profile">
@@ -95,7 +100,7 @@ export const AppHeader: React.FC<{
               getUserInfo(result.user.uid);
             }
           }}
-            text ="UitlogLogin met Googlegen"
+            text ="Login met Google"
             colour={ButtonColors.gray}
           />
         )}
