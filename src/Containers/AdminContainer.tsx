@@ -1,7 +1,7 @@
 
 import React, {useState, useEffect } from 'react';
 import { Package } from './Package';
-import { getAllLessons, submitInsertLesson, submitUpdateLesson, submitDeleteLesson, PackageWithCredentials, ExerciseWithCredentials, submitInsertExercise, getExcersisesForLesson, submitUpdateExercise, submitDeleteExercise } from '../Helpers/ApiHelpers';
+import { getAllPackages, submitAddPackage, submitUpdatePackage, submitDeletePackage, PackageWithCredentials, ExerciseWithCredentials, submitAddExercise, GetExcersisesForPackage, submitUpdateExercise, submitDeleteExercise } from '../Helpers/ApiHelpers';
 import { PackageList } from '../Components/LessonList/PackageList';
 import './AdminContainer.css';
 import { Button, ButtonColors } from '../Components/Buttons/Button';
@@ -45,7 +45,7 @@ const handleSuccessFullGetExerciseData = (data: Exercise[]) => {
   }
 
   useEffect(() =>{
-    getAllLessons().then(data => {
+    getAllPackages().then(data => {
       handleSuccessfullGetLessonData(data)
     }).catch(() => {
       handleFailedGetData()
@@ -92,7 +92,7 @@ const handleSuccessFullGetExerciseData = (data: Exercise[]) => {
         }} />
         <PackageList lessonData={lessonData} selectLesson={(selectedLesson) => {
           setSelectedLesson(selectedLesson);
-          getExcersisesForLesson(selectedLesson.song.title).then(data => {
+          GetExcersisesForPackage(selectedLesson.song.title).then(data => {
             setExerciseData(data);
             setAdminMenuState(AdminMenuState.ManipulateLesson)
             setIsLoading(false);
@@ -104,11 +104,11 @@ const handleSuccessFullGetExerciseData = (data: Exercise[]) => {
       </div>
       <div>
           {adminMenuState === AdminMenuState.SelectLesson && <div>Selecteer een pakket.</div>}
-          {adminMenuState === AdminMenuState.AddLesson && <AddPackageContainer submitAddLesson={(payload: Package) => handlePackageManipulation(payload, submitInsertLesson)}/>}
+          {adminMenuState === AdminMenuState.AddLesson && <AddPackageContainer submitAddLesson={(payload: Package) => handlePackageManipulation(payload, submitAddPackage)}/>}
           {adminMenuState === AdminMenuState.ManipulateLesson && selectedLesson && 
             <ManipulatePackageContainer
-              submitDeleteLesson={() => handlePackageManipulation(selectedLesson, submitDeleteLesson)}
-              submitUpdateLesson={(payload: Package) => handlePackageManipulation(payload, submitUpdateLesson)}
+              submitDeleteLesson={() => handlePackageManipulation(selectedLesson, submitDeletePackage)}
+              submitUpdateLesson={(payload: Package) => handlePackageManipulation(payload, submitUpdatePackage)}
               selectedLesson={selectedLesson}
               setErrorState={() => setAdminMenuState(AdminMenuState.Error)}
               setAddExercise={() => setAdminMenuState(AdminMenuState.AddExcercise)}
@@ -122,7 +122,7 @@ const handleSuccessFullGetExerciseData = (data: Exercise[]) => {
             {adminMenuState === AdminMenuState.AddExcercise && selectedLesson &&
               <AddExerciseContainer
                 selectedLessonName={selectedLesson.song.title}
-                submitAddExercise={(payload: Exercise) => handleExerciseAPICall(payload, submitInsertExercise)}
+                submitAddExercise={(payload: Exercise) => handleExerciseAPICall(payload, submitAddExercise)}
               />
             }
             {adminMenuState === AdminMenuState.ManipulateExercise && selectedLesson && selectedExercise &&

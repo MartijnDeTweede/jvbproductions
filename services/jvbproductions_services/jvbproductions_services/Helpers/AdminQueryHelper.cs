@@ -11,7 +11,7 @@ namespace jvbproductions_services.Helpers
     {
         private string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=JvBProductions;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-        public void addLesson(PackageModel lesson)
+        public void AddPackage(PackageModel package)
         {
             try
             {
@@ -21,15 +21,15 @@ namespace jvbproductions_services.Helpers
                     string insertQuery = String.Format("INSERT INTO Lessons (Artist, Title, Category, LessonType, Difficulty, Src, Image, AltText, Cost) VALUES (@artist, @title, @category, @lessonType, @difficulty, @src, @image, @altText, @cost)");
                     SqlCommand cmd = new SqlCommand(insertQuery, conn);
                     conn.Open();
-                    cmd.Parameters.AddWithValue("@artist", lesson.Song.Artist);
-                    cmd.Parameters.AddWithValue("@title", lesson.Song.Title);
-                    cmd.Parameters.AddWithValue("@category", lesson.Category);
-                    cmd.Parameters.AddWithValue("@lessonType", lesson.LessonType);
-                    cmd.Parameters.AddWithValue("@difficulty", lesson.Difficulty);
-                    cmd.Parameters.AddWithValue("@src", lesson.Src);
-                    cmd.Parameters.AddWithValue("@image", lesson.Image);
-                    cmd.Parameters.AddWithValue("@altText", lesson.AltText);
-                    cmd.Parameters.AddWithValue("@cost", lesson.Cost);
+                    cmd.Parameters.AddWithValue("@artist", package.Song.Artist);
+                    cmd.Parameters.AddWithValue("@title", package.Song.Title);
+                    cmd.Parameters.AddWithValue("@category", package.Category);
+                    cmd.Parameters.AddWithValue("@lessonType", package.LessonType);
+                    cmd.Parameters.AddWithValue("@difficulty", package.Difficulty);
+                    cmd.Parameters.AddWithValue("@src", package.Src);
+                    cmd.Parameters.AddWithValue("@image", package.Image);
+                    cmd.Parameters.AddWithValue("@altText", package.AltText);
+                    cmd.Parameters.AddWithValue("@cost", package.Cost);
 
 
                     cmd.ExecuteNonQuery();
@@ -72,7 +72,7 @@ namespace jvbproductions_services.Helpers
             }
         }
 
-        public void updateLesson(PackageModel lesson)
+        public void UpdatePackage(PackageModel package)
         {
             try
             {
@@ -82,15 +82,15 @@ namespace jvbproductions_services.Helpers
                     string insertQuery = String.Format("UPDATE Lessons set Artist = @artist, Title = @title, Category = @category, LessonType= @lessonType, Difficulty= @difficulty, Src=@src, Image=@image, AltText=@altText, Cost= @cost where Title = @title");
                     SqlCommand cmd = new SqlCommand(insertQuery, conn);
                     conn.Open();
-                    cmd.Parameters.AddWithValue("@artist", lesson.Song.Artist);
-                    cmd.Parameters.AddWithValue("@title", lesson.Song.Title);
-                    cmd.Parameters.AddWithValue("@category", lesson.Category);
-                    cmd.Parameters.AddWithValue("@lessonType", lesson.LessonType);
-                    cmd.Parameters.AddWithValue("@difficulty", lesson.Difficulty);
-                    cmd.Parameters.AddWithValue("@src", lesson.Src);
-                    cmd.Parameters.AddWithValue("@image", lesson.Image);
-                    cmd.Parameters.AddWithValue("@altText", lesson.AltText);
-                    cmd.Parameters.AddWithValue("@cost", lesson.Cost);
+                    cmd.Parameters.AddWithValue("@artist", package.Song.Artist);
+                    cmd.Parameters.AddWithValue("@title", package.Song.Title);
+                    cmd.Parameters.AddWithValue("@category", package.Category);
+                    cmd.Parameters.AddWithValue("@lessonType", package.LessonType);
+                    cmd.Parameters.AddWithValue("@difficulty", package.Difficulty);
+                    cmd.Parameters.AddWithValue("@src", package.Src);
+                    cmd.Parameters.AddWithValue("@image", package.Image);
+                    cmd.Parameters.AddWithValue("@altText", package.AltText);
+                    cmd.Parameters.AddWithValue("@cost", package.Cost);
 
 
                     cmd.ExecuteNonQuery();
@@ -142,11 +142,18 @@ namespace jvbproductions_services.Helpers
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
 
-                    string insertQuery = String.Format("Delete from Lessons where Title = @title");
-                    SqlCommand cmd = new SqlCommand(insertQuery, conn);
+                    string query = String.Format("Delete from Lessons where Title = @title");
+                    SqlCommand cmd = new SqlCommand(query, conn);
                     conn.Open();
                     cmd.Parameters.AddWithValue("@title", lessonName);
 
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+
+                    string deleteExerciseQuery = String.Format("Delete from Excersises where LessonName = @lessonName");
+                    cmd = new SqlCommand(deleteExerciseQuery, conn);
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@lessonName", lessonName);
 
                     cmd.ExecuteNonQuery();
                     conn.Close();

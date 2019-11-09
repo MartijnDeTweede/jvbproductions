@@ -40,7 +40,7 @@ export const buyResourceAccess = (userId: string, lessonName: string)=> {
 return result;
 }
 
-export const getAllLessons = async() => {
+export const getAllPackages = async() => {
   const url = `${baseUrl}lesson/getAllPackages`;
   const result =  await fetch(url, {
     method: 'GET',
@@ -54,7 +54,7 @@ export const getAllLessons = async() => {
 return result;
 }
 
-export const getExcersisesForLesson = async(packageName: string) => {
+export const GetExcersisesForPackage = async(packageName: string) => {
   const url = `${baseUrl}lesson/GetExcersisesForPackage/${packageName}`;
   const result =  await fetch(url, {
     method: 'GET',
@@ -88,8 +88,8 @@ export interface PackageWithCredentials {
   userId: string;
 }
 
-export const submitInsertLesson = async(payload: PackageWithCredentials) => {
-  const url = `${baseUrl}admin/addLesson`;
+export const submitAddPackage = async(payload: PackageWithCredentials) => {
+  const url = `${baseUrl}admin/addPackage`;
   const result =  fetch(url, {
     method: 'POST',
     mode: 'cors',
@@ -116,7 +116,7 @@ export interface ExerciseWithCredentials {
 }
 
 
-export const submitInsertExercise = async(payload: ExerciseWithCredentials) => {
+export const submitAddExercise = async(payload: ExerciseWithCredentials) => {
   const url = `${baseUrl}admin/addExercise`;
   const result =  fetch(url, {
     method: 'POST',
@@ -138,8 +138,8 @@ export const submitInsertExercise = async(payload: ExerciseWithCredentials) => {
 return result;
 }
 
-export const submitUpdateLesson = async(payload: PackageWithCredentials) => {
-  const url = `${baseUrl}admin/updateLesson`;
+export const submitUpdatePackage = async(payload: PackageWithCredentials) => {
+  const url = `${baseUrl}admin/updatePackage`;
   const result =  fetch(url, {
     method: 'POST',
     mode: 'cors',
@@ -182,8 +182,8 @@ export const submitUpdateExercise = async(payload: ExerciseWithCredentials) => {
 return result;
 }
 
-export const submitDeleteLesson  = async(payload: PackageWithCredentials) => {
-  const url = `${baseUrl}admin/deleteExercise`;
+export const submitDeletePackage  = async(payload: PackageWithCredentials) => {
+  const url = `${baseUrl}admin/deletePackage`;
   const result =  fetch(url, {
     method: 'POST',
     mode: 'cors',

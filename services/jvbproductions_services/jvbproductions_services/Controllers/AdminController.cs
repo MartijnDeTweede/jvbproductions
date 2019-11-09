@@ -17,14 +17,14 @@ namespace jvbproductions_services.Controllers
         // Post api/admin/addLesson
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
-        [Route("api/admin/addLesson/")]
-        public ActionResult<List<PackageModel>> addLesson([FromBody] PackageDTO dto)
+        [Route("api/admin/addPackage/")]
+        public ActionResult<List<PackageModel>> addPackage([FromBody] PackageDTO dto)
         {
             var package = dto.Package;
             var adminQuryHelper = new AdminQueryHelper();
             try
             {
-                adminQuryHelper.addLesson(package);
+                adminQuryHelper.AddPackage(package);
             }
             catch (Exception e)
             {
@@ -48,15 +48,15 @@ namespace jvbproductions_services.Controllers
         // Post api/admin/updateLesson
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
-        [Route("api/admin/updateLesson/")]
-        public ActionResult<List<PackageModel>> updateLesson([FromBody] PackageDTO dto)
+        [Route("api/admin/updatePackage/")]
+        public ActionResult<List<PackageModel>> updatePackage([FromBody] PackageDTO dto)
         {
 
             var package = dto.Package;
             var adminQuryHelper = new AdminQueryHelper();
             try
             {
-                adminQuryHelper.updateLesson(package);
+                adminQuryHelper.UpdatePackage(package);
             }
             catch (Exception e)
             {
@@ -80,8 +80,8 @@ namespace jvbproductions_services.Controllers
         // Post api/admin/deleteLesson
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
-        [Route("api/admin/deleteLesson/")]
-        public ActionResult<List<PackageModel>> deleteLesson([FromBody] PackageDTO dto)
+        [Route("api/admin/deletePackage/")]
+        public ActionResult<List<PackageModel>> deletePackage([FromBody] PackageDTO dto)
         {
 
             var lessonName = dto.Package.Song.Title;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { PackageForm } from '../Components/LessonForm/PackageForm';
+import { PackageForm } from '../Components/PackageForm/PackageForm';
 import { Package } from './Package';
 
 interface AddLessonContainerProps {

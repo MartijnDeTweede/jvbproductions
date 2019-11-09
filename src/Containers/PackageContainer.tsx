@@ -3,7 +3,7 @@ import { ClassRoom } from '../Components/ClassRoom/ClassRoom';
 import {  Package } from './Package';
 import { storage } from '../firebaseConfig';
 import { Source, VideoSourceType } from 'react-video-play';
-import { requestAccesToVideo, getAllLessons, buyResourceAccess, getExcersisesForLesson } from '../Helpers/ApiHelpers';
+import { requestAccesToVideo, getAllPackages, buyResourceAccess, GetExcersisesForPackage } from '../Helpers/ApiHelpers';
 import { UserInfo } from '../Components/userInfo.types';
 import { PackageMenuContainer } from './PackageMenuContainer';
 import { defaultFilters, Filter, FilterValue } from './filters';
@@ -94,7 +94,7 @@ export const PackageContainer: React.FC<{
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() =>{
-    getAllLessons().then(data => {
+    getAllPackages().then(data => {
       setLessonData(data);
       setIsLoading(false);
     }).catch(() => {
@@ -152,7 +152,7 @@ export const PackageContainer: React.FC<{
   }
   
   const getExersiseData = (selectedLesson: string) => {
-      getExcersisesForLesson(selectedLesson).then(data => {
+      GetExcersisesForPackage(selectedLesson).then(data => {
       setExerciseData(data);
       setIsLoading(false);
     });

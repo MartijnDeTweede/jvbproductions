@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PackageForm } from '../Components/LessonForm/PackageForm';
+import { PackageForm } from '../Components/PackageForm/PackageForm';
 import { Package } from './Package';
 import { Button, ButtonColors } from '../Components/Buttons/Button';
 import Modal from 'react-modal';
