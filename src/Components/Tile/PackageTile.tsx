@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Package } from '../../Containers/Package';
-
-import './Tile.css'
+import { Tile } from './Tile';
 
 export const PackageTile: React.FC<{
   lesson: Package
@@ -37,18 +36,14 @@ export const PackageTile: React.FC<{
     ,[getImageLink, image])
 
   return(
-    <div className="tile" onClick={() => selectLesson(lesson)}>
-      {
-        imageLink ? 
-        <img src={imageLink} alt={altText} className="tile__imageHolder"/> :
-        <div className="tile__imageHolder"></div> 
-      }
-      <div className="tile__cost">{cost === 0 ? "Gratis" : `${cost} Credits`}</div>
-      <div className="tile__detailInfoHolder">
-        <div className="tile__detailInfo">{title}</div>
-        <div className="tile__detailInfo">{category}</div>
-        <div className="tile__detailInfo">{difficulty}</div>
-      </div>
-  </div>
+    <Tile
+      onClick={() => () => selectLesson(lesson)}
+      imageLink={imageLink}
+      altText={altText}
+      cost={cost}
+      title={title}
+      category={category}
+      difficulty={difficulty}
+     />
   )
 }
