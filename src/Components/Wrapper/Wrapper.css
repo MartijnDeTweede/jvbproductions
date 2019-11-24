@@ -3,3 +3,8 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
+
+.Wrapper__CentrizeContent {
+  justify-content: center;
+  
+}

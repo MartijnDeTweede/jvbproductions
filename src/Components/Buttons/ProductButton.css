@@ -1,0 +1,30 @@
+.product-button {
+  padding: 30px 60px;
+  margin: 20px 50px 10px 50px;
+  border: 1px solid #3c4044;
+  border-radius: 5px;
+  background-color: white;
+  color: #3c4044;
+  font-size: calc(8px + 2vmin);
+}
+
+@media screen and (min-width: 630px) {
+  .product-button {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+}
+
+.product-button:hover {
+  background-color: #3c4044;
+  color: white;
+}
+
+.product-button:active {
+  background-color: #9392ee;
+  color: white;
+}
+
+.product-button__name {
+  margin:10px;
+}

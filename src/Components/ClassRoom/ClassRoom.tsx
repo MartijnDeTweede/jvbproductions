@@ -18,7 +18,7 @@ interface ClassRoomProps {
   handleBackButton: () => void;
 }
 
-enum MessageType {
+export enum MessageType {
   Warning = 'Warning',
   Error = "Error"
 }

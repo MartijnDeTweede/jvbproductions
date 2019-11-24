@@ -1,9 +1,11 @@
 import React from 'react';
 import './Wrapper.css';
-
-export const Wrapper: React.FC<{}> = ({children}) => {
+import classNames from 'classnames';
+export const Wrapper: React.FC<{centralizeContent?: boolean}> = ({children, centralizeContent = false}) => {
   return (
-    <div className="Wrapper">
+    <div className={classNames("Wrapper", {
+      "Wrapper__CentrizeContent": centralizeContent
+    })}>
       {children}
     </div>
   )

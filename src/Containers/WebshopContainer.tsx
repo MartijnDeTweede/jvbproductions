@@ -1,19 +1,27 @@
 import React, {useState, useEffect } from 'react';
 import { Product } from './product';
 import { getProductsByCategory } from '../Helpers/ApiHelpers';
+import { Message, MessageType } from '../Components/ClassRoom/ClassRoom';
+import { Button, ButtonColors } from '../Components/Buttons/Button';
+import { Cart } from '../Components/Cart/Cart';
+import { ProductButton } from '../Components/Buttons/ProductButton';
+import { Wrapper } from '../Components/Wrapper/Wrapper';
 
 enum WebshopState {
   SelectProduct = "SelectProduct",
-  Error = "Error"
+  Error = "Error",
+  Login = "Login",
 }
 
 export const WebshopContainer: React.FC<{
   user: firebase.User | undefined
   signInWithGoogle: () => void,
-}> = () => {
+}> = (user, signInWithGoogle) => {
 
   const [creditProducts, setCreditProducts] = useState<Product[]>([]);
-  const [webshopState, setWebshopState] = useState<WebshopState>(WebshopState.SelectProduct);
+  const [selectedProduct, setSelectedProduct] = useState<Product | undefined>(undefined);
+  const defaultLessonState = user ? WebshopState.SelectProduct : WebshopState.Login;
+  const [webshopState, setWebshopState] = useState<WebshopState>(defaultLessonState);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() =>{
@@ -26,19 +34,46 @@ export const WebshopContainer: React.FC<{
     });
   }, [])
 
+
   return(
     <div>
       {
         webshopState === WebshopState.SelectProduct  &&
         <div>
-          <div>Hier komt de cart</div>
-          <div>Hier komen de buttons</div>
-          <div>Hier komt de confirm</div>
+          <Wrapper centralizeContent>
+            {
+              creditProducts.map(creditproduct => (
+                <ProductButton
+                  product={creditproduct}
+                  onClick={() => setSelectedProduct(creditproduct)}
+                />
+              ))
+            }
+          </Wrapper>
+          <Wrapper centralizeContent>
+            <Cart
+              selectedProduct={selectedProduct}
+              clearCart={() => setSelectedProduct(undefined)}
+            />
+          </Wrapper>
+          <Button
+            text="Bestelling plaatsen"
+            onClick={() => {}}
+            colour={ButtonColors.Green}
+            large
+          />
         </div>
       }
+            {
+        webshopState === WebshopState.Login &&
+        <div>
+          <Message message="Je moet inloggen om de webshhop te kunnen gebruiken." messageType={MessageType.Error} />
+          <Button onClick={signInWithGoogle} text="Login met Google" colour={ButtonColors.gray} />
+        </div>
+        }
       {
         webshopState === WebshopState.Error &&
-          <div>Er is iets fout gegaan, ververs de pagina.</div>
+        <Message message="Er is iets mis gegaan, ververs de pagina of neem contact op met ons." messageType={MessageType.Error} />
       }
     </div>
   )

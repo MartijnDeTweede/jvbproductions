@@ -1,8 +1,6 @@
 .Button {
   margin:30px;
   padding: 10px 20px 10px 20px;
-  background-color: #3c4044;
-  color: white;
   border-radius: 5px;
 }
 
@@ -10,3 +8,25 @@
   background-color: #9392ee;
   color: white;
 }
+
+.Button--Gray {
+  background-color: #3c4044;
+  color: white;
+}
+
+.Button--Green {
+  background-color: #3a6d35;
+  color: white;
+}
+
+
+.Button--large {
+  font-size: calc(8px + 2vmin);
+  padding: 40px;
+  border-radius: 7px;
+}
+
+.Button--noMargin {
+  margin: 0;
+}
+
