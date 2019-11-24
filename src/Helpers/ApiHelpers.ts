@@ -68,6 +68,19 @@ export const GetExcersisesForPackage = async(packageName: string) => {
 return result;
 }
 
+export const getProductsByCategory = async(category: string) => {
+  const url = `${baseUrl}products/getProductsForCategory/${category}`;
+  const result =  await fetch(url, {
+    method: 'GET',
+    mode: 'cors',
+    credentials: 'same-origin',
+})
+.then(response => {
+  return response.json()
+}
+  );
+return result;
+}
 
 export const fetchUserInfo = async(userId: string) => {
   const url = `${baseUrl}user/getUser/${userId}`;

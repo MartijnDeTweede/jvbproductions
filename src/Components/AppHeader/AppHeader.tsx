@@ -64,18 +64,21 @@ export const AppHeader: React.FC<{
           <span className="App-Header-Link--desktop">Lessen</span>
           <div className="App-Header-Link--mobile"><img src={guitarImage} alt="Lessen"/></div>
         </Link>
-        </span>
-        <span className="App-Header-Link">
-
+      </span>
+      <span className="App-Header-Link">
+        <Link to="/webshop">
+          <span className="App-Header-Link--desktop">Webshop</span>
+          <div className="App-Header-Link--mobile"><img src={guitarImage} alt="Webshop"/></div>
+        </Link>
+      </span>
+      <span className="App-Header-Link">
         {
           userInfo && userInfo.isAdmin &&  <Link to="/admin">
           <span className="App-Header-Link--desktop">Admin</span>
           <div className="App-Header-Link--mobile"><img src={guitarImage} alt="Admin"/></div>
         </Link>
-
         }
-
-        </span>
+      </span>
       </div>
       <div className="App-Header-Profile">
         {user ? < UserInformation name={user.displayName} userInfo={userInfo} /> : <p>Niet ingelogd</p>}
