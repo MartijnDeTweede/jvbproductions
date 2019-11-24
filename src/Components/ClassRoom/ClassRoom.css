@@ -42,19 +42,6 @@
   border: #eb3b3bd0 2px solid;
 }
 
-.ClassRoom--Button {
-  margin-top:30px;
-  padding: 10px 20px 10px 20px;
-  background-color: #3c4044;
-  color: white;
-  border-radius: 5px;
-}
-
-.ClassRoom--Button:hover {
-  background-color: #9392ee;
-  color: white;
-}
-
 @media screen and (max-width: 1024px) {
   .ClassRoom__Play {
     display: block;

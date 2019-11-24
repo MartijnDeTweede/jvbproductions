@@ -9,8 +9,9 @@ import { FireBaseProps } from './FireBase.types';
 import { AppHeader } from './Components/AppHeader/AppHeader';
 import { Switch, Route } from 'react-router-dom';
 import { HomePageContainer } from './Containers/HomePageContainer';
-import { LessonContainer } from './Containers/LessonContainer';
+import { PackageContainer } from './Containers/PackageContainer';
 import { UserInfo } from './Components/userInfo.types';
+import { AdminContainer } from './Containers/AdminContainer';
 
 const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
@@ -31,7 +32,10 @@ const App: React.FC<FireBaseProps> = ({ user, signOut, signInWithGoogle }) => {
       />
       <Switch> 
         <Route path="/" exact component={HomePageContainer} />
-        <Route exact path='/lessen' component={() =>  <LessonContainer user={user} signInWithGoogle={signInWithGoogle} setUserInfo={setUserInfo} />} />
+        <Route exact path='/lessen' component={() =>  <PackageContainer user={user} signInWithGoogle={signInWithGoogle} setUserInfo={setUserInfo} />} />
+        {
+          userInfo && userInfo.isAdmin && <Route exact path='/admin' component={() =>  <AdminContainer user={user} />} />
+        }
     </Switch>
     </div>
   );

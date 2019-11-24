@@ -17,8 +17,9 @@ namespace jvbproductions_services.Models
         }
     }
 
-    public class LessonModel
+    public class PackageModel
     {
+        public int Id { get; set; }
         public Song Song {get; set;}
         public string Category { get; set; }
         public string LessonType { get; set; }
@@ -27,5 +28,6 @@ namespace jvbproductions_services.Models
         public string Image { get; set; }
         public string AltText { get; set; }
         public int Cost { get; set; }
+
     }
 }

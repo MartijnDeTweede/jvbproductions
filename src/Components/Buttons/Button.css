@@ -1,7 +1,12 @@
-.Backbutton {
-  margin-top:30px;
+.Button {
+  margin:30px;
   padding: 10px 20px 10px 20px;
   background-color: #3c4044;
   color: white;
   border-radius: 5px;
+}
+
+.Button:hover {
+  background-color: #9392ee;
+  color: white;
 }

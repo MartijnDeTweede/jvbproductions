@@ -4,7 +4,7 @@ interface Song {
   title: string;
 }
 
-export interface LessonNew {
+export interface Package {
   song: Song;
   category: string;
   lessonType: string;
@@ -13,4 +13,5 @@ export interface LessonNew {
   image: string;
   altText: string;
   cost: number;
+  id: number;
 }

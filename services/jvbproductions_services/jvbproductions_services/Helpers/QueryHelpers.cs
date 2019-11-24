@@ -56,6 +56,11 @@ namespace jvbproductions_services.Helpers
                     {
                         while (dr.Read())
                         {
+                            bool isAdmin;
+                            bool succesIsAdminParse = bool.TryParse(dr["isAdmin"].ToString(), out isAdmin);
+
+                            userModel.isAdmin = succesIsAdminParse ? isAdmin : false;
+
                             int credits;
                             bool succes = Int32.TryParse(dr["Credits"].ToString(), out credits);
 
@@ -99,6 +104,7 @@ namespace jvbproductions_services.Helpers
                     cmd.Parameters.AddWithValue("@credits", newCredit);
                     conn.Open();
                     cmd.ExecuteNonQuery();
+                    conn.Close();
 
                 }
             }
@@ -123,9 +129,10 @@ namespace jvbproductions_services.Helpers
                     string insertQuery = "INSERT INTO dbo.Users (userId, credits) VALUES (@userId, @credits)";
                     SqlCommand cmd = new SqlCommand(insertQuery, conn);
                     cmd.Parameters.AddWithValue("@userId", userId);
-                    cmd.Parameters.AddWithValue("@credits", userModel.Credits);
-
+                    cmd.Parameters.AddWithValue("@credits", 100);
+                    conn.Open();
                     cmd.ExecuteNonQuery();
+                    conn.Close();
                     return userModel;
 
                 }
@@ -136,7 +143,7 @@ namespace jvbproductions_services.Helpers
             }
         }
 
-        public bool lessonExists(string lessonName)
+        public bool packageExists(string packageName)
         {
             try
             {
@@ -145,7 +152,7 @@ namespace jvbproductions_services.Helpers
                     string selectQuery = @"SELECT * FROM Lessons Where Title=@Title";
 
                     SqlCommand cmd = new SqlCommand(selectQuery, conn);
-                    cmd.Parameters.AddWithValue("@Title", lessonName);
+                    cmd.Parameters.AddWithValue("@Title", packageName);
 
                     conn.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
@@ -160,9 +167,9 @@ namespace jvbproductions_services.Helpers
             }
         }
 
-        public LessonModel getLesson(string lessonName)
+        public PackageModel getPackage(string packageName)
         {
-            var lesson = new LessonModel();
+            var lesson = new PackageModel();
             try
             {
 
@@ -170,7 +177,7 @@ namespace jvbproductions_services.Helpers
                 {
                     string query = @"SELECT * FROM Lessons where Title=@title";
                     SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@title", lessonName);
+                    cmd.Parameters.AddWithValue("@title", packageName);
                     conn.Open();
 
                     SqlDataReader dr = cmd.ExecuteReader();
@@ -199,7 +206,7 @@ namespace jvbproductions_services.Helpers
             return lesson;
         }
 
-        public void addLessonAccess(string userId, string resource)
+        public void addRecourceAccess(string userId, string resource)
         {
             try
             {
@@ -257,9 +264,9 @@ namespace jvbproductions_services.Helpers
             return access;
         }
 
-        public List<LessonModel> getAllLessons ()
+        public List<PackageModel> getAllPackages ()
         {
-            List<LessonModel> allLessons = new List<LessonModel>();
+            List<PackageModel> allPackages = new List<PackageModel>();
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -273,22 +280,25 @@ namespace jvbproductions_services.Helpers
 
                     while (dr.Read())
                     {
-                        var newLesson = new LessonModel();
+                        var newPackage = new PackageModel();
 
-                        newLesson.Song = new Song(dr["Artist"].ToString(), dr["Title"].ToString());
-                        newLesson.Category = dr["Category"].ToString();
+                        newPackage.Song = new Song(dr["Artist"].ToString(), dr["Title"].ToString());
+                        newPackage.Category = dr["Category"].ToString();
 
                         int credits;
                         bool succes = Int32.TryParse(dr["Cost"].ToString(), out credits);
-                        newLesson.Cost = succes ? credits : 0;
+                        newPackage.Cost = succes ? credits : 0;
 
-                        newLesson.Difficulty = dr["Difficulty"].ToString();
-                        newLesson.LessonType = dr["LessonType"].ToString();
-                        newLesson.Image = dr["Image"].ToString();
-                        newLesson.AltText = dr["AltText"].ToString();
-                        newLesson.Src = dr["Src"].ToString();
+                        newPackage.Difficulty = dr["Difficulty"].ToString();
+                        newPackage.LessonType = dr["LessonType"].ToString();
+                        newPackage.Image = dr["Image"].ToString();
+                        newPackage.AltText = dr["AltText"].ToString();
+                        newPackage.Src = dr["Src"].ToString();
 
-                        allLessons.Add(newLesson);
+                        int id;
+                        bool idSuccess = Int32.TryParse(dr["Id"].ToString(), out id);
+                        newPackage.Id = idSuccess ? id : 0;
+                        allPackages.Add(newPackage);
                     }
                     dr.Close();
                 }
@@ -297,10 +307,10 @@ namespace jvbproductions_services.Helpers
             {
                 throw e;
             }
-        return allLessons;
+        return allPackages;
         }
 
-        public List<ExerciseModel> getExcersisesForLesson(string lessonName) {
+        public List<ExerciseModel> getExcersisesForPackage(string packageName) {
             List<ExerciseModel> allExcersises = new List<ExerciseModel>();
 
             try
@@ -310,7 +320,7 @@ namespace jvbproductions_services.Helpers
                     string query = @"SELECT * FROM Excersises where LessonName=@lessonName";
 
                     SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@lessonName", lessonName);
+                    cmd.Parameters.AddWithValue("@lessonName", packageName);
                     conn.Open();
 
                     SqlDataReader dr = cmd.ExecuteReader();
@@ -319,7 +329,7 @@ namespace jvbproductions_services.Helpers
                     {
                         var newExcersise = new ExerciseModel();
 
-                        newExcersise.LessonName = lessonName;
+                        newExcersise.LessonName = packageName;
                         newExcersise.ExerciseName = dr["ExcersiseName"].ToString();
                         newExcersise.Category = dr["Category"].ToString();
 
@@ -328,6 +338,10 @@ namespace jvbproductions_services.Helpers
                         newExcersise.Image = dr["Image"].ToString();
                         newExcersise.AltText = dr["AltText"].ToString();
                         newExcersise.Src = dr["Src"].ToString();
+
+                        int id;
+                        bool idSuccess = Int32.TryParse(dr["Id"].ToString(), out id);
+                        newExcersise.Id = idSuccess ? id : 0;
 
                         allExcersises.Add(newExcersise);
                     }

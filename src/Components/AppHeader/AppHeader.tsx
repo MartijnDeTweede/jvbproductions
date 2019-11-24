@@ -6,6 +6,7 @@ import {UserInfo } from '../userInfo.types';
 
 import guitarImage from './gitaar.png';
 import homeImage from './home.jpg';
+import { Button, ButtonColors } from '../Buttons/Button';
 
 const UserInformation: React.FC<{
   userInfo?: UserInfo,
@@ -55,14 +56,25 @@ export const AppHeader: React.FC<{
       <span className="App-Header-Link">
         <Link to="/">
           <span className="App-Header-Link--desktop">Home</span>
-          <div className="App-Header-Link--mobile"><img src={homeImage} /></div>
+          <div className="App-Header-Link--mobile"><img src={homeImage} alt="Homepage"/></div>
         </Link>
       </span>
       <span className="App-Header-Link">
         <Link to="/lessen">
           <span className="App-Header-Link--desktop">Lessen</span>
-          <div className="App-Header-Link--mobile"><img src={guitarImage}/></div>
+          <div className="App-Header-Link--mobile"><img src={guitarImage} alt="Lessen"/></div>
         </Link>
+        </span>
+        <span className="App-Header-Link">
+
+        {
+          userInfo && userInfo.isAdmin &&  <Link to="/admin">
+          <span className="App-Header-Link--desktop">Admin</span>
+          <div className="App-Header-Link--mobile"><img src={guitarImage} alt="Admin"/></div>
+        </Link>
+
+        }
+
         </span>
       </div>
       <div className="App-Header-Profile">
@@ -70,21 +82,27 @@ export const AppHeader: React.FC<{
       </div>
       <div className="App-Header-Menu">
         {user ? (
-          <button className="App-header--Button" onClick={() => {
-            setUserInfo(undefined);
-            signOut();
-          }}>
-            Uitloggen
-          </button>
+          <Button 
+            onClick={
+              () => {
+                setUserInfo(undefined);
+                signOut();
+            }}
+            text ="Uitloggen"
+            colour={ButtonColors.gray}
+          />
         ) : (
-          <button className="App-header--Button" onClick={ async () => {
+
+          <Button 
+          onClick={ async () => {
             const result = await signInWithGoogle();            
             if(result && result.user) {
               getUserInfo(result.user.uid);
             }
-          }}>
-            Login met Google
-          </button>
+          }}
+            text ="Login met Google"
+            colour={ButtonColors.gray}
+          />
         )}
       </div>
     </header>

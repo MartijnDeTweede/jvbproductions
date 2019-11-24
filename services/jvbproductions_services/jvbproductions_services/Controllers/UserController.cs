@@ -48,7 +48,7 @@ namespace jvbproductions_services.Controllers
             string lessonName = dto.lessonName;
 
             var user = new UserModel();
-            var lesson = new LessonModel();
+            var lesson = new PackageModel();
             var queryHelper = new QueryHelper();
             try
             {
@@ -66,9 +66,9 @@ namespace jvbproductions_services.Controllers
                 BadRequest(e);
             }
 
-            if(queryHelper.lessonExists(lessonName))
+            if(queryHelper.packageExists(lessonName))
             {
-                lesson = queryHelper.getLesson(lessonName);
+                lesson = queryHelper.getPackage(lessonName);
             }
             else
             {
@@ -81,7 +81,7 @@ namespace jvbproductions_services.Controllers
             }
 
             user = queryHelper.updateUserCredit(userId, user.Credits, -lesson.Cost);
-            queryHelper.addLessonAccess(userId, lessonName);
+            queryHelper.addRecourceAccess(userId, lessonName);
             return user;
         }
     }

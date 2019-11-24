@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import './Tile.css'
 import { Exercise } from '../../Containers/excersise';
-import { getDifficultyDescription } from './TileLesson';
+import { Tile } from './Tile';
 
 export const ExerciseTile: React.FC<{
   exercise: Exercise
@@ -38,18 +38,14 @@ export const ExerciseTile: React.FC<{
   ,[getImageLink, image])
 
   return(
-    <div className="tile" onClick={() => selectExercise(exercise)}>
-      {
-        imageLink ? 
-        <img src={imageLink} alt={altText} className="tile__imageHolder"/> :
-        <div className="tile__imageHolder"></div> 
-      }
-      <div className="tile__cost">{cost === 0 ? "Gratis" : `${cost} Credits`}</div>
-      <div className="tile__detailInfoHolder">
-        <div className="tile__detailInfo">{exerciseName}</div>
-        <div className="tile__detailInfo">{category}</div>
-        <div className="tile__detailInfo">{getDifficultyDescription(difficulty)}</div>
-      </div>
-  </div>
+    <Tile
+      onClick={() => selectExercise(exercise)}
+      imageLink={imageLink}
+      altText={altText}
+      cost={cost}
+      title={exerciseName}
+      category={category}
+      difficulty={difficulty}
+     />
   )
 }

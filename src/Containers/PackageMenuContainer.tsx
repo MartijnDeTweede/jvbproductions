@@ -1,17 +1,17 @@
 import React from 'react';
-import { LessonNew } from './lessons';
-import { LessonTile } from '../Components/Tile/TileLesson';
-import "./LessonMenuContainer.css";
+import { Package } from './Package';
+import { PackageTile } from '../Components/Tile/PackageTile';
 import { Exercise } from './excersise';
-import { ExerciseTile } from '../Components/Tile/TileExercise';
-import { BackButton } from '../Components/Buttons/Backbutton';
+import { ExerciseTile } from '../Components/Tile/ExeriseTile';
+import { Button, ButtonColors } from '../Components/Buttons/Button';
+import { Wrapper } from '../Components/Wrapper/Wrapper';
 
-  export const LessonMenuContainer: React.FC<{
-    lessonData: LessonNew[];
+  export const PackageMenuContainer: React.FC<{
+    lessonData: Package[];
     exerciseData: Exercise[];
-    selectedLesson: LessonNew | undefined;
+    selectedLesson: Package | undefined;
     selectExercise: (exercise: Exercise) => void;
-    selectLesson: (lesson: LessonNew) => void;
+    selectLesson: (lesson: Package) => void;
     handleBackButton: () => void;
     getImageLink: (imageName: string) => Promise<string | void>;
   }> = ({
@@ -27,17 +27,18 @@ import { BackButton } from '../Components/Buttons/Backbutton';
       <div>
         {
           selectedLesson &&
-          <BackButton 
-            text="Terug naar lessen"
+          <Button 
+            text="Terug naar Paketten"
             onClick={() => handleBackButton()}
+            colour={ButtonColors.gray}
           />
         }
-        <div className="lessonMenuContainer__Wrapper">
+          <Wrapper>
           {
             !selectedLesson ?
             lessonData.map(lesson => (
               <div key={`${lesson.song.artist}-${lesson.song.title}`}>
-                <LessonTile lesson={lesson} selectLesson={selectLesson} getImageLink={getImageLink}/>
+                <PackageTile lesson={lesson} selectLesson={selectLesson} getImageLink={getImageLink}/>
               </div>
             )) :
               exerciseData.map(exercise => (
@@ -45,9 +46,8 @@ import { BackButton } from '../Components/Buttons/Backbutton';
                   <ExerciseTile exercise={exercise} selectExercise={selectExercise} getImageLink={getImageLink}/>
                 </div>
               ))
-          }
-
+          }            
+          </Wrapper>
         </div>
-      </div>
     );
   }
