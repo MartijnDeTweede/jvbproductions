@@ -13,6 +13,7 @@ interface Button {
   colour: ButtonColors
   large?: boolean;
   noMargin?: boolean;
+  disabled?: boolean;
 }
 
 export const Button: React.FC<Button> = ({
@@ -21,12 +22,16 @@ export const Button: React.FC<Button> = ({
   large = false,
   noMargin = false,
   colour,
+  disabled = false,
 }) => {
   return (
     <button className={classNames(`Button Button--${colour}`, {
       "Button--large": large,
       "Button--noMargin": noMargin,
-    })} onClick={() => onClick() }>
+    })}
+    onClick={() => onClick()}
+    disabled={disabled}
+    >
     {text}
   </button>
   );

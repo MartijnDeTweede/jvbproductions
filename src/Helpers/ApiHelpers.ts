@@ -17,6 +17,29 @@ export const requestAccesToVideo = (userId: string, videoName: string)=> {
 return result;
 }
 
+export const finalizeCheckout = (userId: string, productCode: string)=> {
+  const payload = {userId: userId,productCode: productCode };
+  const url = `${baseUrl}checkout/finalizeCheckout`;
+  const result =  fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'include',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+    body: JSON.stringify(payload)
+})
+.then(response => {
+  return response.json()
+}
+  );
+return result;
+}
+
 export const buyResourceAccess = (userId: string, lessonName: string)=> {
   const payload = {userId: userId,lessonName: lessonName };
   const url = `${baseUrl}user/buyResource`;

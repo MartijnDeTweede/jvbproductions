@@ -1,6 +1,6 @@
 import React, {useState, useEffect } from 'react';
 import { Product } from './product';
-import { getProductsByCategory } from '../Helpers/ApiHelpers';
+import { getProductsByCategory, finalizeCheckout } from '../Helpers/ApiHelpers';
 import { Message, MessageType } from '../Components/ClassRoom/ClassRoom';
 import { Button, ButtonColors } from '../Components/Buttons/Button';
 import { Cart } from '../Components/Cart/Cart';
@@ -58,7 +58,12 @@ export const WebshopContainer: React.FC<{
           </Wrapper>
           <Button
             text="Bestelling plaatsen"
-            onClick={() => {}}
+            disabled={!user || !selectedProduct}
+            onClick={() => {
+              if(user && user.user && selectedProduct) {
+                finalizeCheckout(user.user.uid, selectedProduct.productCode)
+              }
+            }}
             colour={ButtonColors.Green}
             large
           />

@@ -54,5 +54,39 @@ namespace jvbproductions_services.Helpers
             }
             return products;
         }
+
+        public decimal getAmountDue(string productCode)
+        {
+            decimal amountDue = 0;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    string query = @"SELECT * FROM Products where ProductCode=@productCode";
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@productCode", productCode);
+                    conn.Open();
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+
+                        decimal price;
+                        bool succes = Decimal.TryParse(dr["Price"].ToString(), out price);
+                        amountDue = succes ? price : 0;
+                    }
+                    dr.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return amountDue;
+        }
     }
 }
