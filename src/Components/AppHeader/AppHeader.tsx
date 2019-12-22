@@ -6,6 +6,9 @@ import {UserInfo } from '../userInfo.types';
 
 import guitarImage from './gitaar.png';
 import homeImage from './home.jpg';
+import euroImage from './euro.png';
+import wrenchImage from './wrench.png';
+
 import { Button, ButtonColors } from '../Buttons/Button';
 
 const UserInformation: React.FC<{
@@ -68,14 +71,14 @@ export const AppHeader: React.FC<{
       <span className="App-Header-Link">
         <Link to="/webshop">
           <span className="App-Header-Link--desktop">Webshop</span>
-          <div className="App-Header-Link--mobile"><img src={guitarImage} alt="Webshop"/></div>
+          <div className="App-Header-Link--mobile"><img src={euroImage} alt="Webshop"/></div>
         </Link>
       </span>
       <span className="App-Header-Link">
         {
           userInfo && userInfo.isAdmin &&  <Link to="/admin">
           <span className="App-Header-Link--desktop">Admin</span>
-          <div className="App-Header-Link--mobile"><img src={guitarImage} alt="Admin"/></div>
+          <div className="App-Header-Link--mobile"><img src={wrenchImage} alt="Admin"/></div>
         </Link>
         }
       </span>
@@ -92,7 +95,7 @@ export const AppHeader: React.FC<{
                 signOut();
             }}
             text ="Uitloggen"
-            colour={ButtonColors.gray}
+            colour={ButtonColors.Gray}
           />
         ) : (
 
@@ -104,7 +107,7 @@ export const AppHeader: React.FC<{
             }
           }}
             text ="Login met Google"
-            colour={ButtonColors.gray}
+            colour={ButtonColors.Gray}
           />
         )}
       </div>

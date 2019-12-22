@@ -30,7 +30,7 @@ import { Wrapper } from '../Components/Wrapper/Wrapper';
           <Button 
             text="Terug naar Paketten"
             onClick={() => handleBackButton()}
-            colour={ButtonColors.gray}
+            colour={ButtonColors.Gray}
           />
         }
           <Wrapper>

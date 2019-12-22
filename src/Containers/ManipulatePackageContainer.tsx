@@ -31,7 +31,7 @@ export const ManipulatePackageContainer: React.FC<{
     <Button
       text="Verwijder pakket"
       onClick={() => setDeleteModalOpen(true)}
-      colour={ButtonColors.gray}
+      colour={ButtonColors.Gray}
     />
     <div>Pas een pakket aan.</div>
     <PackageForm submit={(payload: Package) => submitUpdateLesson(payload)} selectedLesson={selectedLesson} />
@@ -40,13 +40,13 @@ export const ManipulatePackageContainer: React.FC<{
       exerciseData.map(exercise => < ExerciseAdminBlock exercise={exercise} onClick={() => setSelectedExercise(exercise)}/>)
     }
 
-    <Button text="Voeg oefening toe" onClick={() => setAddExercise()} colour={ButtonColors.gray}/>
+    <Button text="Voeg oefening toe" onClick={() => setAddExercise()} colour={ButtonColors.Gray}/>
 
     <Modal isOpen={deleteModalOpen}>
       Weet je zeker dat je deze les wilt verwijderen. Verwijderde lessen kunnen niet meer terug gehaald worden.
       <div>
-      <Button text="Verwijder les" onClick={() => submitDeleteLesson()} colour={ButtonColors.gray}/>
-      <Button text="Nee" onClick={() => setDeleteModalOpen(false)} colour={ButtonColors.gray}/>        
+      <Button text="Verwijder les" onClick={() => submitDeleteLesson()} colour={ButtonColors.Gray}/>
+      <Button text="Nee" onClick={() => setDeleteModalOpen(false)} colour={ButtonColors.Gray}/>        
       </div>
     </Modal>
   

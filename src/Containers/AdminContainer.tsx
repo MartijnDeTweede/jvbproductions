@@ -87,7 +87,7 @@ const handleSuccessFullGetExerciseData = (data: Exercise[]) => {
   return(
     <Wrapper>
       <div>
-        <Button text="Pakket toevoegen" colour={ButtonColors.gray} onClick={() => {
+        <Button text="Pakket toevoegen" colour={ButtonColors.Gray} onClick={() => {
           setAdminMenuState(AdminMenuState.AddLesson)
         }} />
         <PackageList lessonData={lessonData} selectLesson={(selectedLesson) => {

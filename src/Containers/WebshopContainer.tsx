@@ -73,7 +73,7 @@ export const WebshopContainer: React.FC<{
         webshopState === WebshopState.Login &&
         <div>
           <Message message="Je moet inloggen om de webshhop te kunnen gebruiken." messageType={MessageType.Error} />
-          <Button onClick={signInWithGoogle} text="Login met Google" colour={ButtonColors.gray} />
+          <Button onClick={signInWithGoogle} text="Login met Google" colour={ButtonColors.Gray} />
         </div>
         }
       {

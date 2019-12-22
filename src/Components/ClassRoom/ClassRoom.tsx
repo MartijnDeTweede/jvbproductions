@@ -48,7 +48,7 @@ export class ClassRoom extends React.Component<ClassRoomProps> {
             text="Terug naar Paketten"
             onClick={() => {
               handleBackButton()}}
-            colour={ButtonColors.gray}
+            colour={ButtonColors.Gray}
           />
             <ReactVideoPlay
               sources={selectedLessonSource}
@@ -65,13 +65,13 @@ export class ClassRoom extends React.Component<ClassRoomProps> {
         {lessonState === LessonStates.Login &&
         <div>
           <Message message="Je moet inloggen om deze les te kunnen volgen." messageType={MessageType.Error} />
-          <Button onClick={signInWithGoogle} text="Login met Google" colour={ButtonColors.gray} />
+          <Button onClick={signInWithGoogle} text="Login met Google" colour={ButtonColors.Gray} />
         </div>
         }
         {lessonState === LessonStates.Buy &&
         <div>
           <Message message="Je moet deze les kopen om hem te kunnen volgen." messageType={MessageType.Error}/>
-          <Button onClick={() => buyLesson()} text="Nu kopen" colour={ButtonColors.gray} />
+          <Button onClick={() => buyLesson()} text="Nu kopen" colour={ButtonColors.Gray} />
         </div>
         }
       </div>

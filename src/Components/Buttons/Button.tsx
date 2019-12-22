@@ -3,7 +3,7 @@ import './Button.css';
 import classNames from 'classnames';
 
 export enum ButtonColors {
-  gray = "gray",
+  Gray = "Gray",
   Green = "Green"
 }
 
