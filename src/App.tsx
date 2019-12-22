@@ -13,6 +13,7 @@ import { PackageContainer } from './Containers/PackageContainer';
 import { UserInfo } from './Components/userInfo.types';
 import { AdminContainer } from './Containers/AdminContainer';
 import { WebshopContainer } from './Containers/WebshopContainer';
+import { ThankYouContainer } from './Containers/ThankYouContainer';
 
 const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
@@ -38,6 +39,7 @@ const App: React.FC<FireBaseProps> = ({ user, signOut, signInWithGoogle }) => {
         {
           userInfo && userInfo.isAdmin && <Route exact path='/admin' component={() =>  <AdminContainer user={user} />} />
         }
+        <Route exact path='/bedankt' component={() =>  <ThankYouContainer/>} />
     </Switch>
     </div>
   );
