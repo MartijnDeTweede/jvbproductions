@@ -9,14 +9,11 @@
 }
 
 .cart__clearButton {
-  font-size: calc(8px + 2vmin);
+  background-color: white;
+  color: #3c4044;
+  width: 100%;
   padding: 30px;
-  background-color: #3c4044;
-  color: white;
-  border-radius: 5px;
-  margin-left: 5px;
-  margin-top: 30px;
-  vertical-align: middle;
+  border:1px solid #3c4044;
 }
 
 .cart__clearButton:hover {
@@ -33,6 +30,15 @@
   }
 
   .cart__clearButton {
+    width: auto;
+    font-size: calc(8px + 2vmin);
+    padding: 30px;
+    background-color: #3c4044;
+    color: white;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-top: 30px;
+    vertical-align: middle;
     margin-top: 0;
   }
 }
