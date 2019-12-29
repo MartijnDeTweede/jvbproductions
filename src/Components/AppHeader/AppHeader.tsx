@@ -63,8 +63,8 @@ export const AppHeader: React.FC<{
         </Link>
       </span>
       <span className="App-Header-Link">
-        <Link to="/lessen">
-          <span className="App-Header-Link--desktop">Lessen</span>
+        <Link to="/lessons">
+          <span className="App-Header-Link--desktop">Lessons</span>
           <div className="App-Header-Link--mobile"><img src={guitarImage} alt="Lessen"/></div>
         </Link>
       </span>

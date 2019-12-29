@@ -45,7 +45,7 @@ export class ClassRoom extends React.Component<ClassRoomProps> {
         {lessonState === LessonStates.Play && selectedLesson && selectedExercise && selectedLessonSource &&
           <div className="ClassRoom__Play">
           <Button 
-            text="Terug naar Paketten"
+            text="Back to  lessons"
             onClick={() => {
               handleBackButton()}}
             colour={ButtonColors.Gray}

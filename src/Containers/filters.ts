@@ -18,14 +18,14 @@ export interface Filter {
 export const defaultFilters: Filter[] = [
   {
     category: 'Difficulty',
-    title: 'Moelijkheidsgraad',
+    title: 'Difficulty level',
     isExpended: false,
     setIsExpended: (isExpended: boolean) => (!isExpended),
     values: allowedValues.difficulty.map(value => ({...value, active: true}))
   },
   {
     category: 'Category',
-    title: 'Categorie',
+    title: 'Category',
     isExpended: false,
     setIsExpended: (isExpended: boolean) => (!isExpended),
     values: [

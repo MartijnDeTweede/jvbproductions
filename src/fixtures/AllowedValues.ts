@@ -7,9 +7,9 @@ export enum MusicTypes {
 
 export enum Difficulty {
   Beginner = "Beginner",
-  Gevorderd = "Gevorderd",
+  Gevorderd = "Advanced",
   Expert = "Exprt",
-  GitaarGod = 'Gitaar God'
+  GitaarGod = 'Gitar God'
 }
 
 export enum LessonType {

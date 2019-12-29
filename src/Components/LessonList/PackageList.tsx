@@ -17,6 +17,7 @@ export const PackageList: React.FC<{
           <div className="PackageList__Header">Paketten</div>
           {lessonData.map(menuItem => (
             <button
+              id={menuItem.song.title}
               className={classNames(
                 'PackageList-MenuItem',
               )}

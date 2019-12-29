@@ -12,8 +12,8 @@ import { HomePageContainer } from './Containers/HomePageContainer';
 import { PackageContainer } from './Containers/PackageContainer';
 import { UserInfo } from './Components/userInfo.types';
 import { AdminContainer } from './Containers/AdminContainer';
-import { WebshopContainer } from './Containers/WebshopContainer';
 import { ThankYouContainer } from './Containers/ThankYouContainer';
+import { WebshopPlaceholder } from './Containers/WebshopPlaceHolder';
 
 const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
@@ -34,8 +34,9 @@ const App: React.FC<FireBaseProps> = ({ user, signOut, signInWithGoogle }) => {
       />
       <Switch> 
         <Route path="/" exact component={HomePageContainer} />
-        <Route exact path='/lessen' component={() =>  <PackageContainer user={user} signInWithGoogle={signInWithGoogle} setUserInfo={setUserInfo} />} />
-        <Route exact path='/webshop' component={() =>  <WebshopContainer user={user} signInWithGoogle={signInWithGoogle} />} />
+        <Route exact path='/lessons' component={() =>  <PackageContainer user={user} signInWithGoogle={signInWithGoogle} setUserInfo={setUserInfo} />} />
+        <Route exact path='/webshop' component={() =>  <WebshopPlaceholder />} />
+        {/* <Route exact path='/webshop' component={() =>  <WebshopContainer user={user} signInWithGoogle={signInWithGoogle} />} /> */}
         {
           userInfo && userInfo.isAdmin && <Route exact path='/admin' component={() =>  <AdminContainer user={user} />} />
         }

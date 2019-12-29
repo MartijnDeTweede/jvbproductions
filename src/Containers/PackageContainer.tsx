@@ -69,7 +69,7 @@ export enum LessonStates {
   Login = 'Login',
   Error = 'Error',
   Buy = 'Buy',
-  NotSelected = 'Not Selected'
+  NotSelected = 'NotSelected'
 }
 
 export const PackageContainer: React.FC<{
@@ -102,8 +102,52 @@ export const PackageContainer: React.FC<{
        setLessonState(LessonStates.Error)
     });
     setIsLoading(false);
+    fillStateFromStorage();
   }, [])
 
+  const fillStateFromStorage = () => {
+    const lessonState= localStorage.getItem("lessonPlayer_lessonState");
+    switch(lessonState) {
+      case LessonStates.Play: {
+        setLessonState(LessonStates.Play);
+        break;
+      };
+      case LessonStates.Error: {
+        setLessonState(LessonStates.Error);
+        break;
+      };
+      case LessonStates.Login: {
+        setLessonState(LessonStates.Login);
+        break;
+      };
+      case LessonStates.NotSelected: {
+        setLessonState(LessonStates.NotSelected);
+        break;
+      };
+      case LessonStates.Buy: {
+        setLessonState(LessonStates.Buy);
+        break;
+      };
+      default: {
+        setLessonState(LessonStates.NotSelected);
+        break;
+      }
+    }
+    
+    const selectedLesson = localStorage.getItem("lessonPlayer_selectedLesson");
+    if(selectedLesson) {
+      setSelectedLesson(JSON.parse(selectedLesson));
+    }
+    const selectedExercise = localStorage.getItem("lessonPlayer_selectedExercise");
+    if(selectedExercise) {
+      setSelectedExercise(JSON.parse(selectedExercise));
+    }
+
+    const selectedResource = localStorage.getItem("lessonPlayer_selectedVideoSource");
+    if(selectedResource) {
+      setSelectedVideoSource(JSON.parse(selectedResource));
+    }
+  }
 
   const updateFilters = (category: string, newValue: string) => {
     const newFilters = activeFilters.reduce((accumulatedFilters: Filter[], currentFilter: Filter) => {
@@ -127,15 +171,19 @@ export const PackageContainer: React.FC<{
         }
       ]
       setLessonState(LessonStates.Play)
-      setSelectedVideoSource(selectedVideoSource)
+      localStorage.setItem("lessonPlayer_lessonState", LessonStates.Play);
+      setSelectedVideoSource(selectedVideoSource);
+      localStorage.setItem("lessonPlayer_selectedVideoSource", JSON.stringify(selectedVideoSource));
 
-      })).catch((error) =>{
-        if(error.code === "storage/unauthorized") {
-          setLessonState(LessonStates.Login)
-        } else {
-          setLessonState(LessonStates.Error)
-        }
-      });
+    })).catch((error) =>{
+      if(error.code === "storage/unauthorized") {
+        setLessonState(LessonStates.Login);
+        localStorage.setItem("lessonPlayer_lessonState", LessonStates.Login);
+      } else {
+        setLessonState(LessonStates.Error);
+        localStorage.setItem("lessonPlayer_lessonState", LessonStates.Error);
+      }
+    });
   }
 
   const getImageLink = async (imageName: string): Promise<string | void> => {
@@ -144,9 +192,11 @@ export const PackageContainer: React.FC<{
 
       })).catch((error) =>{
         if(error.code === "storage/unauthorized") {
-          setLessonState(LessonStates.Login)
+          setLessonState(LessonStates.Login);
+          localStorage.setItem("lessonPlayer_lessonState", LessonStates.Login);
         } else {
-          setLessonState(LessonStates.Error)
+          setLessonState(LessonStates.Error);
+          localStorage.setItem("lessonPlayer_lessonState", LessonStates.Error);
         }
       });
   }
@@ -161,6 +211,7 @@ export const PackageContainer: React.FC<{
   const handleRequestingResourceAccess = async (itemToAcces: string, onSuccess: () => void) =>{
     if(!user) {
       setLessonState(LessonStates.Login);
+      localStorage.setItem("lessonPlayer_lessonState", LessonStates.Login);
       return;
     }
     const resonse = user && await requestAccesToVideo(user.uid, itemToAcces);
@@ -169,24 +220,32 @@ export const PackageContainer: React.FC<{
       onSuccess()
     } else if(resonse &&  resonse.status === 'NotBought') {
       setLessonState(LessonStates.Buy)
+      localStorage.setItem("lessonPlayer_lessonState", LessonStates.Buy);
     } else {
-      setLessonState(LessonStates.Error) 
+      setLessonState(LessonStates.Error)
+      localStorage.setItem("lessonPlayer_lessonState", LessonStates.Error);
     }
   }
 
   const selectExercise = async (exercise: Exercise) => {
     setSelectedExercise(exercise);
+    localStorage.setItem("lessonPlayer_selectedExercise", JSON.stringify(exercise));
     const itemToAcces = `${exercise.lessonName}-${exercise.exerciseName}`;
     await handleRequestingResourceAccess(itemToAcces, () => loadExercise(exercise))
   }
 
   const handleBackToLessons = () => {
     setSelectedLesson(undefined);
+    localStorage.removeItem("lessonPlayer_selectedLesson");
     setSelectedExercise(undefined);
+    localStorage.removeItem("lessonPlayer_selectedExercise");
+    setLessonState(LessonStates.NotSelected);
+    localStorage.setItem("lessonPlayer_lessonState", LessonStates.NotSelected);
   }
 
   const selectLesson = async (lesson: Package) => {
     getExersiseData(lesson.song.title);
+    localStorage.setItem("lessonPlayer_selectedLesson", JSON.stringify(lesson));
     handleRequestingResourceAccess(lesson.song.title, () => setSelectedLesson(lesson))
   };
 
@@ -200,8 +259,8 @@ export const PackageContainer: React.FC<{
           <SideMenuButton
             onClick={() =>setOpenSideMenu(!openSideMenu)} 
             openSideMenu
-            openedText="Menu openen"
-            closedText="menu sluiten"
+            openedText="Open menu"
+            closedText="Close menu"
           />
           </div>
           <Wrapper>

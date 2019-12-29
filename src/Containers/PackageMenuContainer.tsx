@@ -28,7 +28,7 @@ import { Wrapper } from '../Components/Wrapper/Wrapper';
         {
           selectedLesson &&
           <Button 
-            text="Terug naar Paketten"
+            text="Back to lessons"
             onClick={() => handleBackButton()}
             colour={ButtonColors.Gray}
           />
