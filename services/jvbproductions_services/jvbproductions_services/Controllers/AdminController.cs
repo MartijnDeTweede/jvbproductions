@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using jvbproductions_services.DTO;
 using jvbproductions_services.Helpers;
+using jvbproductions_services.Interfaces;
 using jvbproductions_services.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,12 @@ namespace jvbproductions_services.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly IDataProvider dataProvider;
 
+        public AdminController(IDataProvider dataProvider)
+        {
+            this.dataProvider = dataProvider;
+        }
 
         // Post api/admin/addLesson
         [HttpPost]
