@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using jvbproductions_services.DTO;
 using jvbproductions_services.Helpers;
+using jvbproductions_services.Interfaces;
 using jvbproductions_services.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +12,22 @@ namespace jvbproductions_services.Controllers
     [ApiController]
     public class LessonController : Controller
     {
+
+        private readonly IDataProvider dataProvider;
+
+        public LessonController(IDataProvider dataProvider)
+        {
+            this.dataProvider = dataProvider;
+        }
+
         //GET api/lesson/GetAllLessons
         [HttpGet]
         [Route("api/lesson/getAllPackages")]
-        public ActionResult<List<PackageModel>> GetAllPackages()
+        //public ActionResult<List<PackageModel>> GetAllPackages()
+        public ActionResult<string> GetAllPackages()
         {
+            var dataGot = dataProvider.Get();
+
             List<PackageModel> allLessons = new List<PackageModel>();
             var queryHelper = new QueryHelper();
             try
@@ -26,7 +38,7 @@ namespace jvbproductions_services.Controllers
             {
                 return BadRequest();
             }
-            return allLessons;
+            return dataGot;
         }
 
         //GET api/lesson/GetExcersisesForLesson
