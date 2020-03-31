@@ -13,11 +13,11 @@ namespace jvbproductions_services.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly IDataProvider dataProvider;
+        private readonly IAdminService adminService;
 
-        public AdminController(IDataProvider dataProvider)
+        public AdminController(IAdminService adminService)
         {
-            this.dataProvider = dataProvider;
+            this.adminService = adminService;
         }
 
         // Post api/admin/addLesson
@@ -27,10 +27,9 @@ namespace jvbproductions_services.Controllers
         public ActionResult<List<PackageModel>> addPackage([FromBody] PackageDTO dto)
         {
             var package = dto.Package;
-            var adminQuryHelper = new AdminQueryHelper();
             try
             {
-                adminQuryHelper.AddPackage(package);
+                adminService.AddPackage(package);
             }
             catch (Exception e)
             {
@@ -59,10 +58,9 @@ namespace jvbproductions_services.Controllers
         {
 
             var package = dto.Package;
-            var adminQuryHelper = new AdminQueryHelper();
             try
             {
-                adminQuryHelper.UpdatePackage(package);
+                adminService.UpdatePackage(package);
             }
             catch (Exception e)
             {
@@ -91,10 +89,9 @@ namespace jvbproductions_services.Controllers
         {
 
             var lessonName = dto.Package.Song.Title;
-            var adminQuryHelper = new AdminQueryHelper();
             try
             {
-                adminQuryHelper.deleteLesson(lessonName);
+                adminService.DeletePackageAsync(lessonName);
             }
             catch (Exception e)
             {
@@ -122,10 +119,9 @@ namespace jvbproductions_services.Controllers
         public ActionResult<List<ExerciseModel>> addExercise([FromBody] ExerciseDTO dto)
         {
             var exercise = dto.Exercise;
-            var adminQuryHelper = new AdminQueryHelper();
             try
             {
-                adminQuryHelper.addExercise(exercise);
+                adminService.AddExercise(exercise);
             }
             catch (Exception e)
             {
@@ -153,10 +149,9 @@ namespace jvbproductions_services.Controllers
         public ActionResult<List<ExerciseModel>> updateExercise([FromBody] ExerciseDTO dto)
         {
             var exercise = dto.Exercise;
-            var adminQuryHelper = new AdminQueryHelper();
             try
             {
-                adminQuryHelper.updateExercise(exercise);
+                adminService.UpdateExercise(exercise);
             }
             catch (Exception e)
             {
@@ -184,10 +179,9 @@ namespace jvbproductions_services.Controllers
         public ActionResult<List<ExerciseModel>> deleteExercise([FromBody] ExerciseDTO dto)
         {
             var exercise = dto.Exercise;
-            var adminQuryHelper = new AdminQueryHelper();
             try
             {
-                adminQuryHelper.deleteExercise(exercise);
+                adminService.DeleteExercise(exercise);
             }
             catch (Exception e)
             {

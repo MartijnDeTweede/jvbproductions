@@ -15,4 +15,3 @@ E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbprod
 E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Debug\netcoreapp2.1\jvbproductions_services.dll
 E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Debug\netcoreapp2.1\jvbproductions_services.pdb
 E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Debug\netcoreapp2.1\jvbproductions_services.genruntimeconfig.cache
-E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Debug\netcoreapp2.1\jvbproductions_services.csprojAssemblyReference.cache
