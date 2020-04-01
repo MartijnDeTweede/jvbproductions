@@ -11,6 +11,6 @@ namespace jvbproductions_services.Interfaces
         bool UserExists(string userId);
         User GetUser(string userId);
         User UpdateUserCredit(string userId, int currentCredit, int creditMutation);
-        User CreateNewUser();
+        User CreateNewUser(string fireBaseId);
     }
 }

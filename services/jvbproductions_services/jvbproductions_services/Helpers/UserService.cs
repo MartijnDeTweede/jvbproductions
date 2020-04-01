@@ -18,22 +18,22 @@ namespace jvbproductions_services.Helpers
             this.db = context;
         }
 
-        public bool UserExists(string userId)
+        public bool UserExists(string fireBaseId)
         {
-            var user = db.Users.Find(userId);
+            var user = db.Users.FirstOrDefault(u => u.FireBaseId == fireBaseId);
             return user != null;
         }
 
-        public User GetUser(string userId)
+        public User GetUser(string fireBaseId)
         {
-            return db.Users.Find(userId);
+            return db.Users.FirstOrDefault(u => u.FireBaseId == fireBaseId);
         }
 
-        public User UpdateUserCredit(string userId, int currentCredit, int creditMutation)
+        public User UpdateUserCredit(string fireBaseId, int currentCredit, int creditMutation)
         {
             int newCredit = currentCredit + creditMutation;
 
-            var user = db.Users.Find(userId);
+            var user = db.Users.FirstOrDefault(u => u.FireBaseId == fireBaseId);
             user.Credits = newCredit;
 
             var entry = db.Entry(user);
@@ -43,9 +43,9 @@ namespace jvbproductions_services.Helpers
             return user;
         }
 
-        public User CreateNewUser()
+        public User CreateNewUser(string fireBaseId)
         {
-            var user = new User() { Credits = 100, isAdmin = false };
+            var user = new User() { Credits = 100, isAdmin = false, FireBaseId=fireBaseId };
             db.Users.Add(user);
             db.SaveChanges();
 

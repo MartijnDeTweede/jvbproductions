@@ -38,7 +38,7 @@ namespace jvbproductions_services.Controllers
                     userModel = userService.GetUser(userId);
                 } else
                 {
-                    userModel = userService.CreateNewUser();
+                    userModel = userService.CreateNewUser(userId);
                 }
 
             } catch(Exception e)
