@@ -64,11 +64,12 @@ namespace jvbproductions_services
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler("/error-local-development");
             }
             else
             {
                 app.UseHsts();
+                app.UseExceptionHandler("/error");
             }
 
             app.UseCors(MyAllowSpecificOrigins);
