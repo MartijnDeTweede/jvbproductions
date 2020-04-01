@@ -36,9 +36,9 @@ namespace jvbproductions_services.Helpers
             }
         }
 
-        public UserModel getUser(string userId)
+        public User getUser(string userId)
         {
-            var userModel = new UserModel();
+            var userModel = new User();
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -87,9 +87,9 @@ namespace jvbproductions_services.Helpers
             }
         }
 
-        public UserModel updateUserCredit(string userId, int currentCredit, int creditMutation)
+        public User updateUserCredit(string userId, int currentCredit, int creditMutation)
         {
-            var userModel = new UserModel();
+            var userModel = new User();
             int newCredit = currentCredit + creditMutation;
             userModel.Credits = newCredit;
 
@@ -116,9 +116,9 @@ namespace jvbproductions_services.Helpers
             return userModel;
         }
 
-        public UserModel createNewUser(string userId)
+        public User createNewUser(string userId)
         {
-            var userModel = new UserModel();
+            var userModel = new User();
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -167,9 +167,9 @@ namespace jvbproductions_services.Helpers
             }
         }
 
-        public PackageModel getPackage(string packageName)
+        public Package getPackage(string packageName)
         {
-            var lesson = new PackageModel();
+            var lesson = new Package();
             try
             {
 
@@ -186,7 +186,7 @@ namespace jvbproductions_services.Helpers
                     {
 
 
-                        lesson.Song = new Song(dr["Artist"].ToString(), dr["Title"].ToString());
+                        lesson.Song = new Song() { Artist = dr["Artist"].ToString(), Title = dr["Title"].ToString() };
                         lesson.Category = dr["Category"].ToString();
 
                         int credits;
@@ -228,9 +228,9 @@ namespace jvbproductions_services.Helpers
 
         }
 
-        public AccessModel getRecourseAccess(string userId, string resource)
+        public Access getRecourseAccess(string userId, string resource)
         {
-            AccessModel access = new AccessModel();
+            Access access = new Access();
 
             try
             {
@@ -264,9 +264,9 @@ namespace jvbproductions_services.Helpers
             return access;
         }
 
-        public List<PackageModel> getAllPackages ()
+        public List<Package> getAllPackages ()
         {
-            List<PackageModel> allPackages = new List<PackageModel>();
+            List<Package> allPackages = new List<Package>();
             try
             {
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -280,9 +280,8 @@ namespace jvbproductions_services.Helpers
 
                     while (dr.Read())
                     {
-                        var newPackage = new PackageModel();
-
-                        newPackage.Song = new Song(dr["Artist"].ToString(), dr["Title"].ToString());
+                        var newPackage = new Package();
+                        newPackage.Song = new Song() { Artist = dr["Artist"].ToString(), Title = dr["Title"].ToString() };
                         newPackage.Category = dr["Category"].ToString();
 
                         int credits;
@@ -310,8 +309,8 @@ namespace jvbproductions_services.Helpers
         return allPackages;
         }
 
-        public List<ExerciseModel> getExcersisesForPackage(string packageName) {
-            List<ExerciseModel> allExcersises = new List<ExerciseModel>();
+        public List<Exercise> getExcersisesForPackage(string packageName) {
+            List<Exercise> allExcersises = new List<Exercise>();
 
             try
             {
@@ -327,7 +326,7 @@ namespace jvbproductions_services.Helpers
 
                     while (dr.Read())
                     {
-                        var newExcersise = new ExerciseModel();
+                        var newExcersise = new Exercise();
 
                         newExcersise.LessonName = packageName;
                         newExcersise.ExerciseName = dr["ExcersiseName"].ToString();

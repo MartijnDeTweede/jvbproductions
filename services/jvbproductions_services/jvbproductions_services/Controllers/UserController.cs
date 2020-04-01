@@ -17,9 +17,9 @@ namespace jvbproductions_services.Controllers
         // GET api/user/getUserInfo
         [HttpGet("{userId}")]
         [Route("api/user/getUser/{userId}")]
-        public ActionResult<UserModel> getUser(string userId)
+        public ActionResult<User> getUser(string userId)
         {
-            var userModel = new UserModel();
+            var userModel = new User();
             var queryHelper = new QueryHelper();
             try
             {
@@ -42,13 +42,13 @@ namespace jvbproductions_services.Controllers
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/user/buyResource/")]
-        public ActionResult<UserModel> buyResource([FromBody] UserLessonDTO dto)
+        public ActionResult<User> buyResource([FromBody] UserLessonDTO dto)
         {
             string userId = dto.userId;
             string lessonName = dto.lessonName;
 
-            var user = new UserModel();
-            var lesson = new PackageModel();
+            var user = new User();
+            var lesson = new Package();
             var queryHelper = new QueryHelper();
             try
             {

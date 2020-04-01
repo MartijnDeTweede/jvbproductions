@@ -15,25 +15,26 @@ namespace jvbproductions_services.Helpers
         {
             this.db = context;
         }
-        public void AddPackage(PackageModel package)
+        public void AddPackage(Package package)
         {
             db.Packages.Add(package);
             db.SaveChanges();
         }
 
-        public void AddExercise(ExerciseModel exercise)
+        public void AddExercise(Exercise exercise)
         {
             db.Exercises.Add(exercise);
+            db.SaveChanges();
         }
 
-        public void UpdatePackage(PackageModel package)
+        public void UpdatePackage(Package package)
         {
             var entry = db.Entry(package);
             entry.State = EntityState.Modified;
             db.SaveChanges();
         }
 
-        public void UpdateExercise(ExerciseModel exercise)
+        public void UpdateExercise(Exercise exercise)
         {
             var entry = db.Entry(exercise);
             entry.State = EntityState.Modified;
@@ -48,7 +49,7 @@ namespace jvbproductions_services.Helpers
 
         }
 
-        public void DeleteExercise(ExerciseModel exercise)
+        public void DeleteExercise(Exercise exercise)
         {
             db.Exercises.Remove(exercise);
             db.SaveChanges();

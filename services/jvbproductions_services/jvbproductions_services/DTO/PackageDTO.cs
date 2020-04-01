@@ -9,6 +9,6 @@ namespace jvbproductions_services.DTO
     public class PackageDTO
     {
         public string UserId { get; set; }
-        public PackageModel Package { get; set; }
+        public Package Package { get; set; }
     }
 }

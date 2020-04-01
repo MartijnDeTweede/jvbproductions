@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace jvbproductions_services.Models
 {
-    public class UserModel
+    public class Song
     {
-        public string Id { get; set; }
-        public int Credits { get; set; }
-        public bool isAdmin { get; set; }
+        public int Id { get; set; }
+        public string Artist { get; set; }
+        public string Title { get; set; }
     }
 }

@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace jvbproductions_services.Models
 {
-    public class AccessModel
+    public class User
     {
-        public string Status { get; set; }
+        public string Id { get; set; }
+        public int Credits { get; set; }
+        public bool isAdmin { get; set; }
     }
 }

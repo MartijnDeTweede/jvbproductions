@@ -14,8 +14,15 @@ namespace jvbproductions_services.Helpers
         {
 
         }
-        public DbSet<ExerciseModel> Exercises { get; set; }
-        public DbSet<PackageModel> Packages { get; set; }
-        public DbSet<UserModel> Users { get; set; }
+        public DbSet<Exercise> Exercises { get; set; }
+        public DbSet<Package> Packages { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Exercise>().ToTable("Exercises");
+            modelBuilder.Entity<Package>().ToTable("Packages");
+            modelBuilder.Entity<User>().ToTable("Users");
+        }
     }
 }

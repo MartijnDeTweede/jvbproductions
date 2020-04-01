@@ -28,7 +28,7 @@ namespace jvbproductions_services.Controllers
         {
             var dataGot = dataProvider.Get();
 
-            List<PackageModel> allLessons = new List<PackageModel>();
+            List<Package> allLessons = new List<Package>();
             var queryHelper = new QueryHelper();
             try
             {
@@ -44,9 +44,9 @@ namespace jvbproductions_services.Controllers
         //GET api/lesson/GetExcersisesForLesson
         [HttpGet]
         [Route("api/lesson/GetExcersisesForPackage/{packageName}")]
-        public ActionResult<List<ExerciseModel>> GetExcersisesForPackage(string packageName)
+        public ActionResult<List<Exercise>> GetExcersisesForPackage(string packageName)
         {
-            List<ExerciseModel> allExcersises = new List<ExerciseModel>();
+            List<Exercise> allExcersises = new List<Exercise>();
             var queryHelper = new QueryHelper();
             try
             {
@@ -64,12 +64,12 @@ namespace jvbproductions_services.Controllers
         // GET api/lesson/RequestLessonAccess
         [HttpGet]
         [Route("api/lesson/RequestResourceAccess/{userId}/{lessonName}")]
-        public ActionResult<AccessModel> RequestResourceAccess(string userId, string lessonName)
+        public ActionResult<Access> RequestResourceAccess(string userId, string lessonName)
         {
  
             var queryHelper = new QueryHelper();
             var lesson = queryHelper.getPackage(lessonName);
-            AccessModel acces = new AccessModel();
+            Access acces = new Access();
 
             if(lesson.LessonType == "Free")
             {

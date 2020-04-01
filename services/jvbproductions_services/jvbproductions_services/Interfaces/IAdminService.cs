@@ -8,11 +8,11 @@ namespace jvbproductions_services.Interfaces
 {
     public interface IAdminService
     {
-        void AddPackage(PackageModel package);
-        void AddExercise(ExerciseModel exercise);
-        void UpdatePackage(PackageModel package);
-        void UpdateExercise(ExerciseModel exercise);
+        void AddPackage(Package package);
+        void AddExercise(Exercise exercise);
+        void UpdatePackage(Package package);
+        void UpdateExercise(Exercise exercise);
         Task DeletePackageAsync(string title);
-        void DeleteExercise(ExerciseModel exercise);
+        void DeleteExercise(Exercise exercise);
     }
 }

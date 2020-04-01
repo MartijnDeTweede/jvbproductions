@@ -24,7 +24,7 @@ namespace jvbproductions_services.Controllers
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/admin/addPackage/")]
-        public ActionResult<List<PackageModel>> addPackage([FromBody] PackageDTO dto)
+        public ActionResult<List<Package>> addPackage([FromBody] PackageDTO dto)
         {
             var package = dto.Package;
             try
@@ -37,7 +37,7 @@ namespace jvbproductions_services.Controllers
             }
         
             // Return all lessons
-            List<PackageModel> allLessons = new List<PackageModel>();
+            List<Package> allLessons = new List<Package>();
             var queryHelper = new QueryHelper();
             try
             {
@@ -54,7 +54,7 @@ namespace jvbproductions_services.Controllers
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/admin/updatePackage/")]
-        public ActionResult<List<PackageModel>> updatePackage([FromBody] PackageDTO dto)
+        public ActionResult<List<Package>> updatePackage([FromBody] PackageDTO dto)
         {
 
             var package = dto.Package;
@@ -68,7 +68,7 @@ namespace jvbproductions_services.Controllers
             }
 
             // Return all lessons
-            List<PackageModel> allLessons = new List<PackageModel>();
+            List<Package> allLessons = new List<Package>();
             var queryHelper = new QueryHelper();
             try
             {
@@ -85,7 +85,7 @@ namespace jvbproductions_services.Controllers
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/admin/deletePackage/")]
-        public ActionResult<List<PackageModel>> deletePackage([FromBody] PackageDTO dto)
+        public ActionResult<List<Package>> deletePackage([FromBody] PackageDTO dto)
         {
 
             var lessonName = dto.Package.Song.Title;
@@ -99,7 +99,7 @@ namespace jvbproductions_services.Controllers
             }
 
             // Return all lessons
-            List<PackageModel> allLessons = new List<PackageModel>();
+            List<Package> allLessons = new List<Package>();
             var queryHelper = new QueryHelper();
             try
             {
@@ -116,7 +116,7 @@ namespace jvbproductions_services.Controllers
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/admin/addExercise/")]
-        public ActionResult<List<ExerciseModel>> addExercise([FromBody] ExerciseDTO dto)
+        public ActionResult<List<Exercise>> addExercise([FromBody] ExerciseDTO dto)
         {
             var exercise = dto.Exercise;
             try
@@ -129,16 +129,16 @@ namespace jvbproductions_services.Controllers
             }
 
             // Return all lessons
-            List<ExerciseModel> allExcersises = new List<ExerciseModel>();
-            var queryHelper = new QueryHelper();
-            try
-            {
-                allExcersises = queryHelper.getExcersisesForPackage(exercise.LessonName);
-            }
-            catch (Exception e)
-            {
-                return BadRequest();
-            }
+            List<Exercise> allExcersises = new List<Exercise>();
+            //var queryHelper = new QueryHelper();
+            //try
+            //{
+            //    allExcersises = queryHelper.getExcersisesForPackage(exercise.LessonName);
+            //}
+            //catch (Exception e)
+            //{
+            //    return BadRequest();
+            //}
             return allExcersises;
         }
 
@@ -146,7 +146,7 @@ namespace jvbproductions_services.Controllers
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/admin/updateExercise/")]
-        public ActionResult<List<ExerciseModel>> updateExercise([FromBody] ExerciseDTO dto)
+        public ActionResult<List<Exercise>> updateExercise([FromBody] ExerciseDTO dto)
         {
             var exercise = dto.Exercise;
             try
@@ -159,7 +159,7 @@ namespace jvbproductions_services.Controllers
             }
 
             // Return all lessons
-            List<ExerciseModel> allExcersises = new List<ExerciseModel>();
+            List<Exercise> allExcersises = new List<Exercise>();
             var queryHelper = new QueryHelper();
             try
             {
@@ -176,7 +176,7 @@ namespace jvbproductions_services.Controllers
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/admin/deleteExercise/")]
-        public ActionResult<List<ExerciseModel>> deleteExercise([FromBody] ExerciseDTO dto)
+        public ActionResult<List<Exercise>> deleteExercise([FromBody] ExerciseDTO dto)
         {
             var exercise = dto.Exercise;
             try
@@ -189,7 +189,7 @@ namespace jvbproductions_services.Controllers
             }
 
             // Return all lessons
-            List<ExerciseModel> allExcersises = new List<ExerciseModel>();
+            List<Exercise> allExcersises = new List<Exercise>();
             var queryHelper = new QueryHelper();
             try
             {

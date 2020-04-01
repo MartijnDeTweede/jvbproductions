@@ -5,19 +5,7 @@ using System.Threading.Tasks;
 
 namespace jvbproductions_services.Models
 {
-    public class Song
-    {
-        public string Artist { get; set; }
-        public string Title { get; set; }
-
-        public Song(string artist, string title)
-        {
-            Artist = artist;
-            Title = title;
-        }
-    }
-
-    public class PackageModel
+    public class Package
     {
         public int Id { get; set; }
         public Song Song {get; set;}

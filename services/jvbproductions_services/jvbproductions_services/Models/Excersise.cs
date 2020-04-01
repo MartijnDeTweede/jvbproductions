@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace jvbproductions_services.Models
 {
-    public class ExerciseModel
+    public class Exercise
     {
         public int Id { get; set; }
         public string LessonName { get; set; }
