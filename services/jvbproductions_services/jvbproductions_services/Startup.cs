@@ -42,7 +42,6 @@ namespace jvbproductions_services
                                 .AllowAnyMethod().AllowCredentials();
                 });
             });
-
             services.AddDbContext<JoeGuitarContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("JoeGuitarContext")));
 
