@@ -7,6 +7,9 @@ namespace jvbproductions_services.Models
 {
     public class Access
     {
-        public string Status { get; set; }
+        public int Id { get; set; }
+        public string UserId { get; set; }
+
+        public string Recource { get; set; }
     }
 }

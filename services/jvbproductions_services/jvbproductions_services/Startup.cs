@@ -50,7 +50,11 @@ namespace jvbproductions_services
             var containerBuilder = new ContainerBuilder();
             containerBuilder.Populate(services);
             containerBuilder.RegisterType<DataProvider>().As<IDataProvider>();
+
             containerBuilder.RegisterType<AdminService>().As<IAdminService>();
+            containerBuilder.RegisterType<PackageService>().As<IPackageService>();
+            containerBuilder.RegisterType<UserService>().As<IUserService>();
+
             containerBuilder.RegisterType<JoeGuitarContext>();
 
             this.ApplicationContainer = containerBuilder.Build();

@@ -14,10 +14,12 @@ namespace jvbproductions_services.Controllers
     public class AdminController : Controller
     {
         private readonly IAdminService adminService;
+        private readonly IPackageService packageService;
 
-        public AdminController(IAdminService adminService)
+        public AdminController(IAdminService adminService, IPackageService packageService)
         {
             this.adminService = adminService;
+            this.packageService = packageService;
         }
 
         // Post api/admin/addLesson
@@ -27,25 +29,15 @@ namespace jvbproductions_services.Controllers
         public ActionResult<List<Package>> addPackage([FromBody] PackageDTO dto)
         {
             var package = dto.Package;
+            List<Package> allLessons = new List<Package>();
             try
             {
                 adminService.AddPackage(package);
+                allLessons = packageService.GetAllPackages();
             }
             catch (Exception e)
             {
                 BadRequest(e);
-            }
-        
-            // Return all lessons
-            List<Package> allLessons = new List<Package>();
-            var queryHelper = new QueryHelper();
-            try
-            {
-                allLessons = queryHelper.getAllPackages();
-            }
-            catch (Exception e)
-            {
-                return BadRequest();
             }
             return allLessons;
         }
@@ -56,28 +48,18 @@ namespace jvbproductions_services.Controllers
         [Route("api/admin/updatePackage/")]
         public ActionResult<List<Package>> updatePackage([FromBody] PackageDTO dto)
         {
-
             var package = dto.Package;
+            List<Package> allLessons = new List<Package>();
             try
             {
                 adminService.UpdatePackage(package);
+                allLessons = packageService.GetAllPackages();
             }
             catch (Exception e)
             {
                 BadRequest(e);
             }
 
-            // Return all lessons
-            List<Package> allLessons = new List<Package>();
-            var queryHelper = new QueryHelper();
-            try
-            {
-                allLessons = queryHelper.getAllPackages();
-            }
-            catch (Exception e)
-            {
-                return BadRequest();
-            }
             return allLessons;
         }
 
@@ -87,27 +69,16 @@ namespace jvbproductions_services.Controllers
         [Route("api/admin/deletePackage/")]
         public ActionResult<List<Package>> deletePackage([FromBody] PackageDTO dto)
         {
-
             var lessonName = dto.Package.Song.Title;
+            List<Package> allLessons = new List<Package>();
             try
             {
                 adminService.DeletePackageAsync(lessonName);
+                allLessons = packageService.GetAllPackages();
             }
             catch (Exception e)
             {
                 BadRequest(e);
-            }
-
-            // Return all lessons
-            List<Package> allLessons = new List<Package>();
-            var queryHelper = new QueryHelper();
-            try
-            {
-                allLessons = queryHelper.getAllPackages();
-            }
-            catch (Exception e)
-            {
-                return BadRequest();
             }
             return allLessons;
         }
@@ -118,27 +89,17 @@ namespace jvbproductions_services.Controllers
         [Route("api/admin/addExercise/")]
         public ActionResult<List<Exercise>> addExercise([FromBody] ExerciseDTO dto)
         {
+            List<Exercise> allExcersises = new List<Exercise>();
             var exercise = dto.Exercise;
             try
             {
                 adminService.AddExercise(exercise);
+                allExcersises = packageService.GetExcersisesForPackage(exercise.LessonName);
             }
             catch (Exception e)
             {
                 BadRequest(e);
             }
-
-            // Return all lessons
-            List<Exercise> allExcersises = new List<Exercise>();
-            //var queryHelper = new QueryHelper();
-            //try
-            //{
-            //    allExcersises = queryHelper.getExcersisesForPackage(exercise.LessonName);
-            //}
-            //catch (Exception e)
-            //{
-            //    return BadRequest();
-            //}
             return allExcersises;
         }
 
@@ -149,25 +110,16 @@ namespace jvbproductions_services.Controllers
         public ActionResult<List<Exercise>> updateExercise([FromBody] ExerciseDTO dto)
         {
             var exercise = dto.Exercise;
+            List<Exercise> allExcersises = new List<Exercise>();
+
             try
             {
                 adminService.UpdateExercise(exercise);
+                allExcersises = packageService.GetExcersisesForPackage(exercise.LessonName);
             }
             catch (Exception e)
             {
                 BadRequest(e);
-            }
-
-            // Return all lessons
-            List<Exercise> allExcersises = new List<Exercise>();
-            var queryHelper = new QueryHelper();
-            try
-            {
-                allExcersises = queryHelper.getExcersisesForPackage(exercise.LessonName);
-            }
-            catch (Exception e)
-            {
-                return BadRequest();
             }
             return allExcersises;
         }
@@ -179,25 +131,16 @@ namespace jvbproductions_services.Controllers
         public ActionResult<List<Exercise>> deleteExercise([FromBody] ExerciseDTO dto)
         {
             var exercise = dto.Exercise;
+            List<Exercise> allExcersises = new List<Exercise>();
+
             try
             {
                 adminService.DeleteExercise(exercise);
+                allExcersises = packageService.GetExcersisesForPackage(exercise.LessonName);
             }
             catch (Exception e)
             {
                 BadRequest(e);
-            }
-
-            // Return all lessons
-            List<Exercise> allExcersises = new List<Exercise>();
-            var queryHelper = new QueryHelper();
-            try
-            {
-                allExcersises = queryHelper.getExcersisesForPackage(exercise.LessonName);
-            }
-            catch (Exception e)
-            {
-                return BadRequest();
             }
             return allExcersises;
         }

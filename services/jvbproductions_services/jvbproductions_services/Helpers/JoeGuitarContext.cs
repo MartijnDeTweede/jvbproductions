@@ -18,11 +18,14 @@ namespace jvbproductions_services.Helpers
         public DbSet<Package> Packages { get; set; }
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Access> Access { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Exercise>().ToTable("Exercises");
             modelBuilder.Entity<Package>().ToTable("Packages");
             modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<Access>().ToTable("Access");
         }
     }
 }

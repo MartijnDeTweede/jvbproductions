@@ -4,6 +4,7 @@ using jvbproductions_services.DTO;
 using jvbproductions_services.Helpers;
 using jvbproductions_services.Interfaces;
 using jvbproductions_services.Models;
+using jvbproductions_services.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace jvbproductions_services.Controllers
@@ -12,33 +13,29 @@ namespace jvbproductions_services.Controllers
     [ApiController]
     public class LessonController : Controller
     {
+        private readonly IPackageService packageService;
 
-        private readonly IDataProvider dataProvider;
-
-        public LessonController(IDataProvider dataProvider)
+        public LessonController(IPackageService packageService)
         {
-            this.dataProvider = dataProvider;
+            this.packageService = packageService;
         }
 
         //GET api/lesson/GetAllLessons
         [HttpGet]
         [Route("api/lesson/getAllPackages")]
         //public ActionResult<List<PackageModel>> GetAllPackages()
-        public ActionResult<string> GetAllPackages()
+        public ActionResult<List<Package>> GetAllPackages()
         {
-            var dataGot = dataProvider.Get();
-
             List<Package> allLessons = new List<Package>();
-            var queryHelper = new QueryHelper();
             try
             {
-                allLessons = queryHelper.getAllPackages();
+                allLessons = packageService.GetAllPackages();
             }
             catch (Exception e)
             {
                 return BadRequest();
             }
-            return dataGot;
+            return allLessons;
         }
 
         //GET api/lesson/GetExcersisesForLesson
@@ -47,10 +44,9 @@ namespace jvbproductions_services.Controllers
         public ActionResult<List<Exercise>> GetExcersisesForPackage(string packageName)
         {
             List<Exercise> allExcersises = new List<Exercise>();
-            var queryHelper = new QueryHelper();
             try
             {
-                allExcersises = queryHelper.getExcersisesForPackage(packageName);
+                allExcersises = packageService.GetExcersisesForPackage(packageName);
             }
             catch (Exception e)
             {
@@ -64,29 +60,34 @@ namespace jvbproductions_services.Controllers
         // GET api/lesson/RequestLessonAccess
         [HttpGet]
         [Route("api/lesson/RequestResourceAccess/{userId}/{lessonName}")]
-        public ActionResult<Access> RequestResourceAccess(string userId, string lessonName)
+        public ActionResult<AccessViewModel> RequestResourceAccess(string userId, string lessonName)
         {
- 
-            var queryHelper = new QueryHelper();
-            var lesson = queryHelper.getPackage(lessonName);
-            Access acces = new Access();
+            var lesson = packageService.GetPackage(lessonName);
+            AccessViewModel accesViewModel = new AccessViewModel();
 
             if(lesson.LessonType == "Free")
             {
-                acces.Status = "Allowed";
-                return acces;
+                accesViewModel.Status = "Allowed";
             }
 
             try
             {
-                acces = queryHelper.getRecourseAccess(userId, lessonName);
+                var acces = packageService.GetRecourseAccess(userId, lessonName);
+
+                if(acces != null)
+                {
+                    accesViewModel.Status = "Not bought";
+                } else
+                {
+                    accesViewModel.Status = "Allowed";
+                }
 
             }
             catch (Exception e)
             {
-                acces.Status = "Error";
+                accesViewModel.Status = "Error";
             }
-            return acces;
+            return accesViewModel;
         }
 
     }

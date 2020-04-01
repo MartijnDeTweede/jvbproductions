@@ -8,27 +8,37 @@ using jvbproductions_services.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using jvbproductions_services.DTO;
 using Microsoft.AspNetCore.Cors;
+using jvbproductions_services.Interfaces;
 
 namespace jvbproductions_services.Controllers
 {
     [ApiController]
     public class UserController : Controller
     {
+
+        private readonly IUserService userService;
+        private readonly IPackageService packageService;
+
+        public UserController(IUserService userService, IPackageService packageService)
+        {
+            this.userService = userService;
+            this.packageService = packageService;
+        }
+
         // GET api/user/getUserInfo
         [HttpGet("{userId}")]
         [Route("api/user/getUser/{userId}")]
         public ActionResult<User> getUser(string userId)
         {
             var userModel = new User();
-            var queryHelper = new QueryHelper();
             try
             {
-                if(queryHelper.userExists(userId))
+                if(userService.UserExists(userId))
                 {
-                    userModel = queryHelper.getUser(userId);
+                    userModel = userService.GetUser(userId);
                 } else
                 {
-                    userModel = queryHelper.createNewUser(userId);
+                    userModel = userService.CreateNewUser();
                 }
 
             } catch(Exception e)
@@ -49,12 +59,11 @@ namespace jvbproductions_services.Controllers
 
             var user = new User();
             var lesson = new Package();
-            var queryHelper = new QueryHelper();
             try
             {
-                if (queryHelper.userExists(userId))
+                if (userService.UserExists(userId))
                 {
-                    user = queryHelper.getUser(userId);
+                    user = userService.GetUser(userId);
                 }
                 else
                 {
@@ -66,9 +75,9 @@ namespace jvbproductions_services.Controllers
                 BadRequest(e);
             }
 
-            if(queryHelper.packageExists(lessonName))
+            if(packageService.PackageExists(lessonName))
             {
-                lesson = queryHelper.getPackage(lessonName);
+                lesson = packageService.GetPackage(lessonName);
             }
             else
             {
@@ -80,8 +89,8 @@ namespace jvbproductions_services.Controllers
                 BadRequest("User has too little credits to buy this lesson.");
             }
 
-            user = queryHelper.updateUserCredit(userId, user.Credits, -lesson.Cost);
-            queryHelper.addRecourceAccess(userId, lessonName);
+            user = userService.UpdateUserCredit(userId, user.Credits, -lesson.Cost);
+            packageService.AddRecourceAccess(userId, lessonName);
             return user;
         }
     }
