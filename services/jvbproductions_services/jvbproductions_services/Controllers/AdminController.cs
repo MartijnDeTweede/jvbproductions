@@ -30,9 +30,9 @@ namespace jvbproductions_services.Controllers
         [Route("api/admin/addPackage/")]
         public ActionResult<List<Package>> addPackage([FromBody] PackageDTO dto)
         {
-            if(!userService.UserIsAdmin(dto.UserId)) { return Unauthorized(); }
+            var isAdmin = userService.UserIsAdmin(dto.UserId);
+            if (!isAdmin) { return Unauthorized(); }
             List<Package> allLessons = new List<Package>();
-
             try
             {
                 adminService.AddPackage(dto.Package);
@@ -51,8 +51,8 @@ namespace jvbproductions_services.Controllers
         [Route("api/admin/updatePackage/")]
         public ActionResult<List<Package>> updatePackage([FromBody] PackageDTO dto)
         {
-            if (!userService.UserIsAdmin(dto.UserId)) { return Unauthorized(); }
-
+            var isAdmin = userService.UserIsAdmin(dto.UserId);
+            if (!isAdmin) { return Unauthorized(); }
             List<Package> allLessons = new List<Package>();
             try
             {
@@ -73,8 +73,8 @@ namespace jvbproductions_services.Controllers
         [Route("api/admin/deletePackage/")]
         public ActionResult<List<Package>> deletePackage([FromBody] PackageDTO dto)
         {
-            if (!userService.UserIsAdmin(dto.UserId)) { return Unauthorized(); }
-
+            var isAdmin = userService.UserIsAdmin(dto.UserId);
+            if (!isAdmin) { return Unauthorized(); }
             List<Package> allLessons = new List<Package>();
             try
             {
@@ -115,9 +115,9 @@ namespace jvbproductions_services.Controllers
         [Route("api/admin/updateExercise/")]
         public ActionResult<List<Exercise>> updateExercise([FromBody] ExerciseDTO dto)
         {
-            if (!userService.UserIsAdmin(dto.UserId)) { return Unauthorized(); }
+            var isAdmin = userService.UserIsAdmin(dto.UserId);
+            if (!isAdmin) { return Unauthorized(); }
             List<Exercise> allExcersises = new List<Exercise>();
-
             try
             {
                 adminService.UpdateExercise(dto.Exercise);
@@ -136,9 +136,9 @@ namespace jvbproductions_services.Controllers
         [Route("api/admin/deleteExercise/")]
         public ActionResult<List<Exercise>> deleteExercise([FromBody] ExerciseDTO dto)
         {
-            if (!userService.UserIsAdmin(dto.UserId)) { return Unauthorized(); }
+            var isAdmin = userService.UserIsAdmin(dto.UserId);
+            if (!isAdmin) { return Unauthorized(); }
             List<Exercise> allExcersises = new List<Exercise>();
-
             try
             {
                 adminService.DeleteExercise(dto.Exercise);
