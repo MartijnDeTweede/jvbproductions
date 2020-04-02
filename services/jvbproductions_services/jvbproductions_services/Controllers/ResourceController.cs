@@ -11,11 +11,11 @@ namespace jvbproductions_services.Controllers
 {
 
     [ApiController]
-    public class LessonController : Controller
+    public class ResourceController : Controller
     {
-        private readonly IPackageService packageService;
+        private readonly IResourceService packageService;
 
-        public LessonController(IPackageService packageService)
+        public ResourceController(IResourceService packageService)
         {
             this.packageService = packageService;
         }

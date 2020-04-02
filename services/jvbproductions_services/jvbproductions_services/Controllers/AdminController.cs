@@ -14,10 +14,10 @@ namespace jvbproductions_services.Controllers
     public class AdminController : Controller
     {
         private readonly IAdminService adminService;
-        private readonly IPackageService packageService;
+        private readonly IResourceService packageService;
         private readonly IUserService userService;
 
-        public AdminController(IAdminService adminService, IPackageService packageService, IUserService userService)
+        public AdminController(IAdminService adminService, IResourceService packageService, IUserService userService)
         {
             this.adminService = adminService;
             this.packageService = packageService;
@@ -94,7 +94,8 @@ namespace jvbproductions_services.Controllers
         [Route("api/admin/addExercise/")]
         public ActionResult<List<Exercise>> addExercise([FromBody] ExerciseDTO dto)
         {
-            if (!userService.UserIsAdmin(dto.UserId)) { return Unauthorized(); }
+            var isAdmin = userService.UserIsAdmin(dto.UserId);
+            if (!isAdmin) { return Unauthorized(); }
             List<Exercise> allExcersises = new List<Exercise>();
             try
             {

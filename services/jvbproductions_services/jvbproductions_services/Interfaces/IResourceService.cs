@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace jvbproductions_services.Interfaces
 {
-    public interface IPackageService
+    public interface IResourceService
     {
         bool PackageExists(string packageName);
         Package GetPackage(string packageName);

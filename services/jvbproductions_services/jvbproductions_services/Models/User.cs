@@ -7,7 +7,7 @@ namespace jvbproductions_services.Models
 {
     public class User
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string FireBaseId { get; set; }
         public int Credits { get; set; }
         public bool isAdmin { get; set; }

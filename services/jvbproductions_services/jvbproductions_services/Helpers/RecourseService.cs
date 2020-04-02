@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace jvbproductions_services.Helpers
 {
-    public class PackageService: IPackageService
+    public class RecourseService: IResourceService
     {
         private readonly JoeGuitarContext db;
 
-        public PackageService(JoeGuitarContext context)
+        public RecourseService(JoeGuitarContext context)
         {
             this.db = context;
         }

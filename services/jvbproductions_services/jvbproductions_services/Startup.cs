@@ -52,7 +52,7 @@ namespace jvbproductions_services
             containerBuilder.RegisterType<DataProvider>().As<IDataProvider>();
 
             containerBuilder.RegisterType<AdminService>().As<IAdminService>();
-            containerBuilder.RegisterType<PackageService>().As<IPackageService>();
+            containerBuilder.RegisterType<RecourseService>().As<IResourceService>();
             containerBuilder.RegisterType<UserService>().As<IUserService>();
 
             containerBuilder.RegisterType<JoeGuitarContext>();

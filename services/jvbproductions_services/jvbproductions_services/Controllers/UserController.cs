@@ -17,9 +17,9 @@ namespace jvbproductions_services.Controllers
     {
 
         private readonly IUserService userService;
-        private readonly IPackageService packageService;
+        private readonly IResourceService packageService;
 
-        public UserController(IUserService userService, IPackageService packageService)
+        public UserController(IUserService userService, IResourceService packageService)
         {
             this.userService = userService;
             this.packageService = packageService;
@@ -30,10 +30,13 @@ namespace jvbproductions_services.Controllers
         [Route("api/user/getUser/{userId}")]
         public ActionResult<User> getUser(string userId)
         {
+
             var userModel = new User();
+            var userExists = userService.UserExists(userId);
+
             try
             {
-                if(userService.UserExists(userId))
+                if(userExists)
                 {
                     userModel = userService.GetUser(userId);
                 } else
