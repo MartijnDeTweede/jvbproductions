@@ -54,16 +54,13 @@ namespace jvbproductions_services.Controllers
         [Route("api/user/buyResource/")]
         public ActionResult<User> buyResource([FromBody] UserLessonDTO dto)
         {
-            string userId = dto.userId;
-            string lessonName = dto.lessonName;
-
             var user = new User();
             var lesson = new Package();
             try
             {
-                if (userService.UserExists(userId))
+                if (userService.UserExists(dto.userId))
                 {
-                    user = userService.GetUser(userId);
+                    user = userService.GetUser(dto.userId);
                 }
                 else
                 {
@@ -75,9 +72,9 @@ namespace jvbproductions_services.Controllers
                 BadRequest(e);
             }
 
-            if(packageService.PackageExists(lessonName))
+            if(packageService.PackageExists(dto.lessonName))
             {
-                lesson = packageService.GetPackage(lessonName);
+                lesson = packageService.GetPackage(dto.lessonName);
             }
             else
             {
@@ -89,8 +86,8 @@ namespace jvbproductions_services.Controllers
                 BadRequest("User has too little credits to buy this lesson.");
             }
 
-            user = userService.UpdateUserCredit(userId, user.Credits, -lesson.Cost);
-            packageService.AddRecourceAccess(userId, lessonName);
+            user = userService.UpdateUserCredit(dto.userId, user.Credits, -lesson.Cost);
+            packageService.AddRecourceAccess(dto.userId, dto.lessonName);
             return user;
         }
     }

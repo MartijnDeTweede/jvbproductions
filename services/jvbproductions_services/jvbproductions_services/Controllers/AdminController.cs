@@ -15,11 +15,13 @@ namespace jvbproductions_services.Controllers
     {
         private readonly IAdminService adminService;
         private readonly IPackageService packageService;
+        private readonly IUserService userService;
 
-        public AdminController(IAdminService adminService, IPackageService packageService)
+        public AdminController(IAdminService adminService, IPackageService packageService, IUserService userService)
         {
             this.adminService = adminService;
             this.packageService = packageService;
+            this.userService = userService;
         }
 
         // Post api/admin/addLesson
@@ -28,11 +30,12 @@ namespace jvbproductions_services.Controllers
         [Route("api/admin/addPackage/")]
         public ActionResult<List<Package>> addPackage([FromBody] PackageDTO dto)
         {
-            var package = dto.Package;
+            if(!userService.UserIsAdmin(dto.UserId)) { return Unauthorized(); }
             List<Package> allLessons = new List<Package>();
+
             try
             {
-                adminService.AddPackage(package);
+                adminService.AddPackage(dto.Package);
                 allLessons = packageService.GetAllPackages();
             }
             catch (Exception e)
@@ -48,11 +51,12 @@ namespace jvbproductions_services.Controllers
         [Route("api/admin/updatePackage/")]
         public ActionResult<List<Package>> updatePackage([FromBody] PackageDTO dto)
         {
-            var package = dto.Package;
+            if (!userService.UserIsAdmin(dto.UserId)) { return Unauthorized(); }
+
             List<Package> allLessons = new List<Package>();
             try
             {
-                adminService.UpdatePackage(package);
+                adminService.UpdatePackage(dto.Package);
                 allLessons = packageService.GetAllPackages();
             }
             catch (Exception e)
@@ -69,11 +73,12 @@ namespace jvbproductions_services.Controllers
         [Route("api/admin/deletePackage/")]
         public ActionResult<List<Package>> deletePackage([FromBody] PackageDTO dto)
         {
-            var lessonName = dto.Package.Song.Title;
+            if (!userService.UserIsAdmin(dto.UserId)) { return Unauthorized(); }
+
             List<Package> allLessons = new List<Package>();
             try
             {
-                adminService.DeletePackageAsync(lessonName);
+                adminService.DeletePackageAsync(dto.Package.Song.Title);
                 allLessons = packageService.GetAllPackages();
             }
             catch (Exception e)
@@ -89,12 +94,12 @@ namespace jvbproductions_services.Controllers
         [Route("api/admin/addExercise/")]
         public ActionResult<List<Exercise>> addExercise([FromBody] ExerciseDTO dto)
         {
+            if (!userService.UserIsAdmin(dto.UserId)) { return Unauthorized(); }
             List<Exercise> allExcersises = new List<Exercise>();
-            var exercise = dto.Exercise;
             try
             {
-                adminService.AddExercise(exercise);
-                allExcersises = packageService.GetExcersisesForPackage(exercise.LessonName);
+                adminService.AddExercise(dto.Exercise);
+                allExcersises = packageService.GetExcersisesForPackage(dto.Exercise.LessonName);
             }
             catch (Exception e)
             {
@@ -109,13 +114,13 @@ namespace jvbproductions_services.Controllers
         [Route("api/admin/updateExercise/")]
         public ActionResult<List<Exercise>> updateExercise([FromBody] ExerciseDTO dto)
         {
-            var exercise = dto.Exercise;
+            if (!userService.UserIsAdmin(dto.UserId)) { return Unauthorized(); }
             List<Exercise> allExcersises = new List<Exercise>();
 
             try
             {
-                adminService.UpdateExercise(exercise);
-                allExcersises = packageService.GetExcersisesForPackage(exercise.LessonName);
+                adminService.UpdateExercise(dto.Exercise);
+                allExcersises = packageService.GetExcersisesForPackage(dto.Exercise.LessonName);
             }
             catch (Exception e)
             {
@@ -130,13 +135,13 @@ namespace jvbproductions_services.Controllers
         [Route("api/admin/deleteExercise/")]
         public ActionResult<List<Exercise>> deleteExercise([FromBody] ExerciseDTO dto)
         {
-            var exercise = dto.Exercise;
+            if (!userService.UserIsAdmin(dto.UserId)) { return Unauthorized(); }
             List<Exercise> allExcersises = new List<Exercise>();
 
             try
             {
-                adminService.DeleteExercise(exercise);
-                allExcersises = packageService.GetExcersisesForPackage(exercise.LessonName);
+                adminService.DeleteExercise(dto.Exercise);
+                allExcersises = packageService.GetExcersisesForPackage(dto.Exercise.LessonName);
             }
             catch (Exception e)
             {

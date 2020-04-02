@@ -11,10 +11,7 @@ namespace jvbproductions_services.Helpers
 {
     public class PackageService: IPackageService
     {
-        private string connString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=JvBProductions;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
         private readonly JoeGuitarContext db;
-
 
         public PackageService(JoeGuitarContext context)
         {
@@ -34,6 +31,12 @@ namespace jvbproductions_services.Helpers
             return packageFound;
         }
 
+        public Exercise GetExersise(string exercisename)
+        {
+            var exerciseFound = db.Exercises.FirstOrDefault(exercise => exercise.ExerciseName == exercisename);
+            return exerciseFound;
+        }
+
         public void AddRecourceAccess(string userId, string resource)
         {
             var access = new Access() { UserId = userId, Recource = resource };
@@ -49,7 +52,7 @@ namespace jvbproductions_services.Helpers
 
         public List<Package> GetAllPackages ()
         {
-            return db.Packages.Select(row => row).ToList();
+            return db.Packages.Include("Song").ToList();
         }
 
         public List<Exercise> GetExcersisesForPackage(string packageName) {

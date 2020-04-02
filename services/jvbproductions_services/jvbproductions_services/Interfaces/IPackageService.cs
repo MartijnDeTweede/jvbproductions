@@ -15,5 +15,6 @@ namespace jvbproductions_services.Interfaces
         List<Package> GetAllPackages();
         List<Exercise> GetExcersisesForPackage(string PackageName);
 
+        Exercise GetExersise(string exersiseName);
     }
 }

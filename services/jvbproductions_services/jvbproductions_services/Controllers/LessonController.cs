@@ -33,7 +33,7 @@ namespace jvbproductions_services.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e);
             }
             return allLessons;
         }
@@ -50,7 +50,7 @@ namespace jvbproductions_services.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e);
             }
             return allExcersises;
         }
@@ -59,20 +59,23 @@ namespace jvbproductions_services.Controllers
 
         // GET api/lesson/RequestLessonAccess
         [HttpGet]
-        [Route("api/lesson/RequestResourceAccess/{userId}/{lessonName}")]
-        public ActionResult<AccessViewModel> RequestResourceAccess(string userId, string lessonName)
+        [Route("api/lesson/RequestResourceAccess/{userId}/{recourceName}")]
+        public ActionResult<AccessViewModel> RequestResourceAccess(string userId, string recourceName)
         {
-            var lesson = packageService.GetPackage(lessonName);
+            var package = packageService.GetPackage(recourceName);
+
+            var exercise = packageService.GetExersise(recourceName);
             AccessViewModel accesViewModel = new AccessViewModel();
 
-            if(lesson.LessonType == "Free")
+            if(package?.LessonType == "Free" || exercise?.LessonType == "Free")
             {
                 accesViewModel.Status = "Allowed";
+                return accesViewModel;
             }
 
             try
             {
-                var acces = packageService.GetRecourseAccess(userId, lessonName);
+                var acces = packageService.GetRecourseAccess(userId, recourceName);
 
                 if(acces != null)
                 {

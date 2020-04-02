@@ -51,5 +51,11 @@ namespace jvbproductions_services.Helpers
 
             return user;
         }
+
+        public bool UserIsAdmin(string fireBaseId)
+        {
+            var user = db.Users.FirstOrDefault(u => u.FireBaseId == fireBaseId);
+            return user.isAdmin;
+        }
     }
 }
