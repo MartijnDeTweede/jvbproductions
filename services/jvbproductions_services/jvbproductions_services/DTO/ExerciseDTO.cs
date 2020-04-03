@@ -9,6 +9,6 @@ namespace jvbproductions_services.DTO
     public class ExerciseDTO
     {
         public string UserId { get; set; }
-        public ExerciseModel Exercise { get; set; }
+        public Exercise Exercise { get; set; }
     }
 }

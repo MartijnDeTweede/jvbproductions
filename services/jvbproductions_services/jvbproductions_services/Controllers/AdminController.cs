@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using jvbproductions_services.DTO;
 using jvbproductions_services.Helpers;
+using jvbproductions_services.Interfaces;
 using jvbproductions_services.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -12,35 +13,34 @@ namespace jvbproductions_services.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly IAdminService adminService;
+        private readonly IResourceService packageService;
+        private readonly IUserService userService;
 
+        public AdminController(IAdminService adminService, IResourceService packageService, IUserService userService)
+        {
+            this.adminService = adminService;
+            this.packageService = packageService;
+            this.userService = userService;
+        }
 
         // Post api/admin/addLesson
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/admin/addPackage/")]
-        public ActionResult<List<PackageModel>> addPackage([FromBody] PackageDTO dto)
+        public ActionResult<List<Package>> addPackage([FromBody] PackageDTO dto)
         {
-            var package = dto.Package;
-            var adminQuryHelper = new AdminQueryHelper();
+            var isAdmin = userService.UserIsAdmin(dto.UserId);
+            if (!isAdmin) { return Unauthorized(); }
+            List<Package> allLessons = new List<Package>();
             try
             {
-                adminQuryHelper.AddPackage(package);
+                adminService.AddPackage(dto.Package);
+                allLessons = packageService.GetAllPackages();
             }
             catch (Exception e)
             {
                 BadRequest(e);
-            }
-        
-            // Return all lessons
-            List<PackageModel> allLessons = new List<PackageModel>();
-            var queryHelper = new QueryHelper();
-            try
-            {
-                allLessons = queryHelper.getAllPackages();
-            }
-            catch (Exception e)
-            {
-                return BadRequest();
             }
             return allLessons;
         }
@@ -49,31 +49,21 @@ namespace jvbproductions_services.Controllers
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/admin/updatePackage/")]
-        public ActionResult<List<PackageModel>> updatePackage([FromBody] PackageDTO dto)
+        public ActionResult<List<Package>> updatePackage([FromBody] PackageDTO dto)
         {
-
-            var package = dto.Package;
-            var adminQuryHelper = new AdminQueryHelper();
+            var isAdmin = userService.UserIsAdmin(dto.UserId);
+            if (!isAdmin) { return Unauthorized(); }
+            List<Package> allLessons = new List<Package>();
             try
             {
-                adminQuryHelper.UpdatePackage(package);
+                adminService.UpdatePackage(dto.Package);
+                allLessons = packageService.GetAllPackages();
             }
             catch (Exception e)
             {
                 BadRequest(e);
             }
 
-            // Return all lessons
-            List<PackageModel> allLessons = new List<PackageModel>();
-            var queryHelper = new QueryHelper();
-            try
-            {
-                allLessons = queryHelper.getAllPackages();
-            }
-            catch (Exception e)
-            {
-                return BadRequest();
-            }
             return allLessons;
         }
 
@@ -81,30 +71,19 @@ namespace jvbproductions_services.Controllers
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/admin/deletePackage/")]
-        public ActionResult<List<PackageModel>> deletePackage([FromBody] PackageDTO dto)
+        public ActionResult<List<Package>> deletePackage([FromBody] PackageDTO dto)
         {
-
-            var lessonName = dto.Package.Song.Title;
-            var adminQuryHelper = new AdminQueryHelper();
+            var isAdmin = userService.UserIsAdmin(dto.UserId);
+            if (!isAdmin) { return Unauthorized(); }
+            List<Package> allLessons = new List<Package>();
             try
             {
-                adminQuryHelper.deleteLesson(lessonName);
+                adminService.DeletePackageAsync(dto.Package.Song.Title);
+                allLessons = packageService.GetAllPackages();
             }
             catch (Exception e)
             {
                 BadRequest(e);
-            }
-
-            // Return all lessons
-            List<PackageModel> allLessons = new List<PackageModel>();
-            var queryHelper = new QueryHelper();
-            try
-            {
-                allLessons = queryHelper.getAllPackages();
-            }
-            catch (Exception e)
-            {
-                return BadRequest();
             }
             return allLessons;
         }
@@ -113,29 +92,19 @@ namespace jvbproductions_services.Controllers
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/admin/addExercise/")]
-        public ActionResult<List<ExerciseModel>> addExercise([FromBody] ExerciseDTO dto)
+        public ActionResult<List<Exercise>> addExercise([FromBody] ExerciseDTO dto)
         {
-            var exercise = dto.Exercise;
-            var adminQuryHelper = new AdminQueryHelper();
+            var isAdmin = userService.UserIsAdmin(dto.UserId);
+            if (!isAdmin) { return Unauthorized(); }
+            List<Exercise> allExcersises = new List<Exercise>();
             try
             {
-                adminQuryHelper.addExercise(exercise);
+                adminService.AddExercise(dto.Exercise);
+                allExcersises = packageService.GetExcersisesForPackage(dto.Exercise.LessonName);
             }
             catch (Exception e)
             {
                 BadRequest(e);
-            }
-
-            // Return all lessons
-            List<ExerciseModel> allExcersises = new List<ExerciseModel>();
-            var queryHelper = new QueryHelper();
-            try
-            {
-                allExcersises = queryHelper.getExcersisesForPackage(exercise.LessonName);
-            }
-            catch (Exception e)
-            {
-                return BadRequest();
             }
             return allExcersises;
         }
@@ -144,29 +113,19 @@ namespace jvbproductions_services.Controllers
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/admin/updateExercise/")]
-        public ActionResult<List<ExerciseModel>> updateExercise([FromBody] ExerciseDTO dto)
+        public ActionResult<List<Exercise>> updateExercise([FromBody] ExerciseDTO dto)
         {
-            var exercise = dto.Exercise;
-            var adminQuryHelper = new AdminQueryHelper();
+            var isAdmin = userService.UserIsAdmin(dto.UserId);
+            if (!isAdmin) { return Unauthorized(); }
+            List<Exercise> allExcersises = new List<Exercise>();
             try
             {
-                adminQuryHelper.updateExercise(exercise);
+                adminService.UpdateExercise(dto.Exercise);
+                allExcersises = packageService.GetExcersisesForPackage(dto.Exercise.LessonName);
             }
             catch (Exception e)
             {
                 BadRequest(e);
-            }
-
-            // Return all lessons
-            List<ExerciseModel> allExcersises = new List<ExerciseModel>();
-            var queryHelper = new QueryHelper();
-            try
-            {
-                allExcersises = queryHelper.getExcersisesForPackage(exercise.LessonName);
-            }
-            catch (Exception e)
-            {
-                return BadRequest();
             }
             return allExcersises;
         }
@@ -175,29 +134,19 @@ namespace jvbproductions_services.Controllers
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/admin/deleteExercise/")]
-        public ActionResult<List<ExerciseModel>> deleteExercise([FromBody] ExerciseDTO dto)
+        public ActionResult<List<Exercise>> deleteExercise([FromBody] ExerciseDTO dto)
         {
-            var exercise = dto.Exercise;
-            var adminQuryHelper = new AdminQueryHelper();
+            var isAdmin = userService.UserIsAdmin(dto.UserId);
+            if (!isAdmin) { return Unauthorized(); }
+            List<Exercise> allExcersises = new List<Exercise>();
             try
             {
-                adminQuryHelper.deleteExercise(exercise);
+                adminService.DeleteExercise(dto.Exercise);
+                allExcersises = packageService.GetExcersisesForPackage(dto.Exercise.LessonName);
             }
             catch (Exception e)
             {
                 BadRequest(e);
-            }
-
-            // Return all lessons
-            List<ExerciseModel> allExcersises = new List<ExerciseModel>();
-            var queryHelper = new QueryHelper();
-            try
-            {
-                allExcersises = queryHelper.getExcersisesForPackage(exercise.LessonName);
-            }
-            catch (Exception e)
-            {
-                return BadRequest();
             }
             return allExcersises;
         }

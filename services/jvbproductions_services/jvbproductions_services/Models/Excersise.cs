@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace jvbproductions_services.Models
 {
-    public class UserModel
+    public class Exercise: Resource
     {
-        public string Id { get; set; }
-        public int Credits { get; set; }
-        public bool isAdmin { get; set; }
+        public string LessonName { get; set; }
+        public string ExerciseName { get; set; }
     }
 }

@@ -176,8 +176,7 @@ export const PackageContainer: React.FC<{
 
   const selectExercise = async (exercise: Exercise) => {
     setSelectedExercise(exercise);
-    const itemToAcces = `${exercise.lessonName}-${exercise.exerciseName}`;
-    await handleRequestingResourceAccess(itemToAcces, () => loadExercise(exercise))
+    await handleRequestingResourceAccess(exercise.exerciseName, () => loadExercise(exercise))
   }
 
   const handleBackToLessons = () => {

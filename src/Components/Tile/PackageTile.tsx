@@ -37,7 +37,7 @@ export const PackageTile: React.FC<{
 
   return(
     <Tile
-      onClick={() => () => selectLesson(lesson)}
+      onClick={() => selectLesson(lesson)}
       imageLink={imageLink}
       altText={altText}
       cost={cost}

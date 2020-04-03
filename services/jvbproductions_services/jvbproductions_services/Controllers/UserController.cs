@@ -8,27 +8,40 @@ using jvbproductions_services.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using jvbproductions_services.DTO;
 using Microsoft.AspNetCore.Cors;
+using jvbproductions_services.Interfaces;
 
 namespace jvbproductions_services.Controllers
 {
     [ApiController]
     public class UserController : Controller
     {
+
+        private readonly IUserService userService;
+        private readonly IResourceService packageService;
+
+        public UserController(IUserService userService, IResourceService packageService)
+        {
+            this.userService = userService;
+            this.packageService = packageService;
+        }
+
         // GET api/user/getUserInfo
         [HttpGet("{userId}")]
         [Route("api/user/getUser/{userId}")]
-        public ActionResult<UserModel> getUser(string userId)
+        public ActionResult<User> getUser(string userId)
         {
-            var userModel = new UserModel();
-            var queryHelper = new QueryHelper();
+
+            var userModel = new User();
+            var userExists = userService.UserExists(userId);
+
             try
             {
-                if(queryHelper.userExists(userId))
+                if(userExists)
                 {
-                    userModel = queryHelper.getUser(userId);
+                    userModel = userService.GetUser(userId);
                 } else
                 {
-                    userModel = queryHelper.createNewUser(userId);
+                    userModel = userService.CreateNewUser(userId);
                 }
 
             } catch(Exception e)
@@ -42,19 +55,15 @@ namespace jvbproductions_services.Controllers
         [HttpPost]
         [EnableCors("_myAllowSpecificOrigins")]
         [Route("api/user/buyResource/")]
-        public ActionResult<UserModel> buyResource([FromBody] UserLessonDTO dto)
+        public ActionResult<User> buyResource([FromBody] UserLessonDTO dto)
         {
-            string userId = dto.userId;
-            string lessonName = dto.lessonName;
-
-            var user = new UserModel();
-            var lesson = new PackageModel();
-            var queryHelper = new QueryHelper();
+            var user = new User();
+            var lesson = new Package();
             try
             {
-                if (queryHelper.userExists(userId))
+                if (userService.UserExists(dto.userId))
                 {
-                    user = queryHelper.getUser(userId);
+                    user = userService.GetUser(dto.userId);
                 }
                 else
                 {
@@ -66,9 +75,9 @@ namespace jvbproductions_services.Controllers
                 BadRequest(e);
             }
 
-            if(queryHelper.packageExists(lessonName))
+            if(packageService.PackageExists(dto.lessonName))
             {
-                lesson = queryHelper.getPackage(lessonName);
+                lesson = packageService.GetPackage(dto.lessonName);
             }
             else
             {
@@ -80,8 +89,8 @@ namespace jvbproductions_services.Controllers
                 BadRequest("User has too little credits to buy this lesson.");
             }
 
-            user = queryHelper.updateUserCredit(userId, user.Credits, -lesson.Cost);
-            queryHelper.addRecourceAccess(userId, lessonName);
+            user = userService.UpdateUserCredit(dto.userId, user.Credits, -lesson.Cost);
+            packageService.AddRecourceAccess(dto.userId, dto.lessonName);
             return user;
         }
     }

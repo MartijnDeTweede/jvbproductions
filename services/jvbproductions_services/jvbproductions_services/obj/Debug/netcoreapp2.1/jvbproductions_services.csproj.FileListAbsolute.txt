@@ -1,3 +1,6 @@
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\bin\Debug\netcoreapp2.1\appsettings.Development.json
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\bin\Debug\netcoreapp2.1\appsettings.json
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\bin\Debug\netcoreapp2.1\Properties\launchSettings.json
 E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\bin\Debug\netcoreapp2.1\jvbproductions_services.deps.json
 E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\bin\Debug\netcoreapp2.1\jvbproductions_services.runtimeconfig.json
 E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\bin\Debug\netcoreapp2.1\jvbproductions_services.runtimeconfig.dev.json
@@ -11,4 +14,4 @@ E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbprod
 E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Debug\netcoreapp2.1\jvbproductions_services.RazorTargetAssemblyInfo.cache
 E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Debug\netcoreapp2.1\jvbproductions_services.dll
 E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Debug\netcoreapp2.1\jvbproductions_services.pdb
-E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Debug\netcoreapp2.1\jvbproductions_services.csprojAssemblyReference.cache
+E:\mijn-projecten\jvbproductions\my-app\services\jvbproductions_services\jvbproductions_services\obj\Debug\netcoreapp2.1\jvbproductions_services.genruntimeconfig.cache
